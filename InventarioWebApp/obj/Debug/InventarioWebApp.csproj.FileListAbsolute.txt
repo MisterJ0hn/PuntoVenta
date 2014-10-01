@@ -1,0 +1,27 @@
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebApp.dll
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebApp.pdb
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\obj\Debug\InventarioWebApp.dll
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\obj\Debug\InventarioWebApp.pdb
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\obj\Debug\InventarioWebApp.csprojResolveAssemblyReference.cache
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebDao.dll
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebEntity.dll
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebDao.pdb
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebEntity.pdb
+C:\visual studio\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\obj\Debug\InventarioWebApp.csprojResolveAssemblyReference.cache
+C:\visual studio\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\obj\Debug\InventarioWebApp.dll
+C:\visual studio\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebApp.dll
+C:\visual studio\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebApp.pdb
+C:\visual studio\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebDao.dll
+C:\visual studio\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebEntity.dll
+C:\visual studio\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebDao.pdb
+C:\visual studio\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebEntity.pdb
+C:\visual studio\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\obj\Debug\InventarioWebApp.pdb
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebApp.dll
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebApp.pdb
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebDao.dll
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebEntity.dll
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebDao.pdb
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\bin\InventarioWebEntity.pdb
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\obj\Debug\InventarioWebApp.csprojResolveAssemblyReference.cache
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\obj\Debug\InventarioWebApp.dll
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\obj\Debug\InventarioWebApp.pdb
