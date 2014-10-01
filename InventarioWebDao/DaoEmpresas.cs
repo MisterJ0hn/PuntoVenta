@@ -54,7 +54,7 @@ namespace InventarioWebDao
 
 
 
-            objConexion.UpdateSql("SUSCURSAL", arrValores, "  IdSucursal=" + objSucursal.idSucursal );
+            objConexion.UpdateSql("SUCURSAL", arrValores, "  IdSucursal=" + objSucursal.idSucursal );
         }
         public int AgregarSucursal(Sucursal objSucursal, int idMaestra)
         {
