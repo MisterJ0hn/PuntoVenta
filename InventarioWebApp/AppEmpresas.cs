@@ -108,10 +108,12 @@ namespace InventarioWebApp
 
             foreach (Sucursal objSucursal in arr)
             {
+
                 suc.Add(objSucursal.nombreSucursal);
                 suc.Add(objSucursal.direccionSucursal);
                 suc.Add(objSucursal.telefonoSucursal);
                 suc.Add(objSucursal.idCOmuna);
+                suc.Add(objSucursal.rutEmpresa);
             }
             return suc;
 

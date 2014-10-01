@@ -27,6 +27,7 @@ namespace InventarioWeb.admin
                 int idRegion = 0;
   
                 arr = appEmpresa.AppSeleccionaSucursal(Convert.ToInt32(idSucursal));
+                hdRut.Value = arr[4].ToString();
                 txtNombre.Text = arr[0].ToString();
                 txtDireccion.Text=arr[1].ToString();
                 txtTelefono.Text=arr[2].ToString();
