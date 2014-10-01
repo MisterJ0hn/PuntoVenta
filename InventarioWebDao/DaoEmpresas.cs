@@ -115,7 +115,7 @@ namespace InventarioWebDao
             ArrayList arrConexion = new ArrayList();
             ArrayList arrSuc = new ArrayList();
 
-            arrConexion = objConexionDao.QuerySql("SELECT NombreSucursal,DireccionSucursal, TelefonoSucursal, IdComuna FROM SUCURSAL WHERE IdSucursal =" + idSucursal.ToString() );
+            arrConexion = objConexionDao.QuerySql("SELECT NombreSucursal,DireccionSucursal, TelefonoSucursal, IdComuna, RutEmpresa FROM SUCURSAL WHERE IdSucursal =" + idSucursal.ToString() );
             /*arrConexion = objConexionDao.QuerySql("select	USU.NombreUsuario, USU.Apellido, ROL.TipoRol, SUC.NombreSucursal, EMP.NombreEmpresa"+
                                                     "from	USUARIO USU, ROL, SucursalUsuario SU, SUCURSAL SUC, EMPRESA EMP "+
 	                                            "where  USU.IdRol = ROL.IdRol and "+
@@ -129,10 +129,12 @@ namespace InventarioWebDao
                 while (drArreglo.Read())
                 {
                     Sucursal objSuc = new Sucursal();
+                    
                     objSuc.nombreSucursal = drArreglo.GetString(0);
                     objSuc.direccionSucursal = drArreglo.GetString(1);
                     objSuc.telefonoSucursal = drArreglo.GetString(2);
                     objSuc.idCOmuna = drArreglo.GetInt32(3);
+                    objSuc.rutEmpresa = drArreglo.GetString(4);
                     arrSuc.Add(objSuc);
 
                 }
