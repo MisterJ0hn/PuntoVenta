@@ -25,3 +25,12 @@ D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\Inv
 D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\obj\Debug\InventarioWebApp.csprojResolveAssemblyReference.cache
 D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\obj\Debug\InventarioWebApp.dll
 D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebApp\obj\Debug\InventarioWebApp.pdb
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebApp\bin\InventarioWebApp.dll
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebApp\bin\InventarioWebApp.pdb
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebApp\bin\InventarioWebDao.dll
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebApp\bin\InventarioWebEntity.dll
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebApp\bin\InventarioWebDao.pdb
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebApp\bin\InventarioWebEntity.pdb
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebApp\obj\Debug\InventarioWebApp.csprojResolveAssemblyReference.cache
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebApp\obj\Debug\InventarioWebApp.dll
+D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebApp\obj\Debug\InventarioWebApp.pdb

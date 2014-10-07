@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using InventarioWebApp;
 using InventarioWebEntity;
+using System.Collections;
 
 namespace InventarioWeb
 {
@@ -22,6 +23,7 @@ namespace InventarioWeb
 
             //declaro variables
             NegocioAccesoLogica negocio = new NegocioAccesoLogica();
+            AppGestionU gestionU = new AppGestionU();
             string usuario = txtUsuario.Text;
             string contraseña = txtClave.Text;
 
@@ -35,6 +37,11 @@ namespace InventarioWeb
                 Session["idPerfil"] = usuarioEncontrado.TipoPerfil;
                 Session["idUsuario"] = usuarioEncontrado.IdUsuario;
                 Session["idMaestra"] = usuarioEncontrado.cliente1;
+
+                ArrayList arrSession = gestionU.AppSeleccionaUsuario(usuarioEncontrado.IdUsuario.ToString());
+
+                Session["IdSucursal"] = arrSession[9];
+                Session["rutEmpresa"] = arrSession[8];
                 //Response.Redirect("/MenuPrincipal.aspx");
 
                 Console.WriteLine("nombre " + nombre);

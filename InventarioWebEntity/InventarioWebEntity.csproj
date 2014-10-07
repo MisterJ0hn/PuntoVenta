@@ -89,6 +89,7 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Documentos.cs" />
     <Compile Include="Empresa.cs" />
     <Compile Include="Rol.cs" />
     <Compile Include="Sucursal.cs" />

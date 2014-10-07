@@ -69,6 +69,8 @@
     <Content Include="admin\GestionProveedores.aspx" />
     <Content Include="admin\GestionSucursales.aspx" />
     <Content Include="admin\GestionU.aspx" />
+    <Content Include="admin\IngresarProductos.aspx" />
+    <Content Include="admin\IngresoDocumento.aspx" />
     <Content Include="admin\ModificarProveedor.aspx" />
     <Content Include="admin\ModificarSucursal.aspx" />
     <Content Include="admin\UpdateUsuario.aspx" />
@@ -189,6 +191,20 @@
     </Compile>
     <Compile Include="admin\GestionU.aspx.designer.cs">
       <DependentUpon>GestionU.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\IngresarProductos.aspx.cs">
+      <DependentUpon>IngresarProductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\IngresarProductos.aspx.designer.cs">
+      <DependentUpon>IngresarProductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\IngresoDocumento.aspx.cs">
+      <DependentUpon>IngresoDocumento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\IngresoDocumento.aspx.designer.cs">
+      <DependentUpon>IngresoDocumento.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\ModificarProveedor.aspx.cs">
       <DependentUpon>ModificarProveedor.aspx</DependentUpon>
@@ -335,7 +351,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50423</DevelopmentServerPort>
+          <DevelopmentServerPort>50425</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

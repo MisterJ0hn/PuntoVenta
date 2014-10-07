@@ -89,6 +89,7 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AppDocumentos.cs" />
     <Compile Include="AppEmpresas.cs" />
     <Compile Include="AppGestionU.cs" />
     <Compile Include="DatatableToList.cs" />

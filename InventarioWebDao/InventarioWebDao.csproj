@@ -90,6 +90,7 @@
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
     <Compile Include="DaoConexion.cs" />
+    <Compile Include="DaoDocumentos.cs" />
     <Compile Include="DaoEmpresas.cs" />
     <Compile Include="DaoGestionU.cs" />
     <Compile Include="DaoLogin.cs" />

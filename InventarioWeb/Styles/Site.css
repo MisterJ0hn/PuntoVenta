@@ -293,3 +293,15 @@ div.accountInfo
    /* text-align: center;*/
     padding-right: 10px;
 }
+.alertaP
+{
+    font-size:medium;
+    color:Green;
+    font-style:italic;
+}
+.alertaN
+{
+    font-size:medium;
+    color:Red;
+    font-style:italic;
+}
