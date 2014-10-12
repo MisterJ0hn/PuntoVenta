@@ -9,8 +9,12 @@
 </asp:DropDownList>
 </p>
 <p>
-<asp:Label ID="lblMonto" Text="Monto" runat="server"></asp:Label>
-<asp:Label ID="Monto" Text="" runat="server"></asp:Label>
+<asp:Label ID="Label2" Text="RutEmpresa" runat="server"></asp:Label>
+<asp:Label ID="lblRutEmpresa" Text="" runat="server"></asp:Label>
+</p>
+<p>
+<asp:Label ID="label1" Text="Monto" runat="server"></asp:Label>
+<asp:Label ID="lblMonto" Text="" runat="server"></asp:Label>
 </p>
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
@@ -19,12 +23,25 @@
         <ContentTemplate>
         <h2>Ingresar Producto</h2>
             <p>
-            <asp:Label ID="lblCodigo" runat="server" Text="Codigo" ></asp:Label><asp:TextBox ID="txtCodigo" runat="server" ></asp:TextBox> <asp:Label ID="Label1" runat="server" Text="Descripcion" ></asp:Label><asp:TextBox ID="txtDescripcion" runat="server" ></asp:TextBox>
+            <asp:Label ID="lblCodigo" runat="server" Text="Codigo" ></asp:Label>
+            <asp:TextBox ID="txtCodigo" runat="server" AutoPostBack="true" 
+                    ontextchanged="txtCodigo_TextChanged"></asp:TextBox>
+            <asp:Label ID="LblDescripcion" runat="server" Text="Descripcion" ></asp:Label>
+            <asp:TextBox ID="txtDescripcion" runat="server" ></asp:TextBox>
             </p>
             <p>
-            <asp:Label ID="lblDepartamento" runat="server" Text="Departamento" ></asp:Label><asp:DropDownList ID="cboDepartamento" runat="server" ></asp:DropDownList><asp:Label ID="lblProducto" runat="server" Text="Producto" ></asp:Label><asp:DropDownList ID="cboProducto" runat="server" />
+            <asp:Label ID="lblDepartamento" runat="server" Text="Departamento" >
+            </asp:Label><asp:DropDownList ID="cboDepartamento" runat="server" AutoPostBack="true"></asp:DropDownList>
+            <asp:Label ID="lblProducto" runat="server" Text="Producto" ></asp:Label>
+            <asp:DropDownList ID="cboProducto" runat="server" />
             </p>
-            <asp:Button ID="btnGuardar" runat="server" />
+            <p>
+            <asp:Label ID="lblPrecio" Text="Precio" runat="server"></asp:Label>
+            <asp:TextBox ID="txtPrecio" runat="server"></asp:TextBox>
+            <asp:Label ID="lblCantidad" runat="server" Text="Cantidad"></asp:Label>
+            <asp:TextBox ID="txtCantidad" runat="server"></asp:TextBox>
+            </p>
+            <asp:Button ID="btnGuardar" runat="server" onclick="btnGuardar_Click" />
         
             <h2>Detalle</h2>
             <p>
@@ -75,10 +92,11 @@
                 </asp:GridView>
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString3 %>" SelectCommand="
-            SELECT P.TipoProducto, D.TipoDepartamento, DP.Descripcion, DP.Codigo, DD.Cantidad, DD.Precio, DD.Total FROM PRODUCTO P, DETALLE_PRODUCTO DP, DEPARTAMENTO D, DETALLEDOCUMENTO DD
+            SELECT P.TipoProducto, D.TipoDepartamento, DP.Descripcion, DP.Codigo, DD.Cantidad, DD.Precio, DD.Total 
+            FROM PRODUCTO P, DETALLE_PRODUCTO DP, DEPARTAMENTO D, DETALLEDOCUMENTO DD
             WHERE P.IdProducto=DP.IdProducto 
             AND P.IdDepartamento=D.IdDepartamento
-            AND DP.IdDetalle_Producto=DD.IdDetalleProducto AND DD.NumeroDocumento='@NumeroFactura' ">
+            AND DP.IdDetalle_Producto=DD.IdDetalleProducto AND DD.IdDocumento=@NumeroFactura ">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="cboFacturas" PropertyName="SelectedValue" Name="NumeroFactura" Type="String" />
                     </SelectParameters></asp:SqlDataSource>

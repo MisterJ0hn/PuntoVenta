@@ -11,14 +11,14 @@ namespace InventarioWebEntity
         private int TipoDocumento;
         private String RutEmpresa;
         private String RutEmpresaPropia;
-        private String NumeroDocumento;
+        private int NumeroDocumento;
         private String FechaEmision;
         private String FechaIngreso;
         private int MontoTotal;
         private int EstadoDocumento;
 
         public Documentos() { }
-        public Documentos(int idDocumento, int tipoDocumento, String rutEmpresa, String rutEmpresaPropia, String numeroDocumento, String fechaEmision, String fechaIngreso, int montoTotal, int estadoDocumento)
+        public Documentos(int idDocumento, int tipoDocumento, String rutEmpresa, String rutEmpresaPropia, int numeroDocumento, String fechaEmision, String fechaIngreso, int montoTotal, int estadoDocumento)
         {
             this.IdDocumento = idDocumento;
             this.TipoDocumento = tipoDocumento;
@@ -57,7 +57,7 @@ namespace InventarioWebEntity
             get { return RutEmpresaPropia; }
             set { RutEmpresaPropia = value; }
         }
-        public String numeroDocumento
+        public int numeroDocumento
         {
             get { return NumeroDocumento; }
             set { NumeroDocumento = value; }

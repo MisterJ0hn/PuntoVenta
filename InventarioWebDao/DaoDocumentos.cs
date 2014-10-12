@@ -38,35 +38,126 @@ namespace InventarioWebDao
             int id=objConexion.InsertSql("DOCUMENTO",arrCampos,true);
             return id;
         }
-        public Documentos seleccionaDocumento(){
+        public int AgregarProducto(DetalleProducto objDP)
+        {
+            DaoConexion objConexion = new DaoConexion();
+            ArrayList arrValores = new ArrayList();
+            ArrayList arrCampos = new ArrayList();
+            DateTime hoy = DateTime.Today;
+
+            arrCampos.Add("CodigoDetalleproducto");
+            arrCampos.Add("DescripcionDetalleproducto");
+            arrCampos.Add("PreciocompraDetalleproducto");
+            arrCampos.Add("CantidadDetalleproducto");
+            arrCampos.Add("IdProducto");
+
+            arrValores.Add("'" + objDP.codigoDetalleproducto.ToString() + "'");
+            arrValores.Add("'" + objDP.descripcionDetalleproducto + "'");
+            arrValores.Add(objDP.precioCompraDetalleproducto.ToString());
+            arrValores.Add(objDP.cantidadDetalleproducto.ToString());
+            arrValores.Add(objDP.idProducto.ToString());
+
+            objConexion.AddValue(arrValores);
+
+            int id = objConexion.InsertSql("DETALLEPRODUCTO", arrCampos, true);
+
+            return id;
+        }
+        public void AgregarDetalleDocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad)
+        {
+            DaoConexion objConexion = new DaoConexion();
+            ArrayList arrValores = new ArrayList();
+            ArrayList arrCampos = new ArrayList();
+
+            arrCampos.Add("IdDetalleproducto");
+            arrCampos.Add("IdDocumento");
+            arrCampos.Add("Cantidad");
+            arrCampos.Add("PrecioVenta");
+            arrCampos.Add("PrecioCosto");
+            arrCampos.Add("Utilidad");
+
+            arrValores.Add(idDetalleproducto);
+            arrValores.Add(idDocumdento);
+            arrValores.Add(cantida);
+            arrValores.Add(precioVenta);
+            arrValores.Add(precioCosto);
+            arrValores.Add(utilidad);
+
+            objConexion.AddValue(arrValores);
+            objConexion.InsertSql("DETALLEDOCUMENTO", arrCampos);
+
+        }
+        public ArrayList seleccionaDocumento(String rutEmpresa=null, int idDocumento=0){
             DaoConexion objConexionDao = new DaoConexion();
             SqlDataReader drArreglo;
             SqlConnection conConexion = new SqlConnection();
             ArrayList arrConexion = new ArrayList();
-            ArrayList arrEmp = new ArrayList();
+            ArrayList arrDoc = new ArrayList();
 
-            arrConexion = objConexionDao.QuerySql("SELECT IdDocumento FROM EMPRESA WHERE RutEmpresa like '" + rutEmpresa + "'");
+            if (idDocumento > 0)
+            {
+                arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutEmpresa, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento FROM DOCUMENTO WHERE IdDocumento = " + idDocumento );
+            }
+            else
+            {
+                arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutEmpresa, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento FROM DOCUMENTO WHERE RutEmpresa like '" + rutEmpresa + "'");
+            }
            
             drArreglo = (SqlDataReader)arrConexion[0];
             if (drArreglo.HasRows)
             {
                 while (drArreglo.Read())
                 {
-                    Empresa objEmp = new Empresa();
-                    objEmp.rutEmpresa = drArreglo.GetString(0);
-                    objEmp.nombreEmpresa = drArreglo.GetString(1);
-                    objEmp.razonSocial = drArreglo.GetString(2);
-                    objEmp.idTipoEmpresa = drArreglo.GetInt32(3);
+                    Documentos objDoc = new Documentos();
+                    objDoc.idDocumento = drArreglo.GetInt32(0);
+                    objDoc.rutEmpresa = drArreglo.GetString(1);
+                    objDoc.tipoDocumento = drArreglo.GetInt32(2);
+                    objDoc.numeroDocumento = drArreglo.GetInt32(3);
+                    objDoc.fechaEmision = drArreglo.GetString(4);
+                    objDoc.montoTotal = drArreglo.GetInt32(5);
 
-                    Documentos objDocumento = new Documentos();
-
-                    arrEmp.Add(objEmp);
+                    arrDoc.Add(objDoc);
 
                 }
 
             }
             drArreglo.Close();
-            return arrEmp;
+            return arrDoc;
+        }
+        public ArrayList SeleccionaProducto(String codigo)
+        {
+            DaoConexion conexion = new DaoConexion();
+            SqlDataReader drArreglo;
+            SqlConnection conConexion = new SqlConnection();
+            ArrayList arrConexion = new ArrayList();
+            ArrayList arr = new ArrayList();
+
+            arrConexion = conexion.QuerySql("SELECT IdDetalleproducto, CodigoDetalleproducto, DescripcionDetalleproducto, PreciocompraDetalleproducto, "+
+                "CantidadDetalleproducto, RutEmpresa, DETALLEPRODUCTO.IdProducto, IdDepartamento, PorcentajeGanancia" +
+                "FROM DETALLEPRODUCTO, PRODUCTO "+
+                "WHERE DETALLEPRODUCTO.IdProducto= PRODUCTO.IdProducto and CodigoDetalleproducto= '" + codigo + "'");
+            
+            drArreglo = (SqlDataReader)arrConexion[0];
+            if (drArreglo.HasRows)
+            {
+                while (drArreglo.Read())
+                {
+                    DetalleProducto objDP = new DetalleProducto();
+                    objDP.idDetalleproducto = drArreglo.GetInt32(0);
+                    objDP.codigoDetalleproducto = drArreglo.GetString(1);
+                    objDP.descripcionDetalleproducto = drArreglo.GetString(2);
+                    objDP.precioCompraDetalleproducto = drArreglo.GetInt32(3);
+                    objDP.cantidadDetalleproducto = drArreglo.GetInt32(4);
+                    objDP.rutEmpresa = drArreglo.GetString(5);
+                    objDP.idProducto = drArreglo.GetInt32(6);
+                    objDP.idDetalleproducto = drArreglo.GetInt32(7);
+                    objDP.porcentajeGanancia = drArreglo.getString(8);
+                    arr.Add(objDP);
+                }
+
+            }
+            drArreglo.Close();
+            return arr;
         }
     }
 }
