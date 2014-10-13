@@ -14,6 +14,7 @@ namespace InventarioWeb.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+           
             if (!IsPostBack)
             {
                 AppDocumentos appDocumento = new AppDocumentos();
@@ -21,20 +22,17 @@ namespace InventarioWeb.admin
                 cboFacturas.DataTextField = "Nombre";
                 cboFacturas.DataValueField = "Id";
                 cboFacturas.DataBind();
-                cboFacturas.Items.Insert(0, "<Seleccione una Factura>");
-
+                
                 cboDepartamento.DataSource = (DataTable)appDocumento.cboDepartamento();
                 cboDepartamento.DataTextField = "Nombre";
                 cboDepartamento.DataValueField = "Id";
                 cboDepartamento.DataBind();
-                cboDepartamento.Items.Insert(0, "<Selecciona un Documento>");
-
+                
                 cboProducto.DataSource = (DataTable)appDocumento.cboProductos();
                 cboProducto.DataTextField = "Nombre";
                 cboProducto.DataValueField = "Id";
                 cboProducto.DataBind();
-                cboProducto.Items.Insert(0, "<Selecciona un Producto");
-
+               
 
                 txtDescripcion.Enabled = false;
                 cboProducto.Enabled = false;
@@ -52,12 +50,12 @@ namespace InventarioWeb.admin
         {
             AppDocumentos appDocumento =new AppDocumentos();
             ArrayList arrDoc=new ArrayList();
-            arrDoc=appDocumento.SeleccionaEmpresa(Convert.ToInt32(cboFacturas.SelectedValue));
+            arrDoc = appDocumento.SeleccionaEmpresa(Convert.ToInt32(cboFacturas.SelectedValue));
             lblMonto.Text = arrDoc[5].ToString();
             lblRutEmpresa.Text = arrDoc[1].ToString();
             txtCodigo.Enabled = true;
-           
 
+            lblMontoDetalle.Text = appDocumento.MontoTotal(Convert.ToInt32(cboFacturas.SelectedValue)).ToString();
         }
 
         protected void txtCodigo_TextChanged(object sender, EventArgs e)
@@ -70,6 +68,15 @@ namespace InventarioWeb.admin
                 txtDescripcion.Text = arrProd[1].ToString();
                 txtPrecio.Text = arrProd[4].ToString();
 
+                cboDepartamento.DataSource = (DataTable)appDocumentos.cboDepartamento();
+                cboDepartamento.DataTextField = "Nombre";
+                cboDepartamento.DataValueField = "Id";
+                cboDepartamento.DataBind();
+
+                cboProducto.DataSource = (DataTable)appDocumentos.cboProductos();
+                cboProducto.DataTextField = "Nombre";
+                cboProducto.DataValueField = "Id";
+                cboProducto.DataBind();
 
                 int i = 0;
                 foreach (ListItem item in cboDepartamento.Items)
@@ -97,6 +104,7 @@ namespace InventarioWeb.admin
 
                 txtCantidad.Enabled = true;
                 txtPrecio.Enabled = true;
+                txtPrecio.Focus();
             }
             else
             {
@@ -106,6 +114,7 @@ namespace InventarioWeb.admin
                 txtCodigo.Enabled = true;
                 txtCantidad.Enabled = true;
                 txtPrecio.Enabled = true;
+                txtDescripcion.Focus();
             }
         }
 
@@ -113,6 +122,7 @@ namespace InventarioWeb.admin
         {
             AppDocumentos appDocumentos = new AppDocumentos();
             ArrayList arrProd = new ArrayList();
+            
             arrProd = appDocumentos.DetalleProductoBuscar(txtCodigo.Text);
 
 
@@ -120,23 +130,49 @@ namespace InventarioWeb.admin
             {
                 double porcentajeGanancia = Convert.ToDouble(arrProd[5].ToString());
 
-                appDocumentos.AgregarDetalledocumento(Convert.ToInt32(arrProd[1].ToString()), Convert.ToInt32(cboFacturas.SelectedValue), Convert.ToInt32(txtCantidad.Text), 0, Convert.ToInt32(txtPrecio.Text), 0);
+                appDocumentos.AgregarDetalledocumento(Convert.ToInt32(arrProd[0].ToString()), Convert.ToInt32(cboFacturas.SelectedValue), Convert.ToInt32(txtCantidad.Text), 0, Convert.ToInt32(txtPrecio.Text), 0);
+            }
+            else
+            {
+                
+                
+
+                int idProd = appDocumentos.AgregaProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtPrecio.Text));
+                appDocumentos.AgregarDetalledocumento(idProd, Convert.ToInt32(cboFacturas.SelectedValue), Convert.ToInt32(txtCantidad.Text), 0, Convert.ToInt32(txtPrecio.Text), 0);
+
                 txtDescripcion.Enabled = false;
                 cboProducto.Enabled = false;
                 cboDepartamento.Enabled = false;
                 txtCantidad.Enabled = false;
                 txtPrecio.Enabled = false;
-                txtCodigo.Focus();
+
             }
-            else
-            {
-                double porcentajeGanancia = Convert.ToDouble(arrProd[5].ToString());
-                int idProd = appDocumentos.AgregaProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtPrecio.Text));
-                appDocumentos.AgregarDetalledocumento(idProd, Convert.ToInt32(cboFacturas.SelectedValue), Convert.ToInt32(txtCantidad.Text), 0, Convert.ToInt32(txtPrecio.Text), 0);
-                GridView1.DataBind();
-            }
+            txtCodigo.Focus();
+            txtDescripcion.Text = "";
+            cboProducto.SelectedIndex = 0;
+            cboDepartamento.SelectedIndex = 0;
+            txtCantidad.Text = "";
+            txtPrecio.Text = "";
+            txtCodigo.Text = "";
+
+            GridView1.DataBind();
+            lblMontoDetalle.Text = appDocumentos.MontoTotal(Convert.ToInt32(cboFacturas.SelectedValue)).ToString();
+            appDocumentos.ComparaTotales(Convert.ToInt32(lblMonto.Text), Convert.ToInt32(lblMontoDetalle.Text), Convert.ToInt32(cboFacturas.SelectedValue));
         }
 
+        protected void cboDepartamento_SelectedIndexChanged(object sender, EventArgs e)
+        
+        {
+            AppDocumentos appDocumento = new AppDocumentos();
+            cboProducto.DataSource = (DataTable)appDocumento.cboProductos(Convert.ToInt32(cboDepartamento.SelectedValue));
+            cboProducto.DataTextField = "Nombre";
+            cboProducto.DataValueField = "Id";
+            cboProducto.DataBind();
+        }
 
+        protected void btnIngresar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

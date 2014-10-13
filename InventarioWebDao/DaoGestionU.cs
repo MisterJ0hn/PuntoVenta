@@ -24,19 +24,19 @@ namespace InventarioWebDao
             if (filtro != "")
             {
                 objConexionDao.AddOr("NombreUsuario LIKE '%" + filtro + "%' ");
-                objConexionDao.AddOr("Apellido LIKE '%" + filtro + "%' ");
-                objConexionDao.AddOr("Correo LIKE '%" + filtro + "%' ");
-                objConexionDao.AddOr("Usuario LIKE '%" + filtro + "%' ");
+                objConexionDao.AddOr("ApellidoUsuario LIKE '%" + filtro + "%' ");
+                objConexionDao.AddOr("CorreoUsuario LIKE '%" + filtro + "%' ");
+                objConexionDao.AddOr("UsuarioUsuario LIKE '%" + filtro + "%' ");
             }
             if (idUsuario != "")
             {
 
-                arrConexion = objConexionDao.QuerySql("Select IdUsuario, IdRol, NombreUsuario, Apellido, Correo, Usuario, Clave, Activo, FechaRegistro, IdMaestra from USUARIO where IdUsuario="+idUsuario);
+                arrConexion = objConexionDao.QuerySql("Select IdUsuario, IdRol, NombreUsuario, ApellidoUsuario, CorreoUsuario, UsuarioUsuario, ClaveUsuario, ActivoUsuario, FechaRegistroUsuario, IdMaestra from USUARIO where IdUsuario="+idUsuario);
 
             }
             else
             {
-                arrConexion = objConexionDao.QuerySql("Select IdUsuario, IdRol, NombreUsuario, Apellido, Correo, Usuario, Clave, Activo, FechaRegistro, IdMaestra from USUARIO ");
+                arrConexion = objConexionDao.QuerySql("Select IdUsuario, IdRol, NombreUsuario, ApellidoUsuario, CorreoUsuario, UsuarioUsuario, ClaveUsuario, ActivoUsuario, FechaRegistroUsuario, IdMaestra from USUARIO ");
             }
             /*arrConexion = objConexionDao.QuerySql("select USU.IdUSuario,USU.NombreUsuario, USU.Apellido, ROL.TipoRol, SUC.NombreSucursal, EMP.NombreEmpresa" +
                                                     " from USUARIO USU, ROL, SucursalUsuario SU, SUCURSAL SUC, EMPRESA EMP " +
@@ -79,7 +79,7 @@ namespace InventarioWebDao
             ArrayList arrEmpresa = new ArrayList();
 
            
-                arrConexion = objConexionDao.QuerySql("SELECT E.RutEmpresa,E.NombreEmpresa, E.RazonSocial, E.IdTipoempresa, E.IdMaestra FROM EMPRESA E WHERE E.IdTipoempresa="+TipoEmpresa+" AND E.IdMaestra="+IdMaestra);
+                arrConexion = objConexionDao.QuerySql("SELECT E.RutEmpresa,E.NombreEmpresa, '' as RazonSocial, E.IdTipoempresa, E.IdMaestra FROM EMPRESA E WHERE E.IdTipoempresa="+TipoEmpresa+" AND E.IdMaestra="+IdMaestra);
 
             
             drArreglo = (SqlDataReader)arrConexion[0];
@@ -159,7 +159,7 @@ namespace InventarioWebDao
             ArrayList arrConexion = new ArrayList();
             ArrayList arrSuc = new ArrayList();
 
-            arrConexion = objConexionDao.QuerySql("SELECT IdSucursal, RutEmpresa, NombreSucursal, DireccionSucursal, TelefonoSucursal, IdCOmuna,IdMaestra FROM SUCURSAL WHERE RutEmpresa like '"+rutEmpresa+"'");
+            arrConexion = objConexionDao.QuerySql("SELECT IdSucursal, RutEmpresa, NombreSucursal, DireccionSucursal, TelefonoSucursal, IdComuna,IdMaestra FROM SUCURSAL WHERE RutEmpresa like '"+rutEmpresa+"'");
             /*arrConexion = objConexionDao.QuerySql("select	USU.NombreUsuario, USU.Apellido, ROL.TipoRol, SUC.NombreSucursal, EMP.NombreEmpresa"+
                                                     "from	USUARIO USU, ROL, SucursalUsuario SU, SUCURSAL SUC, EMPRESA EMP "+
 	                                            "where  USU.IdRol = ROL.IdRol and "+

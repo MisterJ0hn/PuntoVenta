@@ -27,12 +27,12 @@
                 SortExpression="IdUsuario" />
             <asp:BoundField DataField="NombreUsuario" HeaderText="NombreUsuario" 
                 SortExpression="NombreUsuario" />
-            <asp:BoundField DataField="Apellido" HeaderText="Apellido" 
-                SortExpression="Apellido" />
-            <asp:BoundField DataField="Usuario" HeaderText="Usuario" 
-                SortExpression="Usuario" />
-            <asp:BoundField DataField="FechaRegistro" HeaderText="Fecha Registro" 
-                SortExpression="fechaRegistro" />
+            <asp:BoundField DataField="ApellidoUsuario" HeaderText="Apellido" 
+                SortExpression="ApellidoUsuario" />
+            <asp:BoundField DataField="UsuarioUsuario" HeaderText="Usuario" 
+                SortExpression="UsuarioUsuario" />
+            <asp:BoundField DataField="FechaRegistroUsuario" HeaderText="Fecha Registro" 
+                SortExpression="fechaRegistroUsuario" />
             <asp:BoundField DataField="TipoRol" HeaderText="TipoRol" 
                 SortExpression="TipoRol" />
             <asp:BoundField DataField="NombreSucursal" HeaderText="NombreSucursal" 
@@ -55,16 +55,16 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="Data Source=localhost;Initial Catalog=InventarioWeb;User ID=sa;Password=955763" 
-        SelectCommand="select USU.IdUsuario,USU.NombreUsuario,USU.Usuario, USU.FechaRegistro, USU.Apellido, ROL.TipoRol, SUC.NombreSucursal, EMP.NombreEmpresa 
+        SelectCommand="select USU.IdUsuario,USU.NombreUsuario,USU.UsuarioUsuario, USU.FechaRegistroUsuario, USU.ApellidoUsuario, ROL.TipoRol, SUC.NombreSucursal, EMP.NombreEmpresa 
         from USUARIO USU, ROL, SucursalUsuario SU, SUCURSAL SUC, EMPRESA EMP 
         where USU.IdRol = ROL.IdRol 
         and  USU.IdUsuario = SU.IdUsuario 
         and SU.IdSucursal = SUC.IdSucursal 
         and SUC.RutEmpresa = EMP.RutEmpresa 
         and USU.IdMaestra=@IdMaestra"
-        DeleteCommand="UPDATE USUARIO SET  Activo=2 WHERE IdUsuario=@IdUsuario
+        DeleteCommand="UPDATE USUARIO SET  ActivoUsuario=2 WHERE IdUsuario=@IdUsuario
         Delete From USUARIO where IdUsuario=@IdUsuario"
-        FilterExpression="(NombreUsuario LIKE '%{0}%' OR Apellido LIKE '%{0}%' OR Usuario LIKE '%{0}%' OR  TipoRol LIKE '%{0}%' OR  NombreSucursal LIKE '%{0}%')"
+        FilterExpression="(NombreUsuario LIKE '%{0}%' OR ApellidoUsuario LIKE '%{0}%' OR UsuarioUsuario LIKE '%{0}%' OR  TipoRol LIKE '%{0}%' OR  NombreSucursal LIKE '%{0}%')"
         >
         <SelectParameters>
             <asp:ControlParameter Name="IdMaestra" Type="String" PropertyName="value" ControlID="hdIdMaestra"/>

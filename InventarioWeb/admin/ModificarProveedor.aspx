@@ -14,11 +14,7 @@
 </asp:TextBox>
 <asp:RequiredFieldValidator id="vldNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>
 </p>
-<p>
-<asp:Label ID="lblRazonSocial" runat="server" Text="Razon Social" Width="100"></asp:Label>
-<asp:TextBox ID="txtRazonSocial" runat="server"></asp:TextBox>
-<asp:RequiredFieldValidator id="vldRazonSocial" runat="server" ControlToValidate="txtRazonSocial" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>
-</p>
+
 <p class="submitButton">
 <asp:Button runat="server" Text="Modificar" Width="70px"  ID="btnModificar" onclick="btnModificar_Click" 
         /><input type="reset" value="Limpiar" /></p>
@@ -39,7 +35,7 @@
         <AlternatingRowStyle BackColor="#F7F7F7" />
         <Columns>
             <asp:BoundField DataField="IdSucursal" HeaderText="Id" 
-                SortExpression="IsSucursal" />
+                SortExpression="IdSucursal" />
             <asp:BoundField DataField="RutEmpresa" HeaderText="Rut Empresa" 
                 SortExpression="RutEmpresa" />
             <asp:BoundField DataField="NombreSucursal" HeaderText="Nombre Sucursal" 

@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<h1>Datos de Factura
+    <h1>Datos de Factura
    
     </h1>
     <asp:Label ID="Alerta" runat="server"></asp:Label>
@@ -22,6 +22,20 @@
 <p>
 <asp:Label ID="Label4" runat="server" Text="Fecha Vencimiento" Width="150"></asp:Label>
 <asp:TextBox ID="txtFechaVenc" runat="server"></asp:TextBox>
+    <asp:Calendar ID="Calendar1" runat="server" BackColor="White" 
+        BorderColor="#999999" CellPadding="4" 
+        Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" 
+        Width="200px" ViewStateMode="Enabled"
+        >
+        <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
+        <NextPrevStyle VerticalAlign="Bottom" />
+        <OtherMonthDayStyle ForeColor="#808080" />
+        <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
+        <SelectorStyle BackColor="#CCCCCC" />
+        <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
+        <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
+        <WeekendDayStyle BackColor="#FFFFCC" />
+    </asp:Calendar>
 </p>
 <p>
 <asp:Label ID="Label3" runat="server" Text="Monto" Width="150"></asp:Label>

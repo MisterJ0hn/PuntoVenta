@@ -20,8 +20,8 @@ namespace InventarioWebDao
 
             if (clavePersona != "")
             {
-                arrConexion = objConexionDao.QuerySql("Select IdUsuario, IdRol, NombreUsuario, IdMaestra from USUARIO where Usuario='" +
-                    usuarioPersona + "' and Clave='" + clavePersona + "' and Activo=1");
+                arrConexion = objConexionDao.QuerySql("Select IdUsuario, IdRol, NombreUsuario, IdMaestra from USUARIO where UsuarioUsuario='" +
+                    usuarioPersona + "' and ClaveUsuario='" + clavePersona + "' and ActivoUsuario=1");
                 drArreglo =(SqlDataReader)arrConexion[0];
             conConexion = (SqlConnection)arrConexion[1];
                 if (drArreglo.HasRows)
@@ -40,13 +40,13 @@ namespace InventarioWebDao
             {
                 if (idUsuario > 0)
                 {
-                    arrConexion = objConexionDao.QuerySql("Select Usuario from USUARIO where Usuario='" +
-                       usuarioPersona + "' and IdUsuario!="+idUsuario+" group by Usuario");
+                    arrConexion = objConexionDao.QuerySql("Select UsuarioUsuario from USUARIO where UsuarioUsuario='" +
+                       usuarioPersona + "' and IdUsuario!="+idUsuario+" group by UsuarioUsuario");
                 }
                 else
                 {
-                    arrConexion = objConexionDao.QuerySql("Select Usuario from USUARIO where Usuario='" +
-                        usuarioPersona + "' group by Usuario");
+                    arrConexion = objConexionDao.QuerySql("Select UsuarioUsuario from USUARIO where UsuarioUsuario='" +
+                        usuarioPersona + "' group by UsuarioUsuario");
                     
                 }
                 conConexion = (SqlConnection)arrConexion[1];

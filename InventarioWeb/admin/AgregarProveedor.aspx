@@ -16,11 +16,7 @@
 </asp:TextBox>
 <asp:RequiredFieldValidator id="vldNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>
 </p>
-<p>
-<asp:Label ID="lblRazonSocial" runat="server" Text="Razon Social" Width="100"></asp:Label>
-<asp:TextBox ID="txtRazonSocial" runat="server"></asp:TextBox>
-<asp:RequiredFieldValidator id="vldRazonSocial" runat="server" ControlToValidate="txtRazonSocial" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>
-</p>
+
 <p class="submitButton">
 <asp:Button runat="server" Text="Ingresar" Width="70px"  ID="btnAgregar" 
         onclick="btnAgregar_Click"/>

@@ -16,7 +16,7 @@ namespace InventarioWebApp
         {
             DaoDocumentos conexion =new DaoDocumentos();
 
-            if (conexion.Agregar(numeroDoc, monto, 1, fechaEmision, RutEmpresa, RutEmpresaPropia) > 0)
+            if (conexion.Agregar(numeroDoc, monto, 33, fechaEmision, RutEmpresa, RutEmpresaPropia) > 0)
             {
                 return true;
             }
@@ -66,18 +66,19 @@ namespace InventarioWebApp
         {
             DaoDocumentos doc = new DaoDocumentos();
             ArrayList arrDoc = new ArrayList();
+            ArrayList arrDocReturn = new ArrayList();
             arrDoc = doc.seleccionaDocumento(null, idDocumento);
             foreach (Documentos objDoc in arrDoc)
             {
-                arrDoc.Add(objDoc.idDocumento);//0
-                arrDoc.Add(objDoc.rutEmpresa);//1
-                arrDoc.Add(objDoc.tipoDocumento);//2
-                arrDoc.Add(objDoc.numeroDocumento);//3
-                arrDoc.Add(objDoc.fechaEmision);//4
-                arrDoc.Add(objDoc.montoTotal);//5
+                arrDocReturn.Add(objDoc.idDocumento);//0
+                arrDocReturn.Add(objDoc.rutEmpresa);//1
+                arrDocReturn.Add(objDoc.tipoDocumento);//2
+                arrDocReturn.Add(objDoc.numeroDocumento);//3
+                arrDocReturn.Add(objDoc.fechaEmision);//4
+                arrDocReturn.Add(objDoc.montoTotal);//5
             }
 
-            return arrDoc;
+            return arrDocReturn;
 
 
         }
@@ -125,6 +126,40 @@ namespace InventarioWebApp
             return arrProductoReturn;
 
         }
+        public int MontoTotal(int IdDocumento)
+        {
+            DaoDocumentos appDoc = new DaoDocumentos();
+            int Total = appDoc.MontoTotal(IdDocumento);
 
+            return Total;
+        }
+
+        public bool ComparaTotales(int totalDocumento, int totalDetalle, int idDocumento)
+        {
+            DaoDocumentos daoDoc = new DaoDocumentos();
+
+
+
+            if (totalDocumento > totalDetalle)
+            {
+
+                daoDoc.ModificarEstadoDocumento(idDocumento, 1);
+
+                return false;
+            }
+            if (totalDocumento == totalDetalle)
+            {
+
+                daoDoc.ModificarEstadoDocumento(idDocumento, 2);
+                return true;
+            }
+            if (totalDocumento < totalDetalle)
+            {
+
+                daoDoc.ModificarEstadoDocumento(idDocumento, 3);
+                return false;
+            }
+            return false;
+        }
     }
 }

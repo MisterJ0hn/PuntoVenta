@@ -24,7 +24,6 @@ namespace InventarioWeb.admin
                
                 txtRut.Text = arrProveedor[0].ToString();
                 txtNombre.Text = arrProveedor[1].ToString();
-                txtRazonSocial.Text = arrProveedor[2].ToString();
                 
                 GridView1.DataBind();
 
@@ -36,7 +35,7 @@ namespace InventarioWeb.admin
         protected void btnModificar_Click(object sender, EventArgs e)
         {
             AppEmpresas proceso = new AppEmpresas();
-            proceso.AppModificarEmpresa(txtRut.Text, txtNombre.Text, txtRazonSocial.Text, Convert.ToInt32(Session["idMaestra"].ToString()), 2);
+            proceso.AppModificarEmpresa(txtRut.Text, txtNombre.Text, "", Convert.ToInt32(Session["idMaestra"].ToString()), 2);
               
         }
 

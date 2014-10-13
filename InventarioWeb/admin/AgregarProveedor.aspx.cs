@@ -24,7 +24,7 @@ namespace InventarioWeb.admin
                 this.Validate();
                 if (this.IsValid)
                 {
-                    proceso.AppAgregarEmpresa(txtRut.Text, txtNombre.Text, txtRazonSocial.Text, Convert.ToInt32(Session["idMaestra"].ToString()), 2);
+                    proceso.AppAgregarEmpresa(txtRut.Text, txtNombre.Text,"", Convert.ToInt32(Session["idMaestra"].ToString()), 2);
                 }
             }
 

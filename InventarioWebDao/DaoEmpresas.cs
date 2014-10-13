@@ -18,7 +18,7 @@ namespace InventarioWebDao
 
             arrValores.Add("'"+objEmpresa.rutEmpresa+"'");
             arrValores.Add("'" + objEmpresa.nombreEmpresa + "'");
-            arrValores.Add("'" + objEmpresa.razonSocial + "'");
+            
             arrValores.Add(tipoEmpresa.ToString());
             arrValores.Add(idMaestra.ToString());
             
@@ -32,7 +32,7 @@ namespace InventarioWebDao
 
             //arrValores.Add("'" + objEmpresa.rutEmpresa + "'");
             arrValores.Add("NombreEmpresa='" + objEmpresa.nombreEmpresa + "'");
-            arrValores.Add("RazonSocial='" + objEmpresa.razonSocial + "'");
+           
            
 
             
@@ -81,7 +81,7 @@ namespace InventarioWebDao
             ArrayList arrConexion = new ArrayList();
             ArrayList arrEmp = new ArrayList();
 
-            arrConexion = objConexionDao.QuerySql("SELECT RutEmpresa, NombreEmpresa, RazonSocial, IdTipoempresa FROM EMPRESA WHERE RutEmpresa like '" + rutEmpresa + "'");
+            arrConexion = objConexionDao.QuerySql("SELECT RutEmpresa, NombreEmpresa, '' as razonSocial,  IdTipoempresa FROM EMPRESA WHERE RutEmpresa like '" + rutEmpresa + "'");
             /*arrConexion = objConexionDao.QuerySql("select	USU.NombreUsuario, USU.Apellido, ROL.TipoRol, SUC.NombreSucursal, EMP.NombreEmpresa"+
                                                     "from	USUARIO USU, ROL, SucursalUsuario SU, SUCURSAL SUC, EMPRESA EMP "+
 	                                            "where  USU.IdRol = ROL.IdRol and "+
@@ -164,10 +164,17 @@ namespace InventarioWebDao
             drArreglo = (SqlDataReader)arrConexion[0];
             if (drArreglo.HasRows)
             {
+                arr.Rows.Add("0", "<Seleccionar>");
                 while (drArreglo.Read())
                 {
-
-                    arr.Rows.Add(drArreglo.GetInt32(0), drArreglo.GetString(1));
+                    try
+                    {
+                        arr.Rows.Add(drArreglo.GetInt32(0), drArreglo.GetString(1));
+                    }
+                    catch
+                    {
+                        arr.Rows.Add(drArreglo.GetInt32(0), Convert.ToString(drArreglo.GetInt32(1)));
+                    }
                 }
 
             }

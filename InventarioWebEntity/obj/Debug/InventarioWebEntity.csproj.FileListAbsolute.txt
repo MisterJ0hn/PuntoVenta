@@ -13,3 +13,8 @@ D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\Inv
 D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\v1.0\InventarioWeb\InventarioWebEntity\obj\Debug\InventarioWebEntity.pdb
 C:\visual studio\InventarioWeb\v1.0\InventarioWeb\InventarioWebEntity\obj\Debug\InventarioWebEntity.csprojResolveAssemblyReference.cache
 D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\v1.0\InventarioWeb\InventarioWebEntity\obj\Debug\InventarioWebEntity.csprojResolveAssemblyReference.cache
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebEntity\bin\InventarioWebEntity.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebEntity\bin\InventarioWebEntity.pdb
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebEntity\obj\Debug\InventarioWebEntity.csprojResolveAssemblyReference.cache
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebEntity\obj\Debug\InventarioWebEntity.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebEntity\obj\Debug\InventarioWebEntity.pdb

@@ -39,7 +39,7 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="Data Source=localhost;Initial Catalog=InventarioWeb;User ID=sa;Password=955763" 
-        SelectCommand="SELECT [RutEmpresa], [NombreEmpresa], [RazonSocial] FROM [EMPRESA] WHERE ([IdMaestra] = @IdMaestra) and IdTipoempresa=2"
+        SelectCommand="SELECT [RutEmpresa], [NombreEmpresa], '' as RazonSocial FROM [EMPRESA] WHERE ([IdMaestra] = @IdMaestra) and IdTipoempresa=2"
         FilterExpression=" (RutEmpresa like '%{0}%' OR NombreEmpresa like '%{0}%' OR RazonSocial like '%{0}%') "
         >
         <SelectParameters>

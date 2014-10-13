@@ -26,3 +26,10 @@ D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebDao
 D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.csprojResolveAssemblyReference.cache
 D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.dll
 D:\proyectosti\Proyecto Punto de Venta\InventarioWeb\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.pdb
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.csprojResolveAssemblyReference.cache
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\bin\InventarioWebDao.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\bin\InventarioWebDao.pdb
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\bin\InventarioWebEntity.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\bin\InventarioWebEntity.pdb
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.pdb
