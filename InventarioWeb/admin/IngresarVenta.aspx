@@ -6,9 +6,12 @@
 <tr>
 <td width="200px" valign="top">
 <h2>Ingreso</h2>
+<asp:HiddenField ID="hdIdDocumento" runat="server" />
+    <asp:HiddenField ID="hdIdDetalle" runat="server" />
 <p>
 <asp:Label ID="lblCodigo" runat="server" Text="Codigo" Width="100"></asp:Label>
-<asp:TextBox ID="txtCodigo" runat="server" />
+<asp:TextBox ID="txtCodigo" runat="server" ontextchanged="txtCodigo_TextChanged" AutoPostBack="true"/>
+<asp:RequiredFieldValidator ID="vldCodigo" Text="Codigo Invalido" runat="server" ControlToValidate="txtCodigo"></asp:RequiredFieldValidator>
 </p>
 <p>
 <asp:Label ID="Label1" runat="server" Text="Nombre" Width="100"></asp:Label>
@@ -17,6 +20,17 @@
 <p>
 <asp:Label ID="Label2" runat="server" Text="Precio" Width="100"></asp:Label>
 <asp:TextBox ID="txtPrecio" runat="server" />
+</p>
+<p>
+<asp:Label ID="Label6" runat="server" Text="Cantidad" Width="100"></asp:Label>
+<asp:TextBox ID="txtCantidad" runat="server" />
+</p>
+<p class="submitButton">
+<asp:Button ID="btnAgregar" Text="Agregar" runat="server" 
+        onclick="btnAgregar_Click" />
+
+<asp:Button ID="Button1" Text="Eliminar" runat="server" 
+        onclick="btnEliminar_Click" />
 </p>
 </td>
 <td valign="top">
@@ -59,7 +73,11 @@
         SelectCommand="SELECT DD.IdDetalledocumento, P.TipoproductoProducto, DP.DescripcionDetalleproducto, DP.CodigoDetalleproducto, DD.Cantidad, DD.PrecioVenta, (DD.Cantidad* DD.PrecioVenta) as Total
         FROM PRODUCTO AS P 
         INNER JOIN DETALLEPRODUCTO AS DP ON P.IdProducto = DP.IdProducto 
-        INNER JOIN DETALLEDOCUMENTO AS DD ON DP.IdDetalleproducto = DD.IdDetalleproducto">
+        INNER JOIN DETALLEDOCUMENTO AS DD ON DP.IdDetalleproducto = DD.IdDetalleproducto
+        WHERE DD.IdDocumento=@IdDocumento">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="hdIdDocumento" Name="IdDocumento" Type="Int32" />
+        </SelectParameters>
     </asp:SqlDataSource>
 </td>
 </tr>

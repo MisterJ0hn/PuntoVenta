@@ -11,11 +11,13 @@ namespace InventarioWebEntity
         private String CodigoDetalleproducto;
         private String DescripcionDetalleproducto;
         private int PrecioCompraDetalleproducto;
+        private int PrecioVentaDetalleproducto;
         private int CantidadDetalleProducto;
         private String RutEmpresa;
         private int IdProducto;
         private int IdDepartamento;
         private String PorcentajeGanancia;
+        private int Boleta;
 
         public DetalleProducto()
         {
@@ -42,6 +44,11 @@ namespace InventarioWebEntity
             get { return PrecioCompraDetalleproducto; }
             set { PrecioCompraDetalleproducto = value; }
         }
+        public int precioVentaDetalleproducto
+        {
+            get { return PrecioVentaDetalleproducto; }
+            set { PrecioVentaDetalleproducto = value; }
+        }
         public int cantidadDetalleproducto
         {
             get { return CantidadDetalleProducto; }
@@ -66,6 +73,11 @@ namespace InventarioWebEntity
         {
             get { return PorcentajeGanancia; }
             set { PorcentajeGanancia = value; }
+        }
+        public int boleta
+        {
+            get { return Boleta; }
+            set { Boleta = value; }
         }
     }
 }

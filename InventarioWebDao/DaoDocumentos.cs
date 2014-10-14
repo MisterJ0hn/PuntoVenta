@@ -9,7 +9,7 @@ namespace InventarioWebDao
 {
     public class DaoDocumentos
     {
-        public int Agregar(int numeroDoc, int monto, int tipoDocumento, String fechaEmision, String rutEmpresa, String rutEmpresaPropia)
+        public int Agregar(int numeroDoc, int monto, int tipoDocumento, String fechaEmision, String rutEmpresa, String rutEmpresaPropia,int tmov)
         {
             DaoConexion objConexion = new DaoConexion();
             ArrayList arrValores = new ArrayList();
@@ -21,6 +21,7 @@ namespace InventarioWebDao
             arrValores.Add("'" + rutEmpresaPropia.ToString() + "'");
             arrValores.Add("'" + numeroDoc.ToString() + "'");
             arrValores.Add("'" + fechaEmision.ToString() + "'");
+            arrValores.Add(tmov.ToString());
            // arrValores.Add("'" + hoy.ToString() + "'");
             arrValores.Add(monto.ToString());
             arrValores.Add("1");
@@ -30,6 +31,7 @@ namespace InventarioWebDao
             arrCampos.Add("RutEmpresaPropia");
             arrCampos.Add("NumeroDocumento");
             arrCampos.Add("FechaemisionDocumento");
+            arrCampos.Add("IdTipomovimiento");
             //arrCampos.Add("FechaIngreso");
             arrCampos.Add("MontototalDocumento");
             arrCampos.Add("EstadoDocumento");
@@ -131,39 +133,73 @@ namespace InventarioWebDao
             objConexion.InsertSql("DETALLEDOCUMENTO", arrCampos);
 
         }
-        public ArrayList seleccionaDocumento(String rutEmpresa=null, int idDocumento=0){
+        public ArrayList seleccionaDocumento(int tMov, String rutEmpresa=null, int idDocumento=0, bool soloMax=false){
             DaoConexion objConexionDao = new DaoConexion();
             SqlDataReader drArreglo;
             SqlConnection conConexion = new SqlConnection();
             ArrayList arrConexion = new ArrayList();
             ArrayList arrDoc = new ArrayList();
 
-            if (idDocumento > 0)
+            if (soloMax)
             {
-                arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutEmpresa, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento FROM DOCUMENTO WHERE IdDocumento = " + idDocumento );
+                String sql = "";
+                if (rutEmpresa != "")
+                {
+                    sql = "and RutEmpresa like '" + rutEmpresa + "'";
+                }
+                arrConexion = objConexionDao.QuerySql("SELECT max(NumeroDocumento) AS Maximo FROM DOCUMENTO WHERE EstadoDocumento=2 AND IdTipomovimiento=" + tMov +sql);
+
+                drArreglo = (SqlDataReader)arrConexion[0];
+                if (drArreglo.HasRows)
+                {
+                    while (drArreglo.Read())
+                    {
+                        int Maximo=0;
+                        try
+                        {
+                             Maximo= drArreglo.GetInt32(0);
+                        }
+                        catch
+                        {
+                             Maximo = 0;
+                        }
+
+                        arrDoc.Add(Maximo);
+
+                    }
+
+                }
             }
             else
             {
-                arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutEmpresa, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento FROM DOCUMENTO WHERE RutEmpresa like '" + rutEmpresa + "'");
-            }
-           
-            drArreglo = (SqlDataReader)arrConexion[0];
-            if (drArreglo.HasRows)
-            {
-                while (drArreglo.Read())
+                if (idDocumento > 0)
                 {
-                    Documentos objDoc = new Documentos();
-                    objDoc.idDocumento = drArreglo.GetInt32(0);
-                    objDoc.rutEmpresa = drArreglo.GetString(1);
-                    objDoc.tipoDocumento = drArreglo.GetInt32(2);
-                    objDoc.numeroDocumento = drArreglo.GetInt32(3);
-                    objDoc.fechaEmision = drArreglo.GetDateTime(4).ToString();
-                    objDoc.montoTotal = drArreglo.GetInt32(5);
+                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutEmpresa, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento FROM DOCUMENTO WHERE IdTipomovimiento=" + tMov + " and  IdDocumento = " + idDocumento);
+                }
+                else
+                {
+                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutEmpresa, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento FROM DOCUMENTO WHERE  IdTipomovimiento=" + tMov + " and RutEmpresaPropia like '" + rutEmpresa + "'");
+                }
+            
+        
+                drArreglo = (SqlDataReader)arrConexion[0];
+                if (drArreglo.HasRows)
+                {
+                    while (drArreglo.Read())
+                    {
+                        Documentos objDoc = new Documentos();
+                        objDoc.idDocumento = drArreglo.GetInt32(0);
+                        objDoc.rutEmpresa = drArreglo.GetString(1);
+                        objDoc.tipoDocumento = drArreglo.GetInt32(2);
+                        objDoc.numeroDocumento = drArreglo.GetInt32(3);
+                        objDoc.fechaEmision = drArreglo.GetDateTime(4).ToString();
+                        objDoc.montoTotal = drArreglo.GetInt32(5);
 
-                    arrDoc.Add(objDoc);
+                        arrDoc.Add(objDoc);
+
+                    }
 
                 }
-
             }
             drArreglo.Close();
             return arrDoc;
@@ -186,7 +222,7 @@ namespace InventarioWebDao
                         sql = " and CodigoDetalleproducto= '" + codigo + "'";
                     }
                     arrConexion = conexion.QuerySql("SELECT DD.IdDetalleproducto ,CodigoDetalleproducto, DescripcionDetalleproducto,DD.PrecioCosto,DD.Cantidad,  " +
-                                                    " '' as RutEmpresa, P.IdProducto, P.IdDepartamento, P.PorcentajeGanancia " +
+                                                    " '' as RutEmpresa, P.IdProducto, P.IdDepartamento, P.PorcentajeGanancia, DP.boleta, DD.PrecioVenta " +
                                                     " FROM DETALLEDOCUMENTO DD, DOCUMENTO D, DETALLEPRODUCTO DP, PRODUCTO P" +
                                                     " WHERE DD.IdDocumento=D.IdDocumento " +
                                                     " AND DD.IdDetalleproducto=DP.IdDetalleproducto " +
@@ -202,7 +238,7 @@ namespace InventarioWebDao
                         sql = "and CodigoDetalleproducto= '" + codigo + "'";
                     }
                     arrConexion = conexion.QuerySql("SELECT IdDetalleproducto, CodigoDetalleproducto, DescripcionDetalleproducto, PreciocompraDetalleproducto, " +
-                                                    "0 as CantidadDetalleproducto, RutEmpresa, DETALLEPRODUCTO.IdProducto, IdDepartamento, PorcentajeGanancia" +
+                                                    "0 as CantidadDetalleproducto, RutEmpresa, DETALLEPRODUCTO.IdProducto, IdDepartamento, PorcentajeGanancia, boleta,PrecioventaDetalleproducto" +
                                                     " FROM DETALLEPRODUCTO, PRODUCTO " +
                                                     " WHERE DETALLEPRODUCTO.IdProducto= PRODUCTO.IdProducto " + sql);
                 }
@@ -223,6 +259,8 @@ namespace InventarioWebDao
                     objDP.idProducto = drArreglo.GetInt32(6);
                     objDP.idDepartamento = drArreglo.GetInt32(7);
                     objDP.porcentajeGanancia = drArreglo.GetString(8);
+                    objDP.boleta = drArreglo.GetInt32(9);
+                    objDP.precioVentaDetalleproducto = drArreglo.GetInt32(10);
                     arr.Add(objDP);
                 }
 
