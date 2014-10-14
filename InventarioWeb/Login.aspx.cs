@@ -42,6 +42,10 @@ namespace InventarioWeb
 
                 Session["IdSucursal"] = arrSession[9];
                 Session["rutEmpresa"] = arrSession[8];
+
+                Session["nombreEmpresa"] = arrSession[10];
+                Session["nombreSucursal"] = arrSession[11];
+
                 //Response.Redirect("/MenuPrincipal.aspx");
 
                 Console.WriteLine("nombre " + nombre);

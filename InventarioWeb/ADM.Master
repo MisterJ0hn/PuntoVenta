@@ -37,7 +37,7 @@
                             <asp:MenuItem NavigateUrl="~/historia.aspx" Text="Acerca de"/>
                             <asp:MenuItem NavigateUrl="~/admin/GestionU.aspx" Text="Gestion de Usuarios"/>
                             <asp:MenuItem NavigateUrl="~/admin/GestionProveedores.aspx" Text="Gestion de Proveedores"/>
-                            <asp:MenuItem NavigateUrl="~/admin/IngresoDocumento.aspx" Text="Ingreso de Documentos"/>
+                            <asp:MenuItem NavigateUrl="~/admin/GestionDocumentos.aspx" Text="Ingresos"/>
                         </Items>
                     </asp:Menu>
                 </div>

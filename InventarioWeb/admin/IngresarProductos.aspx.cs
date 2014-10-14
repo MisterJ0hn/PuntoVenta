@@ -172,7 +172,17 @@ namespace InventarioWeb.admin
 
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
+            AppDocumentos appDoc = new AppDocumentos();
+            int count = GridView1.Rows.Count;
+            int montoTotalDetalle = appDoc.MontoTotal(Convert.ToInt32(cboFacturas.SelectedValue));
 
+            foreach (GridViewRow grv in GridView1.Rows)
+            {
+                appDoc.CerrarDocumento(Convert.ToInt32(Session["idSucursal"].ToString()),Convert.ToInt32(cboFacturas.SelectedValue), Convert.ToInt32(grv.Cells[5].Text), grv.Cells[4].Text);
+            }
+            if(appDoc.ComparaTotales(Convert.ToInt32(lblMonto.Text),montoTotalDetalle,Convert.ToInt32(cboFacturas.SelectedValue))){
+                Response.Redirect("IngresarProductos.aspx");
+            }
         }
     }
 }

@@ -65,11 +65,14 @@
     <Content Include="admin\AgregarProveedor.aspx" />
     <Content Include="admin\AgregarSucursal.aspx" />
     <Content Include="admin\AgregarUsuario.aspx" />
+    <Content Include="admin\GestionDocumentos.aspx" />
     <Content Include="admin\GestionEmpresa.aspx" />
     <Content Include="admin\GestionProveedores.aspx" />
     <Content Include="admin\GestionSucursales.aspx" />
     <Content Include="admin\GestionU.aspx" />
+    <Content Include="admin\GestionVentas.aspx" />
     <Content Include="admin\IngresarProductos.aspx" />
+    <Content Include="admin\IngresarVenta.aspx" />
     <Content Include="admin\IngresoDocumento.aspx" />
     <Content Include="admin\ModificarProveedor.aspx" />
     <Content Include="admin\ModificarSucursal.aspx" />
@@ -164,6 +167,13 @@
     <Compile Include="admin\AgregarUsuario.aspx.designer.cs">
       <DependentUpon>AgregarUsuario.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\GestionDocumentos.aspx.cs">
+      <DependentUpon>GestionDocumentos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\GestionDocumentos.aspx.designer.cs">
+      <DependentUpon>GestionDocumentos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\GestionEmpresa.aspx.cs">
       <DependentUpon>GestionEmpresa.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -192,12 +202,26 @@
     <Compile Include="admin\GestionU.aspx.designer.cs">
       <DependentUpon>GestionU.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\GestionVentas.aspx.cs">
+      <DependentUpon>GestionVentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\GestionVentas.aspx.designer.cs">
+      <DependentUpon>GestionVentas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\IngresarProductos.aspx.cs">
       <DependentUpon>IngresarProductos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="admin\IngresarProductos.aspx.designer.cs">
       <DependentUpon>IngresarProductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\IngresarVenta.aspx.cs">
+      <DependentUpon>IngresarVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\IngresarVenta.aspx.designer.cs">
+      <DependentUpon>IngresarVenta.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\IngresoDocumento.aspx.cs">
       <DependentUpon>IngresoDocumento.aspx</DependentUpon>

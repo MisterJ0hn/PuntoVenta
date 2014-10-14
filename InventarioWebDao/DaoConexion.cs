@@ -23,16 +23,12 @@ namespace InventarioWebDao
             ArrayList arrConexion=new ArrayList();
             SqlDataReader drRegistros;
 
-            
-                conn.Open();
-
-                sql = sql + GeneraWhere();
-                cmd = new SqlCommand(sql, conn);
-                drRegistros = cmd.ExecuteReader();
-
-                arrConexion.Add(drRegistros);
-                arrConexion.Add(conn);
-           
+            conn.Open();
+            sql = sql + GeneraWhere();
+            cmd = new SqlCommand(sql, conn);
+            drRegistros = cmd.ExecuteReader();
+            arrConexion.Add(drRegistros);
+            arrConexion.Add(conn);
             return arrConexion;
             
         }

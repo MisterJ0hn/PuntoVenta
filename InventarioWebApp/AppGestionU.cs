@@ -192,7 +192,19 @@ namespace InventarioWebApp
                     //Console.WriteLine(user.Nombre);
                     arrUsuarioReturn.Add(objSucursal.rutEmpresa);//8
                     arrUsuarioReturn.Add(objSucursal.idSucursal);//9
+                    AppEmpresas appEmp = new AppEmpresas();
+                    ArrayList arrEmp = new ArrayList();
+                    arrEmp = appEmp.AppSeleccionaEmpresa(objSucursal.rutEmpresa);
+
+                    arrUsuarioReturn.Add(arrEmp[1].ToString());//10
+
+
+                    ArrayList arrSuc = new ArrayList();
+                    arrSuc = appEmp.AppSeleccionaSucursal(objSucursal.idSucursal);
+
+                    arrUsuarioReturn.Add(arrSuc[0].ToString());//11
                 }
+                
 
 
             }

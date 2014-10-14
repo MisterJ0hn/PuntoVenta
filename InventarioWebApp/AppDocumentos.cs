@@ -51,7 +51,7 @@ namespace InventarioWebApp
             DaoEmpresas conexion = new DaoEmpresas();
             DataTable arrFactura = new DataTable();
             ArrayList arr = new ArrayList();
-            String sql = " RutEmpresaPropia='" + rutEmpresa+"' ";
+            String sql = " RutEmpresaPropia='" + rutEmpresa + "' AND (EstadoDocumento=1 OR EstadoDocumento=3)";
           
             if (idSucursal > 0)
             {
@@ -142,7 +142,6 @@ namespace InventarioWebApp
 
             if (totalDocumento > totalDetalle)
             {
-
                 daoDoc.ModificarEstadoDocumento(idDocumento, 1);
 
                 return false;
@@ -160,6 +159,30 @@ namespace InventarioWebApp
                 return false;
             }
             return false;
+        }
+
+        public void CerrarDocumento(int idSucursal,int idDocumento, int cantidad, String codigoDetalle)
+        {
+            DaoDocumentos daoDoc = new DaoDocumentos();
+            ArrayList arrDetalle=new ArrayList();
+            arrDetalle=daoDoc.SeleccionaProducto(codigoDetalle, idDocumento);
+
+            foreach(DetalleProducto objDetalle in arrDetalle){
+                daoDoc.AgregarStock('+', cantidad, objDetalle.idDetalleproducto, idSucursal);
+            }
+            
+        }
+        public void EliminarDetalleIngreso(int idSucursal,  int idDocumento)
+        {
+            DaoDocumentos daoDoc = new DaoDocumentos();
+            ArrayList arrDetalle = new ArrayList();
+            arrDetalle = daoDoc.SeleccionaProducto("",idDocumento);
+
+            foreach (DetalleProducto objDetalle in arrDetalle)
+            {
+                daoDoc.AgregarStock('-', objDetalle.cantidadDetalleproducto, objDetalle.idDetalleproducto, idSucursal);
+            }
+            daoDoc.ModificarEstadoDocumento(idDocumento, 5);
         }
     }
 }
