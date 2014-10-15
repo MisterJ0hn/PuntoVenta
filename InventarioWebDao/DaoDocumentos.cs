@@ -40,23 +40,47 @@ namespace InventarioWebDao
             int id=objConexion.InsertSql("DOCUMENTO",arrCampos,true);
             return id;
         }
-        public int AgregarProducto(DetalleProducto objDP)
+        public int AgregarProducto(DetalleProducto objDP, double pganancia=0)
         {
             DaoConexion objConexion = new DaoConexion();
+            SqlDataReader drArreglo;
+            ArrayList arrConexion = new ArrayList();
             ArrayList arrValores = new ArrayList();
             ArrayList arrCampos = new ArrayList();
+            String porcentaje = "";
             DateTime hoy = DateTime.Today;
+            if (pganancia > 0)
+            {
+                porcentaje = pganancia.ToString();
+            }
+            else
+            {
+                arrConexion = objConexion.QuerySql("SELECT PorcentajeGanancia FROM PRODUCTO WHERE IdProducto=" + objDP.idProducto.ToString());
+                drArreglo = (SqlDataReader)arrConexion[0];
+                if (drArreglo.HasRows)
+                {
+                    while (drArreglo.Read())
+                    {
+                        porcentaje = drArreglo[0].ToString();
+                    }
+
+                }
+            }
 
             arrCampos.Add("CodigoDetalleproducto");
             arrCampos.Add("DescripcionDetalleproducto");
             arrCampos.Add("PreciocompraDetalleproducto");
             //arrCampos.Add("CantidadDetalleproducto");
+            arrCampos.Add("PorcentajegananciaDetalleproducto");
+            arrCampos.Add("PrecioventaDetalleproducto");
             arrCampos.Add("IdProducto");
 
             arrValores.Add("'" + objDP.codigoDetalleproducto.ToString() + "'");
             arrValores.Add("'" + objDP.descripcionDetalleproducto.ToString() + "'");
             arrValores.Add(objDP.precioCompraDetalleproducto.ToString());
             //arrValores.Add(objDP.cantidadDetalleproducto.ToString());
+            arrValores.Add(porcentaje);
+            arrValores.Add(objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100);
             arrValores.Add(objDP.idProducto.ToString());
 
             objConexion.AddValue(arrValores);

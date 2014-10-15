@@ -1,0 +1,74 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using InventarioWebApp;
+using System.Data;
+using System.Collections;
+
+namespace InventarioWeb.admin
+{
+    public partial class AgregarDetalleproducto : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                AppDocumentos appDocumentos = new AppDocumentos();
+                cboDepartamento.DataSource = (DataTable)appDocumentos.cboDepartamento();
+                cboDepartamento.DataTextField = "Nombre";
+                cboDepartamento.DataValueField = "Id";
+                cboDepartamento.DataBind();
+
+                cboProducto.DataSource = (DataTable)appDocumentos.cboProductos();
+                cboProducto.DataTextField = "Nombre";
+                cboProducto.DataValueField = "Id";
+                cboProducto.DataBind();
+            }
+        }
+
+        protected void cboDepartamento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AppDocumentos appDocumento = new AppDocumentos();
+            cboProducto.DataSource = (DataTable)appDocumento.cboProductos(Convert.ToInt32(cboDepartamento.SelectedValue));
+            cboProducto.DataTextField = "Nombre";
+            cboProducto.DataValueField = "Id";
+            cboProducto.DataBind();
+        }
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            AppDocumentos appDocumentos = new AppDocumentos();
+            ArrayList arrProd = new ArrayList();
+
+            int idProd = appDocumentos.AgregaProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text),Convert.ToDouble(txtGanancia.Text));
+
+            if (idProd > 0)
+            {
+                lblAlerta.Text = "Producto ingresado satisfactoriamente";
+                lblAlerta.CssClass = "alertaP";
+                txtCodigo.Text = "";
+                txtCosto.Text = "";
+                txtDescripcion.Text = "";
+                txtGanancia.Text = "";
+                txtVenta.Text = "";
+
+                cboDepartamento.DataSource = (DataTable)appDocumentos.cboDepartamento();
+                cboDepartamento.DataTextField = "Nombre";
+                cboDepartamento.DataValueField = "Id";
+                cboDepartamento.DataBind();
+
+                cboProducto.DataSource = (DataTable)appDocumentos.cboProductos();
+                cboProducto.DataTextField = "Nombre";
+                cboProducto.DataValueField = "Id";
+                cboProducto.DataBind();
+            }
+            else
+            {
+                lblAlerta.Text = "Existe un error al Ingresar, revise los datos y vuelva a guardar";
+                lblAlerta.CssClass = "alertaN";
+            }
+        }
+    }
+}

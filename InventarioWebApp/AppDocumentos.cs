@@ -45,7 +45,7 @@ namespace InventarioWebApp
             return idDocumento;
 
         }
-        public int AgregaProducto(String Codigo, String Descripcion, int idProducto, int precioCompra )
+        public int AgregaProducto(String Codigo, String Descripcion, int idProducto, int precioCompra , double porcentaje=0)
         {
             DaoDocumentos conexion = new DaoDocumentos();
             DetalleProducto objProd=new DetalleProducto();
@@ -54,7 +54,7 @@ namespace InventarioWebApp
             objProd.idProducto=idProducto;
             objProd.precioCompraDetalleproducto=precioCompra;
 
-            int id=conexion.AgregarProducto(objProd);
+            int id=conexion.AgregarProducto(objProd, porcentaje);
             return id;
 
         }

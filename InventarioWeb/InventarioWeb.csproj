@@ -62,9 +62,11 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="admin\AgregarDetalleproducto.aspx" />
     <Content Include="admin\AgregarProveedor.aspx" />
     <Content Include="admin\AgregarSucursal.aspx" />
     <Content Include="admin\AgregarUsuario.aspx" />
+    <Content Include="admin\GestionDetalleproductos.aspx" />
     <Content Include="admin\GestionDocumentos.aspx" />
     <Content Include="admin\GestionEmpresa.aspx" />
     <Content Include="admin\GestionProveedores.aspx" />
@@ -146,6 +148,13 @@
     <Compile Include="ADM.Master.designer.cs">
       <DependentUpon>ADM.Master</DependentUpon>
     </Compile>
+    <Compile Include="admin\AgregarDetalleproducto.aspx.cs">
+      <DependentUpon>AgregarDetalleproducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\AgregarDetalleproducto.aspx.designer.cs">
+      <DependentUpon>AgregarDetalleproducto.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\AgregarProveedor.aspx.cs">
       <DependentUpon>AgregarProveedor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -166,6 +175,13 @@
     </Compile>
     <Compile Include="admin\AgregarUsuario.aspx.designer.cs">
       <DependentUpon>AgregarUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\GestionDetalleproductos.aspx.cs">
+      <DependentUpon>GestionDetalleproductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\GestionDetalleproductos.aspx.designer.cs">
+      <DependentUpon>GestionDetalleproductos.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\GestionDocumentos.aspx.cs">
       <DependentUpon>GestionDocumentos.aspx</DependentUpon>
