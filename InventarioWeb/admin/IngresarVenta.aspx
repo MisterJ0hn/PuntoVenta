@@ -9,6 +9,12 @@
 <asp:HiddenField ID="hdIdDocumento" runat="server" />
     <asp:HiddenField ID="hdIdDetalle" runat="server" />
 <p>
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+</p>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>
+    <p>
 <asp:Label ID="lblCodigo" runat="server" Text="Codigo" Width="100"></asp:Label>
 <asp:TextBox ID="txtCodigo" runat="server" ontextchanged="txtCodigo_TextChanged" AutoPostBack="true"/>
 <asp:RequiredFieldValidator ID="vldCodigo" Text="Codigo Invalido" runat="server" ControlToValidate="txtCodigo"></asp:RequiredFieldValidator>
@@ -31,6 +37,12 @@
 
 <asp:Button ID="Button1" Text="Eliminar" runat="server" 
         onclick="btnEliminar_Click" />
+    </p>
+    </ContentTemplate>
+    </asp:UpdatePanel>
+<p>
+<asp:Button ID="btnFinalizar" Text="Finalizar Venta" runat="server" 
+        onclick="btnFinalizar_Click" CausesValidation="False" />
 </p>
 </td>
 <td valign="top">

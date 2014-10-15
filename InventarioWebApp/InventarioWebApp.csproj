@@ -96,6 +96,7 @@
     <Compile Include="NegocioAccesoLogica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidaRut.cs" />
+    <Compile Include="WebForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

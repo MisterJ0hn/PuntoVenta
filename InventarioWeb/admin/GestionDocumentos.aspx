@@ -55,7 +55,7 @@
         ON DOCUMENTO.RutEmpresa = EMPRESA.RutEmpresa 
         INNER JOIN ESTADODOCUMENTO 
         ON DOCUMENTO.EstadoDocumento = ESTADODOCUMENTO.IdEstadoDocumento
-        Where DOCUMENTO.RutEmpresaPropia=@rutEmpresa">
+        Where DOCUMENTO.IdTipomovimiento=1 AND DOCUMENTO.EstadoDocumento!=5 AND DOCUMENTO.RutEmpresaPropia=@rutEmpresa">
         <SelectParameters>
             <asp:ControlParameter ControlID="hdRutEmpresa" Name="rutEmpresa" Type="String"/>
         </SelectParameters>

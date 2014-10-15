@@ -192,6 +192,18 @@ namespace InventarioWebApp
             }
             
         }
+        public void CerrarVenta(int idSucursal, int idDocumento)
+        {
+            DaoDocumentos daoDoc = new DaoDocumentos();
+            ArrayList arrDetalle = new ArrayList();
+            arrDetalle = daoDoc.SeleccionaProducto("", idDocumento);
+
+            foreach (DetalleProducto objDetalle in arrDetalle)
+            {
+                daoDoc.AgregarStock('-', objDetalle.cantidadDetalleproducto, objDetalle.idDetalleproducto, idSucursal);
+            }
+            daoDoc.ModificarEstadoDocumento(idDocumento, 2);
+        }
         public void EliminarDetalleIngreso(int idSucursal,  int idDocumento)
         {
             DaoDocumentos daoDoc = new DaoDocumentos();
@@ -201,6 +213,18 @@ namespace InventarioWebApp
             foreach (DetalleProducto objDetalle in arrDetalle)
             {
                 daoDoc.AgregarStock('-', objDetalle.cantidadDetalleproducto, objDetalle.idDetalleproducto, idSucursal);
+            }
+            daoDoc.ModificarEstadoDocumento(idDocumento, 5);
+        }
+        public void EliminarDetalleEgreso(int idSucursal, int idDocumento)
+        {
+            DaoDocumentos daoDoc = new DaoDocumentos();
+            ArrayList arrDetalle = new ArrayList();
+            arrDetalle = daoDoc.SeleccionaProducto("", idDocumento);
+
+            foreach (DetalleProducto objDetalle in arrDetalle)
+            {
+                daoDoc.AgregarStock('+', objDetalle.cantidadDetalleproducto, objDetalle.idDetalleproducto, idSucursal);
             }
             daoDoc.ModificarEstadoDocumento(idDocumento, 5);
         }

@@ -38,6 +38,7 @@
                             <asp:MenuItem NavigateUrl="~/admin/GestionU.aspx" Text="Gestion de Usuarios"/>
                             <asp:MenuItem NavigateUrl="~/admin/GestionProveedores.aspx" Text="Gestion de Proveedores"/>
                             <asp:MenuItem NavigateUrl="~/admin/GestionDocumentos.aspx" Text="Ingresos"/>
+                            <asp:MenuItem NavigateUrl="~/admin/GestionVentas.aspx" Text="Venta"/>
                         </Items>
                     </asp:Menu>
                 </div>
