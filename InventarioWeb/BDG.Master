@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Inventario - Bodega</title>
     <link href="Styles/Site.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -36,7 +36,9 @@
                         <Items>
                             <asp:MenuItem NavigateUrl="~/ingresa.aspx" Text="Página principal"/>
                             <asp:MenuItem NavigateUrl="~/historia.aspx" Text="Acerca de"/>
-                            <asp:MenuItem NavigateUrl="~/bodega/productos.aspx" Text="Productos"/>
+                             <asp:MenuItem NavigateUrl="~/bodega/GestionProveedores.aspx" Text="Gestion de Proveedores"/>
+                            <asp:MenuItem NavigateUrl="~/bodega/GestionDocumentos.aspx" Text="Ingresos"/>
+                            <asp:MenuItem NavigateUrl="~/bodega/GestionDetalleproductos.aspx" Text="Productos"/>
                         </Items>
                     </asp:Menu>
                 </div>

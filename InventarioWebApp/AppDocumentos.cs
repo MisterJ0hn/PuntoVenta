@@ -45,7 +45,7 @@ namespace InventarioWebApp
             return idDocumento;
 
         }
-        public int AgregaProducto(String Codigo, String Descripcion, int idProducto, int precioCompra , double porcentaje=0)
+        public int AgregaProducto(String Codigo, String Descripcion, int idProducto, int precioCompra , double porcentaje=0, int boleta=1)
         {
             DaoDocumentos conexion = new DaoDocumentos();
             DetalleProducto objProd=new DetalleProducto();
@@ -53,10 +53,25 @@ namespace InventarioWebApp
             objProd.descripcionDetalleproducto=Descripcion;
             objProd.idProducto=idProducto;
             objProd.precioCompraDetalleproducto=precioCompra;
+            objProd.boleta = boleta;
 
             int id=conexion.AgregarProducto(objProd, porcentaje);
             return id;
 
+        }
+        public  void ModificaProducto(int idDetalleproducto, String Codigo, String Descripcion, int idProducto, int precioCompra, double porcentaje = 0, int boleta = 1)
+        {
+            DaoDocumentos conexion = new DaoDocumentos();
+            DetalleProducto objProd = new DetalleProducto();
+            objProd.idDetalleproducto = idDetalleproducto;
+            objProd.codigoDetalleproducto = Codigo;
+            objProd.descripcionDetalleproducto = Descripcion;
+            objProd.idProducto = idProducto;
+            objProd.precioCompraDetalleproducto = precioCompra;
+            objProd.boleta = boleta;
+
+            conexion.ModificarProducto(objProd, porcentaje);
+           
         }
         public void AgregarDetalledocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad)
         {
@@ -140,6 +155,7 @@ namespace InventarioWebApp
                 arrProductoReturn.Add(objDP.precioCompraDetalleproducto);//4
                 arrProductoReturn.Add(objDP.porcentajeGanancia);//5
                 arrProductoReturn.Add(objDP.precioVentaDetalleproducto); //6
+                arrProductoReturn.Add(objDP.boleta);//7
                 
             }
 
@@ -258,6 +274,49 @@ namespace InventarioWebApp
             totales.Add(total + netoSinBoleta);
             return totales;
 
+        }
+        public String PorcentajeProducto(int idProducto)
+        {
+            DaoDocumentos daoDoc = new DaoDocumentos();
+
+            String porcentaje = daoDoc.ProductoPorcentaje(idProducto);
+
+            return porcentaje;
+        }
+        public int AgregarProductoProducto(String nombre, int idDepartamento, String porcentaje)
+        {
+            DaoConexion daoCon = new DaoConexion();
+            ArrayList arrValores = new ArrayList();
+            ArrayList arrCampos = new ArrayList();
+
+            arrValores.Add("'"+nombre+"'");
+            arrValores.Add(idDepartamento.ToString());
+            arrValores.Add("'" + porcentaje + "'");
+
+            arrCampos.Add("TipoproductoProducto");
+            arrCampos.Add("IdDepartamento");
+            arrCampos.Add("PorcentajeProducto");
+
+            daoCon.AddValue(arrValores);
+
+            int id = daoCon.InsertSql("PRODUCTO", arrCampos, true);
+            return id;
+        }
+        public int AgregarDepartamento(String nombre)
+        {
+            DaoConexion daoCon = new DaoConexion();
+            ArrayList arrValores = new ArrayList();
+            ArrayList arrCampos = new ArrayList();
+
+            arrValores.Add("'" + nombre + "'");
+
+
+            arrCampos.Add("TipodepartamentoDepartamento");
+           
+            daoCon.AddValue(arrValores);
+
+            int id = daoCon.InsertSql("DEPARTAMENTO", arrCampos, true);
+            return id;
         }
     }
 }

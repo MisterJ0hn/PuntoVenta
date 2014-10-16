@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Inventario - Administrador</title>
     <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -39,6 +39,7 @@
                             <asp:MenuItem NavigateUrl="~/admin/GestionProveedores.aspx" Text="Gestion de Proveedores"/>
                             <asp:MenuItem NavigateUrl="~/admin/GestionDocumentos.aspx" Text="Ingresos"/>
                             <asp:MenuItem NavigateUrl="~/admin/GestionVentas.aspx" Text="Venta"/>
+                            <asp:MenuItem NavigateUrl="~/admin/GestionDetalleproductos.aspx" Text="Productos"/>
                         </Items>
                     </asp:Menu>
                 </div>

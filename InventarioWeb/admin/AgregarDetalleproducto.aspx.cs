@@ -42,7 +42,7 @@ namespace InventarioWeb.admin
             AppDocumentos appDocumentos = new AppDocumentos();
             ArrayList arrProd = new ArrayList();
 
-            int idProd = appDocumentos.AgregaProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text),Convert.ToDouble(txtGanancia.Text));
+            int idProd = appDocumentos.AgregaProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text),Convert.ToDouble(txtGanancia.Text),Convert.ToInt32(cboEnBoleta.SelectedValue) );
 
             if (idProd > 0)
             {
@@ -68,6 +68,31 @@ namespace InventarioWeb.admin
             {
                 lblAlerta.Text = "Existe un error al Ingresar, revise los datos y vuelva a guardar";
                 lblAlerta.CssClass = "alertaN";
+            }
+        }
+
+        protected void txtCosto_TextChanged(object sender, EventArgs e)
+        {
+            txtVenta.Text = (Convert.ToInt32(txtCosto.Text) + (Convert.ToInt32(txtCosto.Text) * Convert.ToInt32(txtGanancia.Text) / 100)).ToString();
+        }
+
+        protected void cboProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AppDocumentos appDoc= new AppDocumentos();
+            txtGanancia.Text = appDoc.PorcentajeProducto(Convert.ToInt32(cboProducto.SelectedValue));
+        }
+
+        protected void txtCodigo_TextChanged(object sender, EventArgs e)
+        {
+            AppDocumentos appDoc = new AppDocumentos();
+            ArrayList arr = new ArrayList();
+            arr=appDoc.DetalleProductoBuscar(txtCodigo.Text);
+            if (arr.Count > 0)
+            {
+                lblAlerta.Text = "Este codigo ya existe";
+                lblAlerta.CssClass = "alertaN";
+                txtCodigo.Text = "";
+                txtCodigo.Focus();
             }
         }
     }

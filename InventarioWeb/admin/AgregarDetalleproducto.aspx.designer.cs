@@ -46,7 +46,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator vldCodigo;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator vldCodigo;
         
         /// <summary>
         /// Control LblDescripcion.
@@ -73,7 +73,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RangeValidator1;
         
         /// <summary>
         /// Control lblDepartamento.
@@ -118,7 +118,25 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RangeValidator2;
+        
+        /// <summary>
+        /// Control lblBoleta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBoleta;
+        
+        /// <summary>
+        /// Control cboEnBoleta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cboEnBoleta;
         
         /// <summary>
         /// Control lblCosto.
@@ -145,7 +163,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator3;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RangeValidator3;
         
         /// <summary>
         /// Control lblProcentaje.

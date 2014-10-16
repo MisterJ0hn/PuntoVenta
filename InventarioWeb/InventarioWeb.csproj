@@ -62,13 +62,17 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="admin\AgregarDepartamento.aspx" />
     <Content Include="admin\AgregarDetalleproducto.aspx" />
+    <Content Include="admin\AgregarProducto.aspx" />
     <Content Include="admin\AgregarProveedor.aspx" />
     <Content Include="admin\AgregarSucursal.aspx" />
     <Content Include="admin\AgregarUsuario.aspx" />
+    <Content Include="admin\GestionDepartamento.aspx" />
     <Content Include="admin\GestionDetalleproductos.aspx" />
     <Content Include="admin\GestionDocumentos.aspx" />
     <Content Include="admin\GestionEmpresa.aspx" />
+    <Content Include="admin\GestionProductos.aspx" />
     <Content Include="admin\GestionProveedores.aspx" />
     <Content Include="admin\GestionSucursales.aspx" />
     <Content Include="admin\GestionU.aspx" />
@@ -76,10 +80,23 @@
     <Content Include="admin\IngresarProductos.aspx" />
     <Content Include="admin\IngresarVenta.aspx" />
     <Content Include="admin\IngresoDocumento.aspx" />
+    <Content Include="admin\ModificarDetalleproductos.aspx" />
     <Content Include="admin\ModificarProveedor.aspx" />
     <Content Include="admin\ModificarSucursal.aspx" />
     <Content Include="admin\UpdateUsuario.aspx" />
     <Content Include="admin\Welcome.aspx" />
+    <Content Include="bodega\AgregarDepartamento.aspx" />
+    <Content Include="bodega\AgregarDetalleproducto.aspx" />
+    <Content Include="bodega\AgregarProducto.aspx" />
+    <Content Include="bodega\AgregarProveedor.aspx" />
+    <Content Include="bodega\GestionDepartamento.aspx" />
+    <Content Include="bodega\GestionDetalleproductos.aspx" />
+    <Content Include="bodega\GestionProductos.aspx" />
+    <Content Include="bodega\GestionProveedores.aspx" />
+    <Content Include="bodega\IngresarProductos.aspx" />
+    <Content Include="bodega\IngresoDocumento.aspx" />
+    <Content Include="bodega\ModificarDetalleproductos.aspx" />
+    <Content Include="bodega\ModificarProveedor.aspx" />
     <Content Include="bodega\productos.aspx" />
     <Content Include="historia.aspx" />
     <Content Include="Imagenes\alerta2.gif" />
@@ -97,6 +114,8 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="venta\GestionVentas.aspx" />
+    <Content Include="venta\IngresarVenta.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -148,12 +167,26 @@
     <Compile Include="ADM.Master.designer.cs">
       <DependentUpon>ADM.Master</DependentUpon>
     </Compile>
+    <Compile Include="admin\AgregarDepartamento.aspx.cs">
+      <DependentUpon>AgregarDepartamento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\AgregarDepartamento.aspx.designer.cs">
+      <DependentUpon>AgregarDepartamento.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\AgregarDetalleproducto.aspx.cs">
       <DependentUpon>AgregarDetalleproducto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="admin\AgregarDetalleproducto.aspx.designer.cs">
       <DependentUpon>AgregarDetalleproducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\AgregarProducto.aspx.cs">
+      <DependentUpon>AgregarProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\AgregarProducto.aspx.designer.cs">
+      <DependentUpon>AgregarProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\AgregarProveedor.aspx.cs">
       <DependentUpon>AgregarProveedor.aspx</DependentUpon>
@@ -176,6 +209,13 @@
     <Compile Include="admin\AgregarUsuario.aspx.designer.cs">
       <DependentUpon>AgregarUsuario.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\GestionDepartamento.aspx.cs">
+      <DependentUpon>GestionDepartamento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\GestionDepartamento.aspx.designer.cs">
+      <DependentUpon>GestionDepartamento.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\GestionDetalleproductos.aspx.cs">
       <DependentUpon>GestionDetalleproductos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -196,6 +236,13 @@
     </Compile>
     <Compile Include="admin\GestionEmpresa.aspx.designer.cs">
       <DependentUpon>GestionEmpresa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\GestionProductos.aspx.cs">
+      <DependentUpon>GestionProductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\GestionProductos.aspx.designer.cs">
+      <DependentUpon>GestionProductos.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\GestionProveedores.aspx.cs">
       <DependentUpon>GestionProveedores.aspx</DependentUpon>
@@ -246,6 +293,13 @@
     <Compile Include="admin\IngresoDocumento.aspx.designer.cs">
       <DependentUpon>IngresoDocumento.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\ModificarDetalleproductos.aspx.cs">
+      <DependentUpon>ModificarDetalleproductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\ModificarDetalleproductos.aspx.designer.cs">
+      <DependentUpon>ModificarDetalleproductos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\ModificarProveedor.aspx.cs">
       <DependentUpon>ModificarProveedor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -280,6 +334,90 @@
     </Compile>
     <Compile Include="BDG.Master.designer.cs">
       <DependentUpon>BDG.Master</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\AgregarDepartamento.aspx.cs">
+      <DependentUpon>AgregarDepartamento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\AgregarDepartamento.aspx.designer.cs">
+      <DependentUpon>AgregarDepartamento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\AgregarDetalleproducto.aspx.cs">
+      <DependentUpon>AgregarDetalleproducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\AgregarDetalleproducto.aspx.designer.cs">
+      <DependentUpon>AgregarDetalleproducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\AgregarProducto.aspx.cs">
+      <DependentUpon>AgregarProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\AgregarProducto.aspx.designer.cs">
+      <DependentUpon>AgregarProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\AgregarProveedor.aspx.cs">
+      <DependentUpon>AgregarProveedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\AgregarProveedor.aspx.designer.cs">
+      <DependentUpon>AgregarProveedor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\GestionDepartamento.aspx.cs">
+      <DependentUpon>GestionDepartamento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\GestionDepartamento.aspx.designer.cs">
+      <DependentUpon>GestionDepartamento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\GestionDetalleproductos.aspx.cs">
+      <DependentUpon>GestionDetalleproductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\GestionDetalleproductos.aspx.designer.cs">
+      <DependentUpon>GestionDetalleproductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\GestionProductos.aspx.cs">
+      <DependentUpon>GestionProductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\GestionProductos.aspx.designer.cs">
+      <DependentUpon>GestionProductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\GestionProveedores.aspx.cs">
+      <DependentUpon>GestionProveedores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\GestionProveedores.aspx.designer.cs">
+      <DependentUpon>GestionProveedores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\IngresarProductos.aspx.cs">
+      <DependentUpon>IngresarProductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\IngresarProductos.aspx.designer.cs">
+      <DependentUpon>IngresarProductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\IngresoDocumento.aspx.cs">
+      <DependentUpon>IngresoDocumento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\IngresoDocumento.aspx.designer.cs">
+      <DependentUpon>IngresoDocumento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\ModificarDetalleproductos.aspx.cs">
+      <DependentUpon>ModificarDetalleproductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\ModificarDetalleproductos.aspx.designer.cs">
+      <DependentUpon>ModificarDetalleproductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\ModificarProveedor.aspx.cs">
+      <DependentUpon>ModificarProveedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\ModificarProveedor.aspx.designer.cs">
+      <DependentUpon>ModificarProveedor.aspx</DependentUpon>
     </Compile>
     <Compile Include="bodega\productos.aspx.cs">
       <DependentUpon>productos.aspx</DependentUpon>
@@ -355,6 +493,27 @@
       <DependentUpon>MPP.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="venta\GestionVentas.aspx.cs">
+      <DependentUpon>GestionVentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="venta\GestionVentas.aspx.designer.cs">
+      <DependentUpon>GestionVentas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="venta\IngresarVenta.aspx.cs">
+      <DependentUpon>IngresarVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="venta\IngresarVenta.aspx.designer.cs">
+      <DependentUpon>IngresarVenta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VNT.Master.cs">
+      <DependentUpon>VNT.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VNT.Master.designer.cs">
+      <DependentUpon>VNT.Master</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -379,6 +538,7 @@
     <Content Include="ADM.Master" />
     <Content Include="BDG.Master" />
     <None Include="Imagenes\Thumbs.db" />
+    <Content Include="VNT.Master" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

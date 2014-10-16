@@ -8,12 +8,12 @@
 <asp:Label ID="lblCodigo" runat="server" Text="Codigo" Width="100"></asp:Label>
 <asp:TextBox ID="txtCodigo" runat="server" AutoPostBack="true" 
         ontextchanged="txtCodigo_TextChanged"></asp:TextBox>
-<asp:RangeValidator ID="vldCodigo" ControlToValidate="txtCodigo" runat="server" Text="Campo Requerido" CssClass="failureNotification"></asp:RangeValidator>
+<asp:RequiredFieldValidator ID="vldCodigo" ControlToValidate="txtCodigo" runat="server" Text="Campo Requerido" CssClass="failureNotification"></asp:RequiredFieldValidator>
 </p>
 <p>
 <asp:Label ID="LblDescripcion" runat="server" Text="Descripcion" Width="100"></asp:Label>
 <asp:TextBox ID="txtDescripcion" runat="server" ></asp:TextBox>
-<asp:RangeValidator ID="RangeValidator1" ControlToValidate="txtDescripcion" runat="server" Text="Campo Requerido" CssClass="failureNotification"></asp:RangeValidator>
+<asp:RequiredFieldValidator ID="RangeValidator1" ControlToValidate="txtDescripcion" runat="server" Text="Campo Requerido" CssClass="failureNotification"></asp:RequiredFieldValidator>
 </p>
 <p>
 <asp:Label ID="lblDepartamento" runat="server" Text="Departamento" Width="100">
@@ -23,13 +23,22 @@
 </p>
 <p>
 <asp:Label ID="lblProducto" runat="server" Text="Producto" Width="100"></asp:Label>
-<asp:DropDownList ID="cboProducto" runat="server" />
-<asp:RangeValidator ID="RangeValidator2" ControlToValidate="cboProducto" runat="server" Text="Campo Requerido" CssClass="failureNotification"></asp:RangeValidator>
+<asp:DropDownList ID="cboProducto" runat="server" 
+AutoPostBack="true" 
+        onselectedindexchanged="cboProducto_SelectedIndexChanged" />
+<asp:RequiredFieldValidator ID="RangeValidator2" ControlToValidate="cboProducto" runat="server" Text="Campo Requerido" CssClass="failureNotification"></asp:RequiredFieldValidator>
+</p>
+<p>
+<asp:Label ID="lblBoleta" runat="server" Text="Incluir en Boleta" Width="100"></asp:Label>
+<asp:DropDownList ID="cboEnBoleta" runat="server">
+<asp:ListItem Value="1" Text="SI"></asp:ListItem>
+<asp:ListItem Value="0" Text="NO"></asp:ListItem>
+</asp:DropDownList>
 </p>
 <p>
 <asp:Label ID="lblCosto" Text="Costo" runat="server" Width="100"></asp:Label>
-<asp:TextBox ID="txtCosto" runat="server"></asp:TextBox>
-<asp:RangeValidator ID="RangeValidator3" ControlToValidate="txtCosto" runat="server" Text="Campo Requerido" CssClass="failureNotification"></asp:RangeValidator>
+<asp:TextBox ID="txtCosto" runat="server" ontextchanged="txtCosto_TextChanged" AutoPostBack="true" ></asp:TextBox>
+<asp:RequiredFieldValidator ID="RangeValidator3" ControlToValidate="txtCosto" runat="server" Text="Campo Requerido" CssClass="failureNotification"></asp:RequiredFieldValidator>
 </p>
 <p>
 <asp:Label ID="lblProcentaje" Text="Ganancia" runat="server" Width="100"></asp:Label>

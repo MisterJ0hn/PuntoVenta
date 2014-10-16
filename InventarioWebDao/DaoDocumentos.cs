@@ -74,20 +74,43 @@ namespace InventarioWebDao
             arrCampos.Add("PorcentajegananciaDetalleproducto");
             arrCampos.Add("PrecioventaDetalleproducto");
             arrCampos.Add("IdProducto");
-
+            
             arrValores.Add("'" + objDP.codigoDetalleproducto.ToString() + "'");
             arrValores.Add("'" + objDP.descripcionDetalleproducto.ToString() + "'");
             arrValores.Add(objDP.precioCompraDetalleproducto.ToString());
             //arrValores.Add(objDP.cantidadDetalleproducto.ToString());
-            arrValores.Add(porcentaje);
+            arrValores.Add(porcentaje.ToString());
             arrValores.Add(objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100);
             arrValores.Add(objDP.idProducto.ToString());
+          
 
             objConexion.AddValue(arrValores);
 
             int id = objConexion.InsertSql("DETALLEPRODUCTO", arrCampos, true);
 
             return id;
+        }
+        public void ModificarProducto(DetalleProducto objDP, double pganancia = 0)
+        {
+            DaoConexion objConexion = new DaoConexion();
+          
+            ArrayList arrValores = new ArrayList();
+            
+            String porcentaje = pganancia.ToString();
+
+
+            arrValores.Add("CodigoDetalleproducto='" + objDP.codigoDetalleproducto.ToString() + "'");
+            arrValores.Add("DescripcionDetalleproducto='" + objDP.descripcionDetalleproducto.ToString() + "'");
+            arrValores.Add("PreciocompraDetalleproducto="+objDP.precioCompraDetalleproducto.ToString());
+            //arrValores.Add(objDP.cantidadDetalleproducto.ToString());
+            arrValores.Add("PorcentajegananciaDetalleproducto='"+porcentaje.ToString()+"'");
+            arrValores.Add("PrecioventaDetalleproducto="+objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100);
+            arrValores.Add("IdProducto="+objDP.idProducto.ToString());
+
+
+         
+            objConexion.UpdateSql("DETALLEPRODUCTO", arrValores, "IdDetalleproducto=" + objDP.idDetalleproducto);
+
         }
         public void AgregarStock(char signo,int cantidad, int idDetalleproducto, int idSucursal)
         {
@@ -145,13 +168,14 @@ namespace InventarioWebDao
             arrCampos.Add("PrecioVenta");
             arrCampos.Add("PrecioCosto");
             arrCampos.Add("Utilidad");
-            
+               
             arrValores.Add(idDetalleproducto.ToString());
             arrValores.Add(idDocumdento.ToString());
             arrValores.Add(cantida.ToString());
             arrValores.Add(precioVenta.ToString());
             arrValores.Add(precioCosto.ToString());
             arrValores.Add(utilidad.ToString());
+ 
 
             objConexion.AddValue(arrValores);
             objConexion.InsertSql("DETALLEDOCUMENTO", arrCampos);
@@ -329,6 +353,28 @@ namespace InventarioWebDao
 
             conn.UpdateSql("DOCUMENTO", arr, "IdDocumento=" + idDocumento);
 
+        }
+        public String ProductoPorcentaje(int idProducto)
+        {
+            DaoConexion conexion = new DaoConexion();
+            SqlDataReader drArreglo;
+            SqlConnection conConexion = new SqlConnection();
+            ArrayList arrConexion = new ArrayList();
+            String porcentaje = "";
+            
+            arrConexion = conexion.QuerySql("SELECT P.PorcentajeGanancia " +
+                                           "FROM PRODUCTO P " +
+                                           "WHERE P.IdProducto= " + idProducto);
+
+            drArreglo = (SqlDataReader)arrConexion[0];
+            if (drArreglo.HasRows)
+            {
+                while (drArreglo.Read())
+                {
+                    porcentaje = drArreglo.GetString(0);
+                }
+            }
+            return porcentaje;
         }
     }
 }
