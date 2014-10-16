@@ -56,10 +56,10 @@ namespace InventarioWeb
                         Response.Redirect("/admin/Welcome.aspx");
                         break;
                     case 3:
-                        Response.Redirect("/bodega/productos.aspx");
+                        Response.Redirect("/bodega/GestionDetalleproductos.aspx");
                         break;
                     case 4:
-                        Response.Redirect("/admin/Welcome.aspx");
+                        Response.Redirect("/venta/GestionVentas.aspx");
                         break;
                 }
                 

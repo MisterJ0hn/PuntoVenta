@@ -91,6 +91,7 @@
     <Content Include="bodega\AgregarProveedor.aspx" />
     <Content Include="bodega\GestionDepartamento.aspx" />
     <Content Include="bodega\GestionDetalleproductos.aspx" />
+    <Content Include="bodega\GestionDocumentos.aspx" />
     <Content Include="bodega\GestionProductos.aspx" />
     <Content Include="bodega\GestionProveedores.aspx" />
     <Content Include="bodega\IngresarProductos.aspx" />
@@ -376,6 +377,13 @@
     </Compile>
     <Compile Include="bodega\GestionDetalleproductos.aspx.designer.cs">
       <DependentUpon>GestionDetalleproductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\GestionDocumentos.aspx.cs">
+      <DependentUpon>GestionDocumentos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\GestionDocumentos.aspx.designer.cs">
+      <DependentUpon>GestionDocumentos.aspx</DependentUpon>
     </Compile>
     <Compile Include="bodega\GestionProductos.aspx.cs">
       <DependentUpon>GestionProductos.aspx</DependentUpon>
