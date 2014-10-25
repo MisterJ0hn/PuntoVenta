@@ -42,7 +42,7 @@ namespace InventarioWeb.bodega
             AppDocumentos appDocumentos = new AppDocumentos();
             ArrayList arrProd = new ArrayList();
 
-            int idProd = appDocumentos.AgregaProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text),Convert.ToDouble(txtGanancia.Text),Convert.ToInt32(cboEnBoleta.SelectedValue) );
+            int idProd = appDocumentos.AgregaProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text),Convert.ToDouble(txtGanancia.Text));
 
             if (idProd > 0)
             {

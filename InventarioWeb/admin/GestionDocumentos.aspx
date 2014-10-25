@@ -52,10 +52,10 @@
         SelectCommand="SELECT DOCUMENTO.IdDocumento, EMPRESA.NombreEmpresa, EMPRESA.RutEmpresa, DOCUMENTO.NumeroDocumento, DOCUMENTO.FechaemisionDocumento, DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.EstadoDocumento 
         FROM DOCUMENTO 
         INNER JOIN EMPRESA 
-        ON DOCUMENTO.RutEmpresa = EMPRESA.RutEmpresa 
+        ON DOCUMENTO.RutproveedorDocumento = EMPRESA.RutEmpresa 
         INNER JOIN ESTADODOCUMENTO 
         ON DOCUMENTO.EstadoDocumento = ESTADODOCUMENTO.IdEstadoDocumento
-        Where DOCUMENTO.IdTipomovimiento=1 AND DOCUMENTO.EstadoDocumento!=5 AND DOCUMENTO.RutEmpresaPropia=@rutEmpresa">
+        Where DOCUMENTO.IdTipomovimiento=1 AND DOCUMENTO.EstadoDocumento!=5 AND DOCUMENTO.RutEmpresa=@rutEmpresa">
         <SelectParameters>
             <asp:ControlParameter ControlID="hdRutEmpresa" Name="rutEmpresa" Type="String"/>
         </SelectParameters>

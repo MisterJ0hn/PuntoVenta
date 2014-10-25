@@ -30,14 +30,14 @@
         <Columns>
             <asp:BoundField DataField="IdDocumento" HeaderText="Id" 
                 SortExpression="IdDocumento" />
-            <asp:BoundField DataField="NombreEmpresa" HeaderText="Nombre Empresa" 
+            <asp:BoundField DataField="NombreEmpresa" HeaderText="Nombre Cliente" 
                 SortExpression="NombreEmpresa" />
-            <asp:BoundField DataField="RutEmpresa" HeaderText="Rut Empresa" ReadOnly="True" 
+            <asp:BoundField DataField="RutEmpresa" HeaderText="Rut Cliente" ReadOnly="True" 
                 SortExpression="RutEmpresa" />
             <asp:BoundField DataField="NumeroDocumento" HeaderText="Numero Documento" 
                 SortExpression="NumeroDocumento" />
-            <asp:BoundField DataField="FechaemisionDocumento" 
-                HeaderText="Fecha Emision" SortExpression="FechaemisionDocumento" />
+            <asp:BoundField DataField="FechaingresoDocumento" 
+                HeaderText="Fecha Ingreso" SortExpression="FechaingresoDocumento" />
             <asp:BoundField DataField="MontototalDocumento" 
                 HeaderText="Monto Total" SortExpression="MontototalDocumento" />
             <asp:BoundField DataField="EstadoDocumento" HeaderText="Estado" 
@@ -59,13 +59,15 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
-        SelectCommand="SELECT DOCUMENTO.IdDocumento, EMPRESA.NombreEmpresa, EMPRESA.RutEmpresa, DOCUMENTO.NumeroDocumento, DOCUMENTO.FechaemisionDocumento, DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.EstadoDocumento 
+        SelectCommand="SELECT DOCUMENTO.IdDocumento, EMPRESA.NombreEmpresa, EMPRESA.RutEmpresa, DOCUMENTO.NumeroDocumento, DOCUMENTO.FechaingresoDocumento, DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.EstadoDocumento , FORMAPAGO.FormaPago
         FROM DOCUMENTO 
         INNER JOIN EMPRESA 
-        ON DOCUMENTO.RutEmpresa = EMPRESA.RutEmpresa 
+        ON DOCUMENTO.RutproveedorDocumento = EMPRESA.RutEmpresa 
         INNER JOIN ESTADODOCUMENTO 
         ON DOCUMENTO.EstadoDocumento = ESTADODOCUMENTO.IdEstadoDocumento
-        Where DOCUMENTO.IdTipomovimiento=2 AND DOCUMENTO.EstadoDocumento!=5 AND DOCUMENTO.RutEmpresaPropia=@rutEmpresa
+        INNER JOIN FORMAPAGO
+        ON FORMAPAGO.IdFormapago=DOCUMENTO.IdFormapago
+        Where DOCUMENTO.IdTipomovimiento=2 AND DOCUMENTO.EstadoDocumento!=5 AND DOCUMENTO.RutEmpresa=@rutEmpresa
         ORDER BY DOCUMENTO.EstadoDocumento, DOCUMENTO.IdDocumento Desc">
         <SelectParameters>
             <asp:ControlParameter ControlID="hdRutEmpresa" Name="rutEmpresa" Type="String"/>

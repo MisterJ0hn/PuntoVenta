@@ -5,7 +5,8 @@
 <h1>Productos</h1>
 
 <p>
-<asp:Button ID="btnAgregar" Text="Agregar" runat="server" />
+<asp:Button ID="btnAgregar" Text="Agregar" runat="server" 
+        onclick="btnAgregar_Click" />
 </p>
 
 <p>
@@ -14,17 +15,21 @@
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
         AllowSorting="True" AutoGenerateColumns="False" BackColor="White" 
         BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" 
-        DataKeyNames="IdProducto" DataSourceID="SqlDataSource1" GridLines="Horizontal">
+        DataKeyNames="IdProducto" DataSourceID="SqlDataSource1" 
+        GridLines="Horizontal" PageSize="30"
+        onrowcommand="GridView1_RowCommand">
         <AlternatingRowStyle BackColor="#F7F7F7" />
         <Columns>
-            <asp:BoundField DataField="IdProducto" HeaderText="IdProducto" 
-                InsertVisible="False" ReadOnly="True" SortExpression="IdProducto" />
+            <asp:BoundField DataField="IdProducto" HeaderText="Id" 
+                SortExpression="IdProducto" />
             <asp:BoundField DataField="TipoproductoProducto" 
-                HeaderText="TipoproductoProducto" SortExpression="TipoproductoProducto" />
-            <asp:BoundField DataField="PorcentajeGanancia" HeaderText="PorcentajeGanancia" 
-                SortExpression="PorcentajeGanancia" />
+                HeaderText="Producto" SortExpression="TipoproductoProducto" />
+            <asp:BoundField DataField="PorcentajeGananciaProducto" HeaderText="Ganancia" 
+                SortExpression="PorcentajeGananciaProducto" />
+            <asp:BoundField DataField="ImpuestoProducto" HeaderText="Impuesto" 
+                SortExpression="ImpuestoProducto" />
             <asp:BoundField DataField="TipodepartamentoDepartamento" 
-                HeaderText="TipodepartamentoDepartamento" 
+                HeaderText="Departamento" 
                 SortExpression="TipodepartamentoDepartamento" />
             <asp:ButtonField ButtonType="Button" CommandName="Editar" Text="Editar" />
         </Columns>
@@ -40,7 +45,7 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
-        SelectCommand="SELECT PRODUCTO.IdProducto, PRODUCTO.TipoproductoProducto, PRODUCTO.PorcentajeGanancia, DEPARTAMENTO.TipodepartamentoDepartamento FROM DEPARTAMENTO INNER JOIN PRODUCTO ON DEPARTAMENTO.IdDepartamento = PRODUCTO.IdDepartamento"
+        SelectCommand="SELECT PRODUCTO.IdProducto, PRODUCTO.TipoproductoProducto, PRODUCTO.PorcentajeGananciaProducto,PRODUCTO.ImpuestoProducto, DEPARTAMENTO.TipodepartamentoDepartamento FROM DEPARTAMENTO INNER JOIN PRODUCTO ON DEPARTAMENTO.IdDepartamento = PRODUCTO.IdDepartamento"
         FilterExpression="(TipoproductoProducto like '%{0}%' OR TipodepartamentoDepartamento like '%{0}%')"
         >
         <FilterParameters>

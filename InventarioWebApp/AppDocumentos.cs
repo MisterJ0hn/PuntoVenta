@@ -1,32 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using InventarioWebDao;
-using System.Data;
 using System.Collections;
+using System.Data;
+using InventarioWebDao;
 using InventarioWebEntity;
 
 namespace InventarioWebApp
 {
     public class AppDocumentos
     {
+        public int AgregarDocumento(String rutEmpresa, int tmov)
+        {
+            DaoDocumentos conexion = new DaoDocumentos();
+            ArrayList arrVenta = new ArrayList();
+            
+            int NumeroDocumento = 0;
+            DateTime hoy = DateTime.Today;
 
-        public bool AgregarDocumento(int numeroDoc, int monto,String fechaEmision, String RutEmpresa, String RutEmpresaPropia)
+            arrVenta = conexion.seleccionaDocumento(tmov, rutEmpresa, 0, true);
+            NumeroDocumento = Convert.ToInt32(arrVenta[0].ToString());
+
+            NumeroDocumento++;
+            int idDocumento = conexion.Agregar(NumeroDocumento, 0, 35, hoy.ToString(), "00.000.000-0", rutEmpresa, tmov, 1);
+
+            return idDocumento;
+        }
+
+        public bool AgregarDocumento(int numeroDoc, int monto,String fechaEmision, String RutEmpresa, String RutEmpresaPropia, int formaPago=1, int tmov=1)
         {
             DaoDocumentos conexion =new DaoDocumentos();
+            ArrayList arr=new ArrayList();
+            arr = conexion.seleccionaDocumento(1, RutEmpresa, 0, true, 0, numeroDoc);
 
-            if (conexion.Agregar(numeroDoc, monto, 33, fechaEmision, RutEmpresa, RutEmpresaPropia,1) > 0)
-            {
-                return true;
-            }
-            else
+            if (arr.Count > 0)
             {
                 return false;
             }
+            else
+            {
+                if (conexion.Agregar(numeroDoc, monto, 33, fechaEmision, RutEmpresa, RutEmpresaPropia, tmov, formaPago) > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
 
         }
-        public int AgregarVenta(String rutEmpresa)
+        public int AgregarVenta(String rutEmpresa, int formaPago)
         {
             DaoDocumentos conexion = new DaoDocumentos();
             ArrayList arrVenta = new ArrayList();
@@ -40,12 +62,12 @@ namespace InventarioWebApp
 
             NumeroDocumento++;
 
-            idDocumento=conexion.Agregar(NumeroDocumento, 0, 35, hoy.ToString(), "00.000.000-0", rutEmpresa, 2);
+            idDocumento=conexion.Agregar(NumeroDocumento, 0, 35, hoy.ToString(), "00.000.000-0", rutEmpresa, 2,formaPago);
 
             return idDocumento;
 
         }
-        public int AgregaProducto(String Codigo, String Descripcion, int idProducto, int precioCompra , double porcentaje=0, int boleta=1)
+        public int AgregaProducto(String Codigo, String Descripcion, int idProducto, int precioCompra , double porcentaje=0)
         {
             DaoDocumentos conexion = new DaoDocumentos();
             DetalleProducto objProd=new DetalleProducto();
@@ -53,11 +75,36 @@ namespace InventarioWebApp
             objProd.descripcionDetalleproducto=Descripcion;
             objProd.idProducto=idProducto;
             objProd.precioCompraDetalleproducto=precioCompra;
-            objProd.boleta = boleta;
+            
 
             int id=conexion.AgregarProducto(objProd, porcentaje);
             return id;
 
+        }
+        public int AgregarProductoProducto(String tipoProducto, int impuesto, String ganancia, int idDepartamento)
+        {
+            Producto objProd = new Producto();
+            DaoDocumentos conexion = new DaoDocumentos();
+            
+            objProd.tipoProducto = tipoProducto;
+            objProd.porcentajeGanancia = ganancia;
+            objProd.impuestoProducto = impuesto;
+            objProd.idDepartamento = idDepartamento;
+
+            int id=conexion.AgregarProductoProducto(objProd);
+           
+            return id;
+        }
+        public int AgregarDepartamento(String porcentajeGanancia, String tipoDepartamento)
+        {
+            Departamento objDep = new Departamento();
+            DaoDocumentos conexion = new DaoDocumentos();
+
+            objDep.porcentajeGanancia = porcentajeGanancia;
+            objDep.tipoDepartamento = tipoDepartamento;
+
+            int id = conexion.AgregarDepartamento(objDep);
+            return id;
         }
         public  void ModificaProducto(int idDetalleproducto, String Codigo, String Descripcion, int idProducto, int precioCompra, double porcentaje = 0, int boleta = 1)
         {
@@ -73,6 +120,58 @@ namespace InventarioWebApp
             conexion.ModificarProducto(objProd, porcentaje);
            
         }
+        public void ModificaDepartamento(int idDepartamento, String ganancia, String tipoDepartamento, bool gananciaProducto = false, bool gananciaDetalle = false)
+        {
+            DaoDocumentos daoDoc = new DaoDocumentos();
+            String gananciaAntigua = "";
+            Departamento dpto=new Departamento();
+            ArrayList arr=new ArrayList();
+            arr = daoDoc.SeleccionaDepartamentos(idDepartamento);
+            foreach (Departamento objDep in arr)
+            {
+                gananciaAntigua = objDep.porcentajeGanancia;
+            }
+
+            dpto.idDepartamento=idDepartamento;
+            dpto.porcentajeGanancia=ganancia;
+            dpto.tipoDepartamento=tipoDepartamento;
+
+            daoDoc.ModificarDepartamento(dpto);
+
+            if (gananciaProducto)
+            {
+                daoDoc.ModificarGananciasRecursivas(idDepartamento, 0, ganancia, gananciaAntigua, gananciaDetalle);
+            }
+
+        }
+        public void ModificaProductoProducto(int idProducto, String tipoProducto, String ganancia, int impuesto, int idDepartamento, bool gananciaDetalle = false)
+        {
+            DaoDocumentos conexion = new DaoDocumentos();
+            Producto objProd = new Producto();
+            String gananciaAntigua = "";
+            ArrayList arr = new ArrayList();
+
+            arr = conexion.SeleccionaProducto(idProducto);
+            foreach (Producto objPd in arr)
+            {
+                gananciaAntigua = objPd.porcentajeGanancia; 
+            }
+
+            objProd.idProducto = idProducto;
+            objProd.tipoProducto = tipoProducto;
+            objProd.porcentajeGanancia = ganancia;
+            objProd.impuestoProducto = impuesto;
+            objProd.idDepartamento = idDepartamento;
+
+
+
+            conexion.ModificarProductoProducto(objProd);
+            if (gananciaDetalle)
+            {
+                conexion.ModificarGananciasRecursivas(0, idProducto, ganancia, gananciaAntigua, gananciaDetalle);
+            }
+
+        }
         public void AgregarDetalledocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad)
         {
             DaoDocumentos daoDoc = new DaoDocumentos();
@@ -85,7 +184,7 @@ namespace InventarioWebApp
             DaoEmpresas conexion = new DaoEmpresas();
             DataTable arrFactura = new DataTable();
             ArrayList arr = new ArrayList();
-            String sql = " RutEmpresaPropia='" + rutEmpresa + "' AND (EstadoDocumento=1 OR EstadoDocumento=3) and IdTipomovimiento=1";
+            String sql = " RutEmpresa='" + rutEmpresa + "' AND (EstadoDocumento=1 OR EstadoDocumento=3) and IdTipomovimiento=1";
           
             if (idSucursal > 0)
             {
@@ -96,12 +195,18 @@ namespace InventarioWebApp
 
             return arrFactura;
         }
-        public ArrayList SeleccionaEmpresa(int idDocumento)
+        public ArrayList SeleccionaEmpresa(int idDocumento, int estadoDocumento=2, bool porId=true, int tmov=1, String rutEmpresa="")
         {
             DaoDocumentos doc = new DaoDocumentos();
             ArrayList arrDoc = new ArrayList();
             ArrayList arrDocReturn = new ArrayList();
-            arrDoc = doc.seleccionaDocumento(1, null, idDocumento);
+            if (porId)
+            {
+                arrDoc = doc.seleccionaDocumento(tmov, null, idDocumento, false, estadoDocumento);
+            }else{
+
+                arrDoc = doc.seleccionaDocumento(tmov, rutEmpresa,0, false, estadoDocumento);
+            }
             foreach (Documentos objDoc in arrDoc)
             {
                 arrDocReturn.Add(objDoc.idDocumento);//0
@@ -110,6 +215,67 @@ namespace InventarioWebApp
                 arrDocReturn.Add(objDoc.numeroDocumento);//3
                 arrDocReturn.Add(objDoc.fechaEmision);//4
                 arrDocReturn.Add(objDoc.montoTotal);//5
+                arrDocReturn.Add(objDoc.estadoDocumento);//6
+            }
+
+            return arrDocReturn;
+
+
+        }
+        public ArrayList SeleccionaVenta(int idDocumento)
+        {
+            DaoDocumentos doc = new DaoDocumentos();
+            ArrayList arrDoc = new ArrayList();
+            ArrayList arrDocReturn = new ArrayList();
+            arrDoc = doc.seleccionaDocumento(2, null, idDocumento);
+            foreach (Documentos objDoc in arrDoc)
+            {
+                arrDocReturn.Add(objDoc.idDocumento);//0
+                arrDocReturn.Add(objDoc.rutEmpresa);//1
+                arrDocReturn.Add(objDoc.tipoDocumento);//2
+                arrDocReturn.Add(objDoc.numeroDocumento);//3
+                arrDocReturn.Add(objDoc.fechaEmision);//4
+                arrDocReturn.Add(objDoc.montoTotal);//5
+                arrDocReturn.Add(objDoc.estadoDocumento);//6
+            }
+
+            return arrDocReturn;
+
+
+        }
+        public ArrayList SeleccionaDepartamento(int idDepartamento)
+        {
+            DaoDocumentos doc = new DaoDocumentos();
+            ArrayList arrDoc = new ArrayList();
+            ArrayList arrDocReturn = new ArrayList();
+            arrDoc = doc.SeleccionaDepartamentos(idDepartamento);
+            foreach (Departamento objDoc in arrDoc)
+            {
+                arrDocReturn.Add(objDoc.idDepartamento);//0
+                arrDocReturn.Add(objDoc.porcentajeGanancia);//1
+                arrDocReturn.Add(objDoc.tipoDepartamento);//2
+                
+            }
+
+            return arrDocReturn;
+
+
+        }
+        public ArrayList SeleccionaProducto(int idProducto)
+        {
+            DaoDocumentos doc = new DaoDocumentos();
+            ArrayList arrDoc = new ArrayList();
+            ArrayList arrDocReturn = new ArrayList();
+            arrDoc = doc.SeleccionaProducto(idProducto);
+            foreach (Producto objDoc in arrDoc)
+            {
+                arrDocReturn.Add(objDoc.idProducto);//0
+                arrDocReturn.Add(objDoc.tipoProducto);//1
+                arrDocReturn.Add(objDoc.porcentajeGanancia);//2
+                arrDocReturn.Add(objDoc.impuestoProducto);//3
+                arrDocReturn.Add(objDoc.idDepartamento);//4
+
+
             }
 
             return arrDocReturn;
@@ -139,6 +305,14 @@ namespace InventarioWebApp
             arrDepto = daoEmpresa.LlenaCombos("IdDepartamento", "TipodepartamentoDepartamento", "DEPARTAMENTO");
             return arrDepto;
         }
+        public DataTable cboFormapago()
+        {
+            DaoEmpresas daoEmpresa = new DaoEmpresas();
+            DataTable arrPago = new DataTable();
+
+            arrPago = daoEmpresa.LlenaCombos("IdFormapago", "FormaPago", "FORMAPAGO");
+            return arrPago;
+        }
         public ArrayList DetalleProductoBuscar(String Codigo)
         {
             DaoDocumentos daoDoc = new DaoDocumentos();
@@ -156,7 +330,7 @@ namespace InventarioWebApp
                 arrProductoReturn.Add(objDP.porcentajeGanancia);//5
                 arrProductoReturn.Add(objDP.precioVentaDetalleproducto); //6
                 arrProductoReturn.Add(objDP.boleta);//7
-                
+
             }
 
             return arrProductoReturn;
@@ -207,6 +381,19 @@ namespace InventarioWebApp
                 daoDoc.AgregarStock('+', cantidad, objDetalle.idDetalleproducto, idSucursal);
             }
             
+        }
+        public void CerrarInicial(int idSucursal, int idDocumento)
+        {
+            DaoDocumentos daoDoc = new DaoDocumentos();
+            ArrayList arrDetalle = new ArrayList();
+            arrDetalle = daoDoc.SeleccionaProducto("", idDocumento);
+
+            foreach (DetalleProducto objDetalle in arrDetalle)
+            {
+                daoDoc.EliminarCantidadStock(objDetalle.idDetalleproducto, idSucursal);
+                daoDoc.AgregarStock('+', objDetalle.cantidadDetalleproducto, objDetalle.idDetalleproducto, idSucursal);
+            }
+            daoDoc.ModificarEstadoDocumento(idDocumento, 2);
         }
         public void CerrarVenta(int idSucursal, int idDocumento)
         {
@@ -283,25 +470,7 @@ namespace InventarioWebApp
 
             return porcentaje;
         }
-        public int AgregarProductoProducto(String nombre, int idDepartamento, String porcentaje)
-        {
-            DaoConexion daoCon = new DaoConexion();
-            ArrayList arrValores = new ArrayList();
-            ArrayList arrCampos = new ArrayList();
-
-            arrValores.Add("'"+nombre+"'");
-            arrValores.Add(idDepartamento.ToString());
-            arrValores.Add("'" + porcentaje + "'");
-
-            arrCampos.Add("TipoproductoProducto");
-            arrCampos.Add("IdDepartamento");
-            arrCampos.Add("PorcentajeProducto");
-
-            daoCon.AddValue(arrValores);
-
-            int id = daoCon.InsertSql("PRODUCTO", arrCampos, true);
-            return id;
-        }
+        
         public int AgregarDepartamento(String nombre)
         {
             DaoConexion daoCon = new DaoConexion();

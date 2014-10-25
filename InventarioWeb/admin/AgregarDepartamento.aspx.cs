@@ -19,7 +19,7 @@ namespace InventarioWeb.admin
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             AppDocumentos appDoc = new AppDocumentos();
-            appDoc.AgregarDepartamento(txtNombre.Text);
+            appDoc.AgregarDepartamento(txtGanancia.Text,txtNombre.Text);
 
             Response.Redirect("GestionDepartamento.aspx");
         }

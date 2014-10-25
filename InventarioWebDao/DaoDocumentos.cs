@@ -9,7 +9,7 @@ namespace InventarioWebDao
 {
     public class DaoDocumentos
     {
-        public int Agregar(int numeroDoc, int monto, int tipoDocumento, String fechaEmision, String rutEmpresa, String rutEmpresaPropia,int tmov)
+        public int Agregar(int numeroDoc, int monto, int tipoDocumento, String fechaEmision, String rutEmpresa, String rutEmpresaPropia,int tmov, int formaPago)
         {
             DaoConexion objConexion = new DaoConexion();
             ArrayList arrValores = new ArrayList();
@@ -25,16 +25,18 @@ namespace InventarioWebDao
            // arrValores.Add("'" + hoy.ToString() + "'");
             arrValores.Add(monto.ToString());
             arrValores.Add("1");
+            arrValores.Add(formaPago.ToString());
           
             arrCampos.Add("IdTipoDocumento");
+            arrCampos.Add("RutproveedorDocumento");
             arrCampos.Add("RutEmpresa");
-            arrCampos.Add("RutEmpresaPropia");
             arrCampos.Add("NumeroDocumento");
             arrCampos.Add("FechaemisionDocumento");
             arrCampos.Add("IdTipomovimiento");
             //arrCampos.Add("FechaIngreso");
             arrCampos.Add("MontototalDocumento");
             arrCampos.Add("EstadoDocumento");
+            arrCampos.Add("IdFormapago");
 
             objConexion.AddValue(arrValores);
             int id=objConexion.InsertSql("DOCUMENTO",arrCampos,true);
@@ -55,7 +57,7 @@ namespace InventarioWebDao
             }
             else
             {
-                arrConexion = objConexion.QuerySql("SELECT PorcentajeGanancia FROM PRODUCTO WHERE IdProducto=" + objDP.idProducto.ToString());
+                arrConexion = objConexion.QuerySql("SELECT PorcentajeGananciaProducto FROM PRODUCTO WHERE IdProducto=" + objDP.idProducto.ToString());
                 drArreglo = (SqlDataReader)arrConexion[0];
                 if (drArreglo.HasRows)
                 {
@@ -80,7 +82,7 @@ namespace InventarioWebDao
             arrValores.Add(objDP.precioCompraDetalleproducto.ToString());
             //arrValores.Add(objDP.cantidadDetalleproducto.ToString());
             arrValores.Add(porcentaje.ToString());
-            arrValores.Add(objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100);
+            arrValores.Add((objDP.precioCompraDetalleproducto+(objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100)).ToString().Replace(',','.'));
             arrValores.Add(objDP.idProducto.ToString());
           
 
@@ -90,6 +92,88 @@ namespace InventarioWebDao
 
             return id;
         }
+        
+        public int AgregarProductoProducto(Producto objDP)
+        {
+            DaoConexion objConexion = new DaoConexion();
+            SqlDataReader drArreglo;
+            ArrayList arrConexion = new ArrayList();
+            ArrayList arrValores = new ArrayList();
+            ArrayList arrCampos = new ArrayList();
+            String porcentaje = "";
+            DateTime hoy = DateTime.Today;
+            if (Convert.ToDouble(objDP.porcentajeGanancia) > 0)
+            {
+                porcentaje = objDP.porcentajeGanancia;
+            }
+            else
+            {
+                arrConexion = objConexion.QuerySql("SELECT PorcentajeGananciaDepartamento FROM DEPARTAMENTO WHERE IdDepartamento=" + objDP.idDepartamento.ToString());
+                drArreglo = (SqlDataReader)arrConexion[0];
+                if (drArreglo.HasRows)
+                {
+                    while (drArreglo.Read())
+                    {
+                        porcentaje = drArreglo[0].ToString();
+                    }
+
+                }
+            }
+
+            arrCampos.Add("TipoproductoProducto");
+            arrCampos.Add("PorcentajegananciaProducto");
+            arrCampos.Add("ImpuestoProducto");
+            //arrCampos.Add("CantidadDetalleproducto");
+            arrCampos.Add("IdDepartamento");
+
+
+            arrValores.Add("'" + objDP.tipoProducto.ToString() + "'");
+            arrValores.Add( porcentaje.ToString().Replace(',','.'));
+            arrValores.Add("'" + objDP.impuestoProducto.ToString()+ "'");
+            //arrValores.Add(objDP.cantidadDetalleproducto.ToString());
+            arrValores.Add(objDP.idDepartamento.ToString());
+            
+
+
+            objConexion.AddValue(arrValores);
+
+            int id = objConexion.InsertSql("PRODUCTO", arrCampos, true);
+
+            return id;
+        }
+
+
+
+        public int AgregarDepartamento(Departamento objDP)
+        {
+            DaoConexion objConexion = new DaoConexion();
+            
+            ArrayList arrConexion = new ArrayList();
+            ArrayList arrValores = new ArrayList();
+            ArrayList arrCampos = new ArrayList();
+            
+            DateTime hoy = DateTime.Today;
+         
+
+           
+            arrCampos.Add("PorcentajeGananciaDepartamento");
+            arrCampos.Add("TipodepartamentoDepartamento");
+            
+
+           
+            arrValores.Add(objDP.porcentajeGanancia.ToString().Replace(',','.'));
+            arrValores.Add("'" + objDP.tipoDepartamento.ToString() + "'");
+            
+
+
+
+            objConexion.AddValue(arrValores);
+
+            int id = objConexion.InsertSql("DEPARTAMENTO", arrCampos, true);
+
+            return id;
+        }
+
         public void ModificarProducto(DetalleProducto objDP, double pganancia = 0)
         {
             DaoConexion objConexion = new DaoConexion();
@@ -101,16 +185,81 @@ namespace InventarioWebDao
 
             arrValores.Add("CodigoDetalleproducto='" + objDP.codigoDetalleproducto.ToString() + "'");
             arrValores.Add("DescripcionDetalleproducto='" + objDP.descripcionDetalleproducto.ToString() + "'");
-            arrValores.Add("PreciocompraDetalleproducto="+objDP.precioCompraDetalleproducto.ToString());
+            arrValores.Add("PreciocompraDetalleproducto=" + objDP.precioCompraDetalleproducto.ToString());
             //arrValores.Add(objDP.cantidadDetalleproducto.ToString());
-            arrValores.Add("PorcentajegananciaDetalleproducto='"+porcentaje.ToString()+"'");
-            arrValores.Add("PrecioventaDetalleproducto="+objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100);
+            arrValores.Add("PorcentajegananciaDetalleproducto=" + porcentaje.ToString().Replace(',', '.'));
+            arrValores.Add("PrecioventaDetalleproducto=" + Convert.ToInt32(objDP.precioCompraDetalleproducto + (objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100)));
             arrValores.Add("IdProducto="+objDP.idProducto.ToString());
 
 
          
             objConexion.UpdateSql("DETALLEPRODUCTO", arrValores, "IdDetalleproducto=" + objDP.idDetalleproducto);
 
+        }
+        public void ModificarDepartamento(Departamento objDP)
+        {
+            DaoConexion objConexion = new DaoConexion();
+
+            ArrayList arrValores = new ArrayList();
+
+            arrValores.Add("PorcentajeGananciaDepartamento=" + objDP.porcentajeGanancia.ToString().Replace(',', '.'));
+            arrValores.Add("TipodepartamentoDepartamento='" + objDP.tipoDepartamento.ToString() + "'");
+
+            objConexion.UpdateSql("DEPARTAMENTO", arrValores, "IdDepartamento=" + objDP.idDepartamento);
+
+        }
+        public void ModificarProductoProducto(Producto objDP)
+        {
+            DaoConexion objConexion = new DaoConexion();
+
+            ArrayList arrValores = new ArrayList();
+
+            arrValores.Add("PorcentajeGananciaProducto=" + objDP.porcentajeGanancia.ToString().Replace(',', '.'));
+            arrValores.Add("TipoproductoProducto='" + objDP.tipoProducto + "'");
+            arrValores.Add("ImpuestoProducto=" + objDP.impuestoProducto.ToString());
+            arrValores.Add("IdDepartamento=" + objDP.idDepartamento.ToString());
+            
+
+
+            objConexion.UpdateSql("PRODUCTO", arrValores, "IdProducto=" + objDP.idProducto);
+
+        }
+        public void ModificarGananciasRecursivas(int idDepartamento, int idProducto, String porcentajeNuevo, String porcentajeAntiguo, bool cambiarDetalle=false)
+        {
+            ArrayList arrValores = new ArrayList();
+            if (idDepartamento > 0)
+            {
+                DaoConexion objConP = new DaoConexion();
+                arrValores.Clear();
+
+                arrValores.Add("PorcentajeGananciaProducto=" + porcentajeNuevo.Replace(',', '.'));
+                objConP.UpdateSql("PRODUCTO", arrValores, "IdDepartamento=" + idDepartamento.ToString() + " AND PorcentajeGananciaProducto=" + porcentajeAntiguo.Replace(',', '.'));
+
+                if (cambiarDetalle)
+                {
+                    ArrayList arrProd = new ArrayList();
+                    arrProd = SeleccionaProducto(0, idDepartamento);
+
+                    foreach (Producto objProd in arrProd)
+                    {
+                        arrValores.Clear();
+                        DaoConexion objConD = new DaoConexion();
+                        arrValores.Add("PorcentajegananciaDetalleproducto=" + porcentajeNuevo.Replace(',', '.'));
+                        arrValores.Add("PrecioventaDetalleproducto=PreciocompraDetalleproducto+(PreciocompraDetalleproducto*" + porcentajeNuevo.Replace(',', '.') + "/100)");
+                        objConD.UpdateSql("DETALLEPRODUCTO", arrValores, " IdProducto=" + objProd.idProducto.ToString() + " And PorcentajegananciaDetalleproducto=" + porcentajeAntiguo.Replace(',', '.'));
+                    }
+
+                }
+            }
+            if (idProducto > 0)
+            {
+                arrValores.Clear();
+                DaoConexion objConD = new DaoConexion();
+                arrValores.Add("PorcentajegananciaDetalleproducto=" + porcentajeNuevo.Replace(',', '.'));
+                arrValores.Add("PrecioventaDetalleproducto=PreciocompraDetalleproducto+(PreciocompraDetalleproducto*" + porcentajeNuevo.Replace(',', '.') + "/100)");
+                objConD.UpdateSql("DETALLEPRODUCTO", arrValores, " IdProducto=" + idProducto.ToString() + " And PorcentajegananciaDetalleproducto=" + porcentajeAntiguo.Replace(',', '.'));
+  
+            }
         }
         public void AgregarStock(char signo,int cantidad, int idDetalleproducto, int idSucursal)
         {
@@ -181,7 +330,7 @@ namespace InventarioWebDao
             objConexion.InsertSql("DETALLEDOCUMENTO", arrCampos);
 
         }
-        public ArrayList seleccionaDocumento(int tMov, String rutEmpresa=null, int idDocumento=0, bool soloMax=false){
+        public ArrayList seleccionaDocumento(int tMov, String rutEmpresa=null, int idDocumento=0, bool soloMax=false, int estadoDocumento=2, int numeroDocumento=0){
             DaoConexion objConexionDao = new DaoConexion();
             SqlDataReader drArreglo;
             SqlConnection conConexion = new SqlConnection();
@@ -191,11 +340,23 @@ namespace InventarioWebDao
             if (soloMax)
             {
                 String sql = "";
+                String select = "max(NumeroDocumento) AS Maximo";
+                if (estadoDocumento != 0)
+                {
+                    sql += " AND EstadoDocumento=" + estadoDocumento;
+                    
+
+                }
                 if (rutEmpresa != "")
                 {
-                    sql = "and RutEmpresa like '" + rutEmpresa + "'";
+                    sql += " and RutproveedorDocumento like '" + rutEmpresa + "'";
                 }
-                arrConexion = objConexionDao.QuerySql("SELECT max(NumeroDocumento) AS Maximo FROM DOCUMENTO WHERE EstadoDocumento=2 AND IdTipomovimiento=" + tMov +sql);
+                if (numeroDocumento > 0)
+                {
+                    sql += " and NumeroDocumento=" + numeroDocumento;
+                    select = "NumeroDocumento";
+                }
+                arrConexion = objConexionDao.QuerySql("SELECT "+select+" FROM DOCUMENTO WHERE EstadoDocumento!=5 AND IdTipomovimiento=" + tMov +sql);
 
                 drArreglo = (SqlDataReader)arrConexion[0];
                 if (drArreglo.HasRows)
@@ -222,11 +383,11 @@ namespace InventarioWebDao
             {
                 if (idDocumento > 0)
                 {
-                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutEmpresa, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento FROM DOCUMENTO WHERE IdTipomovimiento=" + tMov + " and  IdDocumento = " + idDocumento);
+                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutproveedorDocumento, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento, EstadoDocumento FROM DOCUMENTO WHERE IdTipomovimiento=" + tMov + " and  IdDocumento = " + idDocumento);
                 }
                 else
                 {
-                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutEmpresa, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento FROM DOCUMENTO WHERE  IdTipomovimiento=" + tMov + " and RutEmpresaPropia like '" + rutEmpresa + "'");
+                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutproveedorDocumento, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento, EstadoDocumento FROM DOCUMENTO WHERE  IdTipomovimiento=" + tMov + " and RutEmpresa like '" + rutEmpresa + "' and EstadoDocumento=" + estadoDocumento);
                 }
             
         
@@ -242,7 +403,7 @@ namespace InventarioWebDao
                         objDoc.numeroDocumento = drArreglo.GetInt32(3);
                         objDoc.fechaEmision = drArreglo.GetDateTime(4).ToString();
                         objDoc.montoTotal = drArreglo.GetInt32(5);
-
+                        objDoc.estadoDocumento = drArreglo.GetInt32(6);
                         arrDoc.Add(objDoc);
 
                     }
@@ -270,7 +431,7 @@ namespace InventarioWebDao
                         sql = " and CodigoDetalleproducto= '" + codigo + "'";
                     }
                     arrConexion = conexion.QuerySql("SELECT DD.IdDetalleproducto ,CodigoDetalleproducto, DescripcionDetalleproducto,DD.PrecioCosto,DD.Cantidad,  " +
-                                                    " '' as RutEmpresa, P.IdProducto, P.IdDepartamento, P.PorcentajeGanancia, DP.boleta, DD.PrecioVenta " +
+                                                    " '' as RutEmpresa, P.IdProducto, P.IdDepartamento, P.PorcentajeGananciaProducto,DD.PrecioVenta,ImpuestoProducto " +
                                                     " FROM DETALLEDOCUMENTO DD, DOCUMENTO D, DETALLEPRODUCTO DP, PRODUCTO P" +
                                                     " WHERE DD.IdDocumento=D.IdDocumento " +
                                                     " AND DD.IdDetalleproducto=DP.IdDetalleproducto " +
@@ -286,7 +447,7 @@ namespace InventarioWebDao
                         sql = "and CodigoDetalleproducto= '" + codigo + "'";
                     }
                     arrConexion = conexion.QuerySql("SELECT IdDetalleproducto, CodigoDetalleproducto, DescripcionDetalleproducto, PreciocompraDetalleproducto, " +
-                                                    "0 as CantidadDetalleproducto, RutEmpresa, DETALLEPRODUCTO.IdProducto, IdDepartamento, PorcentajeGanancia, boleta,PrecioventaDetalleproducto" +
+                                                    "0 as CantidadDetalleproducto,'' as  RutEmpresa, DETALLEPRODUCTO.IdProducto, IdDepartamento, PorcentajegananciaDetalleproducto, PrecioventaDetalleproducto,ImpuestoProducto" +
                                                     " FROM DETALLEPRODUCTO, PRODUCTO " +
                                                     " WHERE DETALLEPRODUCTO.IdProducto= PRODUCTO.IdProducto " + sql);
                 }
@@ -306,15 +467,81 @@ namespace InventarioWebDao
                     objDP.rutEmpresa = drArreglo.GetString(5);
                     objDP.idProducto = drArreglo.GetInt32(6);
                     objDP.idDepartamento = drArreglo.GetInt32(7);
-                    objDP.porcentajeGanancia = drArreglo.GetString(8);
-                    objDP.boleta = drArreglo.GetInt32(9);
-                    objDP.precioVentaDetalleproducto = drArreglo.GetInt32(10);
+                    objDP.porcentajeGanancia = Convert.ToString(drArreglo.GetDouble(8));
+                    objDP.precioVentaDetalleproducto = drArreglo.GetInt32(9);
+                    objDP.boleta = drArreglo.GetInt32(10);
                     arr.Add(objDP);
                 }
 
             }
             drArreglo.Close();
             return arr;
+        }
+        public ArrayList SeleccionaDepartamentos(int idDepartamento)
+        {
+             DaoConexion conexion = new DaoConexion();
+            SqlDataReader drArreglo;
+            SqlConnection conConexion = new SqlConnection();
+            ArrayList arrConexion = new ArrayList();
+            ArrayList arr = new ArrayList();
+
+
+            arrConexion = conexion.QuerySql("SELECT IdDepartamento, TipodepartamentoDepartamento,PorcentajeGananciaDepartamento FROM DEPARTAMENTO WHERE IdDepartamento="+idDepartamento);
+            drArreglo = (SqlDataReader)arrConexion[0];
+            if (drArreglo.HasRows)
+            {
+                while (drArreglo.Read())
+                {
+                    Departamento objDep = new Departamento();
+
+                    objDep.idDepartamento = drArreglo.GetInt32(0);
+                    objDep.tipoDepartamento = drArreglo.GetString(1);
+                    objDep.porcentajeGanancia =Convert.ToString(drArreglo.GetDouble(2));
+
+                    arr.Add(objDep);
+
+                }
+            }
+            drArreglo.Close();
+
+            return arr;
+
+        }
+        public ArrayList SeleccionaProducto(int idProducto, int idDepartamento=0)
+        {
+            DaoConexion conexion = new DaoConexion();
+            SqlDataReader drArreglo;
+            SqlConnection conConexion = new SqlConnection();
+            ArrayList arrConexion = new ArrayList();
+            ArrayList arr = new ArrayList();
+            String sql = "";
+
+            if(idDepartamento>0){
+                sql="IdDepartamento="+idDepartamento;
+            }else{
+                sql="IdProducto="+idProducto;
+            }
+            arrConexion = conexion.QuerySql("SELECT IdProducto, TipoproductoProducto, PorcentajeGananciaProducto, ImpuestoProducto, IdDepartamento "+
+                                            " FROM PRODUCTO WHERE "+sql );
+            drArreglo = (SqlDataReader)arrConexion[0];
+            if (drArreglo.HasRows)
+            {
+                while (drArreglo.Read())
+                {
+                    Producto objProd = new Producto();
+
+                    objProd.idProducto = drArreglo.GetInt32(0);
+                    objProd.tipoProducto = drArreglo.GetString(1);
+                    objProd.porcentajeGanancia = Convert.ToString(drArreglo.GetDouble(2));
+                    objProd.impuestoProducto = drArreglo.GetInt32(3);
+                    objProd.idDepartamento = drArreglo.GetInt32(4);
+                    arr.Add(objProd);
+                }
+            }
+            drArreglo.Close();
+
+            return arr;
+
         }
         public int MontoTotal(int IdDocumento)
         {
@@ -362,7 +589,7 @@ namespace InventarioWebDao
             ArrayList arrConexion = new ArrayList();
             String porcentaje = "";
             
-            arrConexion = conexion.QuerySql("SELECT P.PorcentajeGanancia " +
+            arrConexion = conexion.QuerySql("SELECT P.PorcentajeGananciaProducto " +
                                            "FROM PRODUCTO P " +
                                            "WHERE P.IdProducto= " + idProducto);
 
@@ -375,6 +602,17 @@ namespace InventarioWebDao
                 }
             }
             return porcentaje;
+        }
+        public void EliminarCantidadStock(int idDetalleproducto, int idSucursal)
+        {
+            DaoConexion conexion = new DaoConexion();
+           
+            SqlConnection conConexion = new SqlConnection();
+            ArrayList arrConexion = new ArrayList();
+            ArrayList arrValores = new ArrayList();
+
+            arrValores.Add("CantidadStock=0");
+            conexion.UpdateSql("STOCK", arrValores, "IdDetalleproducto=" + idDetalleproducto + " and IdSucursal=" + idSucursal);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/VNT.Master" AutoEventWireup="true" CodeBehind="IngresarVenta.aspx.cs" Inherits="InventarioWeb.venta.IngresarVenta" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/BDG.Master" AutoEventWireup="true" CodeBehind="IngresarVenta.aspx.cs" Inherits="InventarioWeb.bodega.IngresarVenta" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -6,14 +6,16 @@
 <tr>
 <td width="200px" valign="top">
 <h2>Ingreso</h2>
-<asp:HiddenField ID="hdIdDocumento" runat="server" />
-    <asp:HiddenField ID="hdIdDetalle" runat="server" />
+
+    
 <p>
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
 </p>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
+    <asp:HiddenField ID="hdIdDocumento" runat="server" />
+    <asp:HiddenField ID="hdIdDetalle" runat="server" />
     <p>
 <asp:Label ID="lblCodigo" runat="server" Text="Codigo" Width="100"></asp:Label>
 <asp:TextBox ID="txtCodigo" runat="server" ontextchanged="txtCodigo_TextChanged" AutoPostBack="true"/>
@@ -31,19 +33,14 @@
 <asp:Label ID="Label6" runat="server" Text="Cantidad" Width="100"></asp:Label>
 <asp:TextBox ID="txtCantidad" runat="server" />
 </p>
-<p class="submitButton">
-<asp:Button ID="btnAgregar" Text="Agregar" runat="server" 
-        onclick="btnAgregar_Click" />
+<p>
+<asp:Label ID="lblFP" Text="Forma de Pago" runat="server" ></asp:Label>
+<asp:DropDownList ID="cboFormapago" runat="server"></asp:DropDownList>
+</p>
 
-<asp:Button ID="Button1" Text="Eliminar" runat="server" 
-        onclick="btnEliminar_Click" />
-    </p>
     </ContentTemplate>
     </asp:UpdatePanel>
-<p>
-<asp:Button ID="btnFinalizar" Text="Finalizar Venta" runat="server" 
-        onclick="btnFinalizar_Click" CausesValidation="False" />
-</p>
+
 </td>
 <td valign="top">
 <h2>Detalle
@@ -54,7 +51,7 @@
         ForeColor="Black" GridLines="Vertical">
     <AlternatingRowStyle BackColor="White" />
     <Columns>
-        <asp:BoundField DataField="IdDetalledocumento" HeaderText="IdDetalledocumento" 
+        <asp:BoundField DataField="IdDetalledocumento" HeaderText="ID" 
             InsertVisible="False" ReadOnly="True" SortExpression="IdDetalledocumento" />
         <asp:BoundField DataField="TipoproductoProducto" 
             HeaderText="Tipo" SortExpression="TipoproductoProducto" />
@@ -95,6 +92,18 @@
 </tr>
 <tr>
 <td>
+<p class="submitButton">
+<asp:ImageButton ID="btnAgregar" runat="server" Height="80px" ImageUrl="~/Imagenes/agregar.png" 
+        Width="80px" onclick="btnAgregar_Click" />
+
+<asp:ImageButton ID="btnEliminar" runat="server" Height="80px" 
+    ImageUrl="~/Imagenes/eliminar.png" Width="80px" onclick="btnEliminar_Click"/>
+</p>
+<p>
+
+<asp:ImageButton ID="btnFinalizar" runat="server" 
+    ImageUrl="~/Imagenes/finalizar.png" onclick="btnFinalizar_Click" CausesValidation="False" Height="80px" Width="160px"/>
+</p>
 </td>
 <td>
 <h2>

@@ -89,9 +89,11 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Departamento.cs" />
     <Compile Include="DetalleProducto.cs" />
     <Compile Include="Documentos.cs" />
     <Compile Include="Empresa.cs" />
+    <Compile Include="Producto.cs" />
     <Compile Include="Rol.cs" />
     <Compile Include="Sucursal.cs" />
     <Compile Include="Usuario.cs" />
@@ -111,7 +113,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50444</DevelopmentServerPort>
+          <DevelopmentServerPort>49839</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

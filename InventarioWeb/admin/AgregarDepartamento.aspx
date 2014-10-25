@@ -8,6 +8,9 @@
 <asp:Label ID="lblNombre" Text="Nombre" runat="server" Width="100"></asp:Label> <asp:TextBox ID="txtNombre" runat="server" ></asp:TextBox>
 </p>
 <p>
+<asp:Label ID="Label1" Text="Ganancia" runat="server" Width="100"></asp:Label> <asp:TextBox ID="txtGanancia" runat="server" ></asp:TextBox>
+</p>
+<p>
 <asp:Button ID="btnGuardar" Text="Guardar" runat="server" 
         onclick="btnGuardar_Click" />
 </p>

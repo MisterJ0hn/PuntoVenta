@@ -44,7 +44,7 @@ namespace InventarioWeb.admin
 
         protected void btnDepartamento_Click(object sender, EventArgs e)
         {
-            Response.Redirect("GestionDepartamentos.aspx");
+            Response.Redirect("GestionDepartamento.aspx");
         }
     }
 }

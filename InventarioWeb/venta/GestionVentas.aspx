@@ -59,12 +59,14 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
-        SelectCommand="SELECT DOCUMENTO.IdDocumento, EMPRESA.NombreEmpresa, EMPRESA.RutEmpresa, DOCUMENTO.NumeroDocumento, DOCUMENTO.FechaemisionDocumento, DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.EstadoDocumento 
+        SelectCommand="SELECT DOCUMENTO.IdDocumento, EMPRESA.NombreEmpresa, EMPRESA.RutEmpresa, DOCUMENTO.NumeroDocumento, DOCUMENTO.FechaemisionDocumento, DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.EstadoDocumento , FORMAPAGO.FormaPago
         FROM DOCUMENTO 
         INNER JOIN EMPRESA 
         ON DOCUMENTO.RutEmpresa = EMPRESA.RutEmpresa 
         INNER JOIN ESTADODOCUMENTO 
         ON DOCUMENTO.EstadoDocumento = ESTADODOCUMENTO.IdEstadoDocumento
+        INNER JOIN FORMAPAGO
+        ON FORMAPAGO.IdFormapago=DOCUMENTO.IdFormapago
         Where DOCUMENTO.IdTipomovimiento=2 AND DOCUMENTO.EstadoDocumento!=5 AND DOCUMENTO.RutEmpresaPropia=@rutEmpresa
         ORDER BY DOCUMENTO.EstadoDocumento, DOCUMENTO.IdDocumento Desc">
         <SelectParameters>

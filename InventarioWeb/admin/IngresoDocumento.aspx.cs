@@ -14,21 +14,16 @@ namespace InventarioWeb.admin
         protected void Page_Load(object sender, EventArgs e)
         {
             Codigo.Focus();
-            Codigo.Text = ".";
+           
         }
        
-        protected void btnCapturadora_Click(object sender, EventArgs e)
-        {
-            
-            Codigo.Text=Capturadora.Text;
-
-        }
 
         protected void Codificar(object sender, EventArgs e)
         {
             String codigo;
             String[] array;
-
+            ValidaRut esValido = new ValidaRut();
+            
             txtRutEmpresa.Text = "";
             txtNombreProveedor.Text = "";
             txtNumero.Text = "";
@@ -42,6 +37,7 @@ namespace InventarioWeb.admin
                 if (subArray[0].ToString() == "RE")
                 {
                     txtRutEmpresa.Text = subArray[1].ToString().Replace('\'', '-');
+                    txtRutEmpresa.Text = esValido.FormatearRut(txtRutEmpresa.Text);
                 }
                 if (subArray[0].ToString() == "RS")
                 {
@@ -60,16 +56,21 @@ namespace InventarioWeb.admin
                     txtMonto.Text = subArray[1].ToString();
                 }
                 //Console.WriteLine(subArray[0].ToString() + " " + subArray[1].ToString());
+                
             }
-            
+            Codigo.Text = "";
         }
         
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             AppEmpresas appEmpresa = new AppEmpresas();
             AppDocumentos appDocumentos = new AppDocumentos();
-            appEmpresa.AppAgregarEmpresa(txtRutEmpresa.Text, txtNombreProveedor.Text, txtNombreProveedor.Text, Convert.ToInt32(Session["idMaestra"].ToString()), 2);
+            ValidaRut esValido = new ValidaRut();
 
+           
+            appEmpresa.AppAgregarEmpresa(txtRutEmpresa.Text, txtNombreProveedor.Text, txtNombreProveedor.Text, Convert.ToInt32(Session["idMaestra"].ToString()), 2);
+            
+            
             if(appDocumentos.AgregarDocumento(Convert.ToInt32(txtNumero.Text), Convert.ToInt32(txtMonto.Text), txtFechaVenc.Text, txtRutEmpresa.Text, Session["rutEmpresa"].ToString()))
             {
                 Alerta.CssClass="alertaP";
@@ -79,11 +80,12 @@ namespace InventarioWeb.admin
                 txtNumero.Text = "";
                 txtFechaVenc.Text = "";
                 txtMonto.Text = "";
+                Codigo.Text = "";
                 Codigo.Focus();
             }
             else{
                 Alerta.CssClass="alertaN";
-                Alerta.Text="Documento no ha sido Guardado";
+                Alerta.Text="El Documento ya ha sido Ingresado!";
             }
 
 
@@ -92,10 +94,30 @@ namespace InventarioWeb.admin
         protected void FiltraEmpresa(object sender, EventArgs e)
         {
             AppEmpresas appEmpresa = new AppEmpresas();
-            
-            ArrayList arrEmpresa= appEmpresa.AppSeleccionaEmpresa(txtRutEmpresa.Text);
+            ValidaRut esValido = new ValidaRut();
+            txtRutEmpresa.Text = esValido.FormatearRut(txtRutEmpresa.Text);
 
-            txtNombreProveedor.Text = arrEmpresa[1].ToString();
+            if (esValido.validaRut(txtRutEmpresa.Text))
+            {
+                ArrayList arrEmpresa = appEmpresa.AppSeleccionaEmpresa(txtRutEmpresa.Text);
+                if (arrEmpresa.Count > 0)
+                {
+                    txtNombreProveedor.Text = arrEmpresa[1].ToString();
+                    txtNumero.Focus();
+                }
+                else
+                {
+                    txtNombreProveedor.Focus();
+                }
+            }
+            else
+            {
+                Alerta.CssClass = "alertaN";
+                Alerta.Text = "El rut ingresado no es valido";
+                txtRutEmpresa.Text = "";
+                txtRutEmpresa.Focus();
+            }
+            
         }
 
         protected void txtRutEmpresa_TextChanged(object sender, EventArgs e)
@@ -104,5 +126,7 @@ namespace InventarioWeb.admin
             ArrayList arrEmpresa = appEmpresa.AppSeleccionaEmpresa(txtRutEmpresa.Text);
             txtNombreProveedor.Text = arrEmpresa[1].ToString();
         }
+
+       
     }
 }

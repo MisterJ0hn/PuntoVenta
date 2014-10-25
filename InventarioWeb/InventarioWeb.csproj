@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>ItextSharp\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -68,6 +71,7 @@
     <Content Include="admin\AgregarProveedor.aspx" />
     <Content Include="admin\AgregarSucursal.aspx" />
     <Content Include="admin\AgregarUsuario.aspx" />
+    <Content Include="admin\CierreCaja.aspx" />
     <Content Include="admin\GestionDepartamento.aspx" />
     <Content Include="admin\GestionDetalleproductos.aspx" />
     <Content Include="admin\GestionDocumentos.aspx" />
@@ -77,10 +81,13 @@
     <Content Include="admin\GestionSucursales.aspx" />
     <Content Include="admin\GestionU.aspx" />
     <Content Include="admin\GestionVentas.aspx" />
+    <Content Include="admin\ImportarStock.aspx" />
     <Content Include="admin\IngresarProductos.aspx" />
     <Content Include="admin\IngresarVenta.aspx" />
     <Content Include="admin\IngresoDocumento.aspx" />
+    <Content Include="admin\ModificarDepartamento.aspx" />
     <Content Include="admin\ModificarDetalleproductos.aspx" />
+    <Content Include="admin\ModificarProductos.aspx" />
     <Content Include="admin\ModificarProveedor.aspx" />
     <Content Include="admin\ModificarSucursal.aspx" />
     <Content Include="admin\UpdateUsuario.aspx" />
@@ -99,8 +106,13 @@
     <Content Include="bodega\ModificarDetalleproductos.aspx" />
     <Content Include="bodega\ModificarProveedor.aspx" />
     <Content Include="bodega\productos.aspx" />
+    <Content Include="bodega\Welcome.aspx" />
+    <Content Include="ErrorDeCodigo.aspx" />
     <Content Include="historia.aspx" />
+    <Content Include="Imagenes\agregar.png" />
     <Content Include="Imagenes\alerta2.gif" />
+    <Content Include="Imagenes\eliminar.png" />
+    <Content Include="Imagenes\finalizar.png" />
     <Content Include="Imagenes\IngresaPrincipal.jpg" />
     <Content Include="Imagenes\Satisfactorio.jpg" />
     <Content Include="ingresa.aspx" />
@@ -117,7 +129,10 @@
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="venta\GestionVentas.aspx" />
     <Content Include="venta\IngresarVenta.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="venta\Welcome.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -210,6 +225,13 @@
     <Compile Include="admin\AgregarUsuario.aspx.designer.cs">
       <DependentUpon>AgregarUsuario.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\CierreCaja.aspx.cs">
+      <DependentUpon>CierreCaja.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\CierreCaja.aspx.designer.cs">
+      <DependentUpon>CierreCaja.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\GestionDepartamento.aspx.cs">
       <DependentUpon>GestionDepartamento.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -273,6 +295,13 @@
     <Compile Include="admin\GestionVentas.aspx.designer.cs">
       <DependentUpon>GestionVentas.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\ImportarStock.aspx.cs">
+      <DependentUpon>ImportarStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\ImportarStock.aspx.designer.cs">
+      <DependentUpon>ImportarStock.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\IngresarProductos.aspx.cs">
       <DependentUpon>IngresarProductos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -294,12 +323,26 @@
     <Compile Include="admin\IngresoDocumento.aspx.designer.cs">
       <DependentUpon>IngresoDocumento.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\ModificarDepartamento.aspx.cs">
+      <DependentUpon>ModificarDepartamento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\ModificarDepartamento.aspx.designer.cs">
+      <DependentUpon>ModificarDepartamento.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\ModificarDetalleproductos.aspx.cs">
       <DependentUpon>ModificarDetalleproductos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="admin\ModificarDetalleproductos.aspx.designer.cs">
       <DependentUpon>ModificarDetalleproductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\ModificarProductos.aspx.cs">
+      <DependentUpon>ModificarProductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\ModificarProductos.aspx.designer.cs">
+      <DependentUpon>ModificarProductos.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\ModificarProveedor.aspx.cs">
       <DependentUpon>ModificarProveedor.aspx</DependentUpon>
@@ -434,12 +477,26 @@
     <Compile Include="bodega\productos.aspx.designer.cs">
       <DependentUpon>productos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="bodega\Welcome.aspx.cs">
+      <DependentUpon>Welcome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\Welcome.aspx.designer.cs">
+      <DependentUpon>Welcome.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorDeCodigo.aspx.cs">
+      <DependentUpon>ErrorDeCodigo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorDeCodigo.aspx.designer.cs">
+      <DependentUpon>ErrorDeCodigo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -515,6 +572,13 @@
     <Compile Include="venta\IngresarVenta.aspx.designer.cs">
       <DependentUpon>IngresarVenta.aspx</DependentUpon>
     </Compile>
+    <Compile Include="venta\Welcome.aspx.cs">
+      <DependentUpon>Welcome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="venta\Welcome.aspx.designer.cs">
+      <DependentUpon>Welcome.aspx</DependentUpon>
+    </Compile>
     <Compile Include="VNT.Master.cs">
       <DependentUpon>VNT.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -525,6 +589,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Excel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
@@ -559,7 +624,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50425</DevelopmentServerPort>
+          <DevelopmentServerPort>49829</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

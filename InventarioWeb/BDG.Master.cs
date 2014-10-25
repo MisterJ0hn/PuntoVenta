@@ -17,6 +17,22 @@ namespace InventarioWeb
                 Session.Clear();
                 Response.Redirect("/Login.aspx");
             }
+            else
+            {
+                if (Session["idPerfil"].ToString() != "3")
+                {
+                    switch (Session["idPerfil"].ToString())
+                    {
+
+                        case "2":
+                            Response.Redirect("/admin/Welcome.aspx");
+                            break;
+                        case "4":
+                            Response.Redirect("/venta/GestionVentas.aspx");
+                            break;
+                    }
+                }
+            }
         }
     }
 }

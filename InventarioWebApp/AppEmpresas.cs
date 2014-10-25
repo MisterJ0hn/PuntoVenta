@@ -164,6 +164,14 @@ namespace InventarioWebApp
             arr.Add(idCiudad);
             return arr;
         }
+        public DataTable getSucursal(String rutEmpresa)
+        {
+            DaoEmpresas conexion = new DaoEmpresas();
+            DataTable arrSuc = new DataTable();
+
+            arrSuc = conexion.LlenaCombos("IdSucursal", "NombreSucursal", "SUCURSAL", "RutEmpresa='"+rutEmpresa+"'");
+            return arrSuc;
+        }
         public int AgregarSucursal(String nombre, String direccion,String telefono, String rut, int idComuna, int idMaestra)
         {
             DaoConexion conexion = new DaoConexion();

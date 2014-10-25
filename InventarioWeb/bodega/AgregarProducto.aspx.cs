@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using InventarioWebApp;
 using System.Data;
+using System.Collections;
 
 namespace InventarioWeb.bodega
 {
@@ -20,6 +21,7 @@ namespace InventarioWeb.bodega
                 cboDepartamento.DataTextField = "Nombre";
                 cboDepartamento.DataValueField = "Id";
                 cboDepartamento.DataBind();
+               
             }
         }
 
@@ -27,9 +29,22 @@ namespace InventarioWeb.bodega
         {
             AppDocumentos appDoc = new AppDocumentos();
 
-            appDoc.AgregarProductoProducto(txtNombre.Text, Convert.ToInt32(cboDepartamento.SelectedValue), txtGanancia.Text);
+            int  id=appDoc.AgregarProductoProducto(txtNombre.Text, Convert.ToInt32(cboEnBoleta.SelectedValue), txtGanancia.Text, Convert.ToInt32(cboDepartamento.SelectedValue));
+            if(id>0){   
+                Response.Redirect("GestionProductos.aspx");
+            }
+            
+        }
 
-            Response.Redirect("GestionProductos.aspx");
+        protected void cboDepartamento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AppDocumentos appDoc = new AppDocumentos();
+            ArrayList arr = new ArrayList();
+           
+          
+            arr = appDoc.SeleccionaDepartamento(Convert.ToInt32(cboDepartamento.SelectedValue));
+
+            txtGanancia.Text = arr[1].ToString();
         }
     }
 }

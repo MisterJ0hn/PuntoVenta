@@ -11,7 +11,28 @@ namespace InventarioWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["nombrelogeado"] == null)
+            {
+                Session.Abandon();
+                Session.Clear();
+                Response.Redirect("/Login.aspx");
+            }
+            else
+            {
+                if (Session["idPerfil"].ToString() != "4")
+                {
+                    switch (Session["idPerfil"].ToString())
+                    {
 
+                        case "2":
+                            Response.Redirect("/admin/Welcome.aspx");
+                            break;
+                        case "3":
+                            Response.Redirect("/bodega/GestionDetalleproductos.aspx");
+                            break;
+                    }
+                }
+            }
         }
     }
 }

@@ -7,6 +7,9 @@ using System.Web.UI.WebControls;
 using InventarioWebApp;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Data;
+using System.Windows.Input;
+using System.Text;
 
 namespace InventarioWeb.admin
 {
@@ -17,6 +20,9 @@ namespace InventarioWeb.admin
             
             if (!IsPostBack)
             {
+
+                txtCodigo.Attributes.Add("onkeyup", "handleKeyPress(event);");
+                txtCodigo.Focus();
                 if (Request.Form["IdDocumento"] != null)
                 {
                     AppDocumentos appDoc = new AppDocumentos();
@@ -30,19 +36,45 @@ namespace InventarioWeb.admin
                     lblIva.Text = arr[1].ToString();
                     lblTotal.Text = arr[2].ToString();
                     lblTotalCobrar.Text = arr[3].ToString();
+
+                    cboFormapago.DataSource = (DataTable)appDoc.cboFormapago();
+                    cboFormapago.DataTextField = "Nombre";
+                    cboFormapago.DataValueField = "Id";
+                    cboFormapago.DataBind();
+
+                    ArrayList arrDoc = new ArrayList();
+                    arrDoc=appDoc.SeleccionaVenta(Convert.ToInt32(hdIdDocumento.Value));
+
+
+                    if (arrDoc[6].ToString() == "2")
+                    {
+                        txtCodigo.Enabled = false;
+
+                        btnAgregar.Enabled = false;
+                        btnEliminar.Enabled = false;
+                        btnFinalizar.Enabled = false;
+                    }
                 }
                 else
                 {
+                    txtCodigo.Focus();
 
                     AppDocumentos appDoc = new AppDocumentos();
-                    int idDocumento = appDoc.AgregarVenta(Session["rutEmpresa"].ToString());
+                    
+                    cboFormapago.DataSource = (DataTable)appDoc.cboFormapago();
+                    cboFormapago.DataTextField = "Nombre";
+                    cboFormapago.DataValueField = "Id";
+                    cboFormapago.DataBind();
+                    cboFormapago.SelectedIndex = 1;
+                    int idDocumento = appDoc.AgregarVenta(Session["rutEmpresa"].ToString(),Convert.ToInt32(cboFormapago.SelectedValue));
 
                     hdIdDocumento.Value = idDocumento.ToString();
+                    
                 }
             }
             else
             {
-               
+                
             }
 
         }
@@ -62,12 +94,20 @@ namespace InventarioWeb.admin
             }
             else
             {
-                txtCodigo.Text = "";
+                
                 vldCodigo.Visible = true;
+                txtNombre.Text = "";
+                txtPrecio.Text = "";
+                txtCantidad.Text = "";
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "ProdNoExiste", "ProdNoExiste();", true);
+                txtCodigo.Text = "";
+                txtCodigo.Focus();
             }
+           
         }
 
-        protected void btnAgregar_Click(object sender, EventArgs e)
+        protected void btnAgregar_Click(object sender, ImageClickEventArgs e)
         {
             AppDocumentos appDoc = new AppDocumentos();
             ArrayList arr=new ArrayList();
@@ -88,7 +128,7 @@ namespace InventarioWeb.admin
             txtCodigo.Focus();
 
         }
-        protected void btnEliminar_Click(object sender, EventArgs e)
+        protected void btnEliminar_Click(object sender, ImageClickEventArgs e)
         {
             AppDocumentos appDoc = new AppDocumentos();
             ArrayList arr = new ArrayList();
@@ -110,7 +150,7 @@ namespace InventarioWeb.admin
 
         }
 
-        protected void btnFinalizar_Click(object sender, EventArgs e)
+        protected void btnFinalizar_Click(object sender, ImageClickEventArgs e)
         {
             vldCodigo.Enabled = false;
             AppDocumentos appDoc = new AppDocumentos();
@@ -119,5 +159,10 @@ namespace InventarioWeb.admin
 
             Response.Redirect("IngresarVenta.aspx");
         }
+
+        
+       
+
+       
     }
 }

@@ -64,3 +64,4 @@ G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\Inventario
 G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\InventarioWebEntity.pdb
 G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\InventarioWebDao.pdb
 G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.pdb
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\itextsharp.dll

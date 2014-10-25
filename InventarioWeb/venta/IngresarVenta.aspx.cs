@@ -7,8 +7,9 @@ using System.Web.UI.WebControls;
 using InventarioWebApp;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Data;
 
-namespace InventarioWeb.venta
+namespace InventarioWeb.bodega
 {
     public partial class IngresarVenta : System.Web.UI.Page
     {
@@ -30,14 +31,34 @@ namespace InventarioWeb.venta
                     lblIva.Text = arr[1].ToString();
                     lblTotal.Text = arr[2].ToString();
                     lblTotalCobrar.Text = arr[3].ToString();
+
+                    cboFormapago.DataSource = (DataTable)appDoc.cboFormapago();
+                    cboFormapago.DataTextField = "Nombre";
+                    cboFormapago.DataValueField = "Id";
+                    cboFormapago.DataBind();
+
+                    ArrayList arrDoc = new ArrayList();
+                    arrDoc = appDoc.SeleccionaVenta(Convert.ToInt32(hdIdDocumento.Value));
+
+
+                    if (arrDoc[6].ToString() == "2")
+                    {
+                            txtCodigo.Enabled = false;
+                    }
                 }
                 else
                 {
 
                     AppDocumentos appDoc = new AppDocumentos();
-                    int idDocumento = appDoc.AgregarVenta(Session["rutEmpresa"].ToString());
+                    
+                    cboFormapago.DataSource = (DataTable)appDoc.cboFormapago();
+                    cboFormapago.DataTextField = "Nombre";
+                    cboFormapago.DataValueField = "Id";
+                    cboFormapago.DataBind();
+                    int idDocumento = appDoc.AgregarVenta(Session["rutEmpresa"].ToString(),Convert.ToInt32(cboFormapago.SelectedValue));
 
                     hdIdDocumento.Value = idDocumento.ToString();
+                    
                 }
             }
             else
@@ -67,7 +88,7 @@ namespace InventarioWeb.venta
             }
         }
 
-        protected void btnAgregar_Click(object sender, EventArgs e)
+        protected void btnAgregar_Click(object sender, ImageClickEventArgs e)
         {
             AppDocumentos appDoc = new AppDocumentos();
             ArrayList arr=new ArrayList();
@@ -88,7 +109,7 @@ namespace InventarioWeb.venta
             txtCodigo.Focus();
 
         }
-        protected void btnEliminar_Click(object sender, EventArgs e)
+        protected void btnEliminar_Click(object sender, ImageClickEventArgs e)
         {
             AppDocumentos appDoc = new AppDocumentos();
             ArrayList arr = new ArrayList();
@@ -110,7 +131,7 @@ namespace InventarioWeb.venta
 
         }
 
-        protected void btnFinalizar_Click(object sender, EventArgs e)
+        protected void btnFinalizar_Click(object sender, ImageClickEventArgs e)
         {
             vldCodigo.Enabled = false;
             AppDocumentos appDoc = new AppDocumentos();

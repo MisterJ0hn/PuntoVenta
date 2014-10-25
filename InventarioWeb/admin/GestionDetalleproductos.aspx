@@ -46,9 +46,9 @@
         <asp:BoundField DataField="PreciocompraDetalleproducto" 
             HeaderText="Precio Compra" 
             SortExpression="PreciocompraDetalleproducto" />
-        <asp:BoundField DataField="ProcentajegananciaDetalleproducto" 
+        <asp:BoundField DataField="PorcentajegananciaDetalleproducto" 
             HeaderText="Ganancia" 
-            SortExpression="ProcentajegananciaDetalleproducto" />
+            SortExpression="PorcentajegananciaDetalleproducto" />
         <asp:BoundField DataField="PrecioventaDetalleproducto" 
             HeaderText="Precio Venta" 
             SortExpression="PrecioventaDetalleproducto" />
@@ -66,9 +66,10 @@
     <SortedDescendingHeaderStyle BackColor="#3E3277" />
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" SelectCommand="SELECT DP.CodigoDetalleproducto, DP.DescripcionDetalleproducto, P.TipoproductoProducto, D.TipodepartamentoDepartamento, 
-DP.PreciocompraDetalleproducto, DP.ProcentajegananciaDetalleproducto, DP.PrecioventaDetalleproducto
-FROM DETALLEPRODUCTO DP, PRODUCTO P, DEPARTAMENTO D
+        ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
+        SelectCommand="SELECT DP.CodigoDetalleproducto, DP.DescripcionDetalleproducto, P.TipoproductoProducto, D.TipodepartamentoDepartamento, 
+DP.PreciocompraDetalleproducto, DP.PorcentajegananciaDetalleproducto, DP.PrecioventaDetalleproducto
+FROM DETALLEPRODUCTO DP, PRODUCTO P, DEPARTAMENTO D, STOCK
 WHERE DP.IdProducto=p.IdProducto
 AND P.IdDepartamento=D.IdDepartamento
 "
