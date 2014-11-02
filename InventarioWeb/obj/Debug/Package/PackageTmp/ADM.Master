@@ -1,0 +1,76 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ADM.master.cs" Inherits="InventarioWeb.ADM" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .style2
+        {
+            text-align: justify;
+        }
+        .style3
+        {
+            text-align: center;
+        }
+        .style5
+        {
+            width: 250px;
+            height: 66px;
+        }
+        </style>
+</head>
+<body>
+    <form id="Form1" runat="server">
+    <div class="page">
+        <div class="header">
+            <div class="title">
+                <h1 class="style2">
+                    <img alt="logo_pti" class="style5" longdesc="logo_pti" 
+                        src="../Imagenes/logoPT50.png" /></h1>
+            </div>
+            <div class="title">
+                <h1 class="style3">
+                    &nbsp;<span class="style4"> </span>
+                    <img alt="logo_cliente" class="style5" longdesc="logo_cliente" 
+                        src="../Imagenes/central2.png" /></h1>
+            </div>
+            <div class="loginDisplay">
+                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                    <AnonymousTemplate>
+                            [ <a href="~/logout.aspx" ID="HeadLoginStatus" runat="server">Cerrar sesión</a> ]
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            Pantalla de bienvenida <span class="bold"><asp:LoginName ID="HeadLoginName" runat="server" /></span>!
+                            [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Cerrar sesión" LogoutPageUrl="~/"/> ]
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+                    </div>
+                <div class="clear hideSkiplink">
+                    <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
+                        <Items>
+                            <asp:MenuItem NavigateUrl="~/ingresa.aspx" Text="Página principal"/>
+                            <asp:MenuItem NavigateUrl="~/admin/GestionU.aspx" Text="Gestion de Usuarios"/>
+                            <asp:MenuItem NavigateUrl="~/admin/GestionProveedores.aspx" Text="Gestion de Proveedores"/>
+                            <asp:MenuItem NavigateUrl="~/admin/GestionDocumentos.aspx" Text="Ingresos"/>
+                            <asp:MenuItem NavigateUrl="~/admin/GestionVentas.aspx" Text="Venta"/>
+                            <asp:MenuItem NavigateUrl="~/admin/GestionDetalleproductos.aspx" Text="Productos"/>
+                        </Items>
+                    </asp:Menu>
+                 </div>
+        </div>
+        <div class="main">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"/>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="footer">
+    </div>
+    </form>
+</body>
+</html>

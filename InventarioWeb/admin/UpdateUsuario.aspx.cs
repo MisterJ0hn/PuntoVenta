@@ -29,14 +29,24 @@ namespace InventarioWeb.admin
                 lstPerfil.DataTextField = "Nombre";
                 lstPerfil.DataValueField = "id";
                 lstPerfil.DataBind();
-                lstPerfil.SelectedIndex=Convert.ToInt32(arrUsuario[7].ToString());
-
+               
+                int i = 0;
+                foreach (ListItem item in lstPerfil.Items)
+                {
+                    if (item.Value == arrUsuario[7].ToString())
+                    {
+                        item.Selected = true;
+                        break;
+                    }
+                    i++;
+                }
+                lstPerfil.SelectedIndex = i;
 
                 lstEmpresa.DataSource = gestion.CboEmpresas(idMaestra);
                 lstEmpresa.DataTextField = "Nombre";
                 lstEmpresa.DataValueField = "Rut";
                 lstEmpresa.DataBind();
-                int i=0;
+                i=0;
                 foreach (ListItem item in lstEmpresa.Items)
                 {
                     if (item.Value == arrUsuario[8].ToString())
@@ -112,7 +122,7 @@ namespace InventarioWeb.admin
                 this.Validate();
                 if (this.IsValid)
                 {
-                    gestorU.AppModificarUsuarios(txtNombre.Text, txtApellido.Text, "", txtUsuario.Text, txtClave.Text, int.Parse(lstPerfil.Value), int.Parse(lstSucursal.SelectedValue), int.Parse(Session["idMaestra"].ToString()), int.Parse(hdIdUsuario.Value));
+                    gestorU.AppModificarUsuarios(txtNombre.Text, txtApellido.Text, txtMail.Text, txtUsuario.Text, txtClave.Text, int.Parse(lstPerfil.Value), int.Parse(lstSucursal.SelectedValue), int.Parse(Session["idMaestra"].ToString()), int.Parse(hdIdUsuario.Value));
 
                     
                 }

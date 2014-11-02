@@ -13,7 +13,7 @@ Agregar Producto
 <p>
 <asp:Label ID="Label1" runat="server" Text="Departamento" Width="100"></asp:Label>
 <asp:DropDownList ID="cboDepartamento" runat="server" 
-        onselectedindexchanged="cboDepartamento_SelectedIndexChanged" ></asp:DropDownList>
+        onselectedindexchanged="cboDepartamento_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
 </p>
 <p>
 <asp:Label ID="Label2" runat="server" Text="Ganancia" Width="100"></asp:Label>
@@ -28,7 +28,7 @@ Agregar Producto
 </p>
 
 <p>
-<asp:Button ID="btnAgregar" runat="server" onclick="btnAgregar_Click" />
+<asp:Button ID="btnAgregar" runat="server" onclick="btnAgregar_Click" Text="Agregar Producto" />
 </p>
 
 </asp:Content>

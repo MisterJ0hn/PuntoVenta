@@ -14,34 +14,31 @@ namespace InventarioWeb.bodega
         protected void Page_Load(object sender, EventArgs e)
         {
             Codigo.Focus();
-            Codigo.Text = ".";
+           
         }
        
-        protected void btnCapturadora_Click(object sender, EventArgs e)
-        {
-            
-            Codigo.Text=Capturadora.Text;
-
-        }
 
         protected void Codificar(object sender, EventArgs e)
         {
             String codigo;
             String[] array;
-
+            ValidaRut esValido = new ValidaRut();
+            
             txtRutEmpresa.Text = "";
             txtNombreProveedor.Text = "";
             txtNumero.Text = "";
-            txtFechaVenc.Text = "";
+            
             txtMonto.Text = "";
             codigo = Codigo.Text;
             array = codigo.Split(new char[] { ';' });
+            String tipo="";
             foreach (String str in array)
             {
                 String[] subArray = str.Split(new char[] { ':' });
                 if (subArray[0].ToString() == "RE")
                 {
                     txtRutEmpresa.Text = subArray[1].ToString().Replace('\'', '-');
+                    txtRutEmpresa.Text = esValido.FormatearRut(txtRutEmpresa.Text);
                 }
                 if (subArray[0].ToString() == "RS")
                 {
@@ -51,39 +48,50 @@ namespace InventarioWeb.bodega
                 {
                     txtNumero.Text = subArray[1].ToString();
                 }
-                if (subArray[0].ToString() == "FE")
-                {
-                    txtFechaVenc.Text = subArray[1].ToString().Replace('\'', '-');
-                }
+                
                 if (subArray[0].ToString() == "MNT")
                 {
                     txtMonto.Text = subArray[1].ToString();
                 }
+                if (subArray[0].ToString() == "TD")
+                {
+                    tipo = subArray[1].ToString();
+
+                }
+
+
                 //Console.WriteLine(subArray[0].ToString() + " " + subArray[1].ToString());
+                
             }
-            
+           
+            Codigo.Text = "";
         }
         
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             AppEmpresas appEmpresa = new AppEmpresas();
             AppDocumentos appDocumentos = new AppDocumentos();
-            appEmpresa.AppAgregarEmpresa(txtRutEmpresa.Text, txtNombreProveedor.Text, txtNombreProveedor.Text, Convert.ToInt32(Session["idMaestra"].ToString()), 2);
+            ValidaRut esValido = new ValidaRut();
 
-            if(appDocumentos.AgregarDocumento(Convert.ToInt32(txtNumero.Text), Convert.ToInt32(txtMonto.Text), txtFechaVenc.Text, txtRutEmpresa.Text, Session["rutEmpresa"].ToString()))
+           
+            appEmpresa.AppAgregarEmpresa(txtRutEmpresa.Text, txtNombreProveedor.Text, txtNombreProveedor.Text, Convert.ToInt32(Session["idMaestra"].ToString()), 2);
+            
+            
+            if(appDocumentos.AgregarDocumento(Convert.ToInt32(txtNumero.Text), Convert.ToInt32(txtMonto.Text),"", txtRutEmpresa.Text, Session["rutEmpresa"].ToString(),Convert.ToInt32(Session["idUsuario"].ToString())))
             {
                 Alerta.CssClass="alertaP";
                 Alerta.Text="Documento Salvado";
                 txtRutEmpresa.Text = "";
                 txtNombreProveedor.Text = "";
                 txtNumero.Text = "";
-                txtFechaVenc.Text = "";
+                
                 txtMonto.Text = "";
+                Codigo.Text = "";
                 Codigo.Focus();
             }
             else{
                 Alerta.CssClass="alertaN";
-                Alerta.Text="Documento no ha sido Guardado";
+                Alerta.Text="El Documento ya ha sido Ingresado!";
             }
 
 
@@ -92,10 +100,30 @@ namespace InventarioWeb.bodega
         protected void FiltraEmpresa(object sender, EventArgs e)
         {
             AppEmpresas appEmpresa = new AppEmpresas();
-            
-            ArrayList arrEmpresa= appEmpresa.AppSeleccionaEmpresa(txtRutEmpresa.Text);
+            ValidaRut esValido = new ValidaRut();
+            txtRutEmpresa.Text = esValido.FormatearRut(txtRutEmpresa.Text);
 
-            txtNombreProveedor.Text = arrEmpresa[1].ToString();
+            if (esValido.validaRut(txtRutEmpresa.Text))
+            {
+                ArrayList arrEmpresa = appEmpresa.AppSeleccionaEmpresa(txtRutEmpresa.Text);
+                if (arrEmpresa.Count > 0)
+                {
+                    txtNombreProveedor.Text = arrEmpresa[1].ToString();
+                    txtNumero.Focus();
+                }
+                else
+                {
+                    txtNombreProveedor.Focus();
+                }
+            }
+            else
+            {
+                Alerta.CssClass = "alertaN";
+                Alerta.Text = "El rut ingresado no es valido";
+                txtRutEmpresa.Text = "";
+                txtRutEmpresa.Focus();
+            }
+            
         }
 
         protected void txtRutEmpresa_TextChanged(object sender, EventArgs e)
@@ -104,5 +132,7 @@ namespace InventarioWeb.bodega
             ArrayList arrEmpresa = appEmpresa.AppSeleccionaEmpresa(txtRutEmpresa.Text);
             txtNombreProveedor.Text = arrEmpresa[1].ToString();
         }
+
+       
     }
 }

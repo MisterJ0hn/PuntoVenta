@@ -95,5 +95,7 @@ namespace InventarioWeb.admin
                 txtCodigo.Focus();
             }
         }
+
+        
     }
 }

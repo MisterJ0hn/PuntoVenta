@@ -33,13 +33,14 @@ namespace InventarioWeb
             if (nombre != null)
             {
                 Session["nombrelogeado"] = nombre;
+                
                 Session["idEmpresa"] = usuarioEncontrado.cliente1;
                 Session["idPerfil"] = usuarioEncontrado.TipoPerfil;
                 Session["idUsuario"] = usuarioEncontrado.IdUsuario;
                 Session["idMaestra"] = usuarioEncontrado.cliente1;
 
                 ArrayList arrSession = gestionU.AppSeleccionaUsuario(usuarioEncontrado.IdUsuario.ToString());
-
+                Session["apellidologeado"] = arrSession[1];
                 Session["IdSucursal"] = arrSession[9];
                 Session["rutEmpresa"] = arrSession[8];
 
@@ -53,13 +54,15 @@ namespace InventarioWeb
                 switch (usuarioEncontrado.TipoPerfil)
                 {
                     case 2:
-                        Response.Redirect("/admin/Welcome.aspx");
+                        Response.Redirect("/admin/GestionU.aspx");
                         break;
                     case 3:
-                        Response.Redirect("/bodega/GestionDetalleproductos.aspx");
+                        Response.Redirect("/bodega/GestionDocumentos.aspx");
+                        //Response.Redirect("/admin/GestionU.aspx");
                         break;
                     case 4:
-                        Response.Redirect("/venta/GestionVentas.aspx");
+                        Response.Redirect("/venta/IngresarVenta.aspx");
+                        //Response.Redirect("/admin/GestionU.aspx");
                         break;
                 }
                 

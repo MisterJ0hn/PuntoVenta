@@ -39,10 +39,12 @@
             <asp:BoundField DataField="FechaingresoDocumento" 
                 HeaderText="Fecha Ingreso" SortExpression="FechaingresoDocumento" />
             <asp:BoundField DataField="MontototalDocumento" 
-                HeaderText="Monto Total" SortExpression="MontototalDocumento" />
+                HeaderText="Monto Total" SortExpression="MontototalDocumento"  DataFormatString="{0:C}"/>
             <asp:BoundField DataField="EstadoDocumento" HeaderText="Estado" 
                 SortExpression="EstadoDocumento" />
-           
+           <asp:BoundField DataField="UsuarioRegistro" HeaderText="Usuario Registro" 
+                SortExpression="UsuarioRegistro" />
+
             <asp:ButtonField ButtonType="Button" Text="Editar" CommandName="Editar" />
            
             <asp:ButtonField ButtonType="Button" Text="Eliminar" CommandName="Eliminar" />
@@ -59,7 +61,8 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
-        SelectCommand="SELECT DOCUMENTO.IdDocumento, EMPRESA.NombreEmpresa, EMPRESA.RutEmpresa, DOCUMENTO.NumeroDocumento, DOCUMENTO.FechaingresoDocumento, DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.EstadoDocumento , FORMAPAGO.FormaPago
+        SelectCommand="SELECT DOCUMENTO.IdDocumento, EMPRESA.NombreEmpresa, EMPRESA.RutEmpresa, DOCUMENTO.NumeroDocumento, DOCUMENTO.FechaingresoDocumento, 
+        DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.EstadoDocumento , FORMAPAGO.FormaPago, CONCAT(USUARIO.NombreUsuario,' ', USUARIO.ApellidoUsuario ) AS UsuarioRegistro
         FROM DOCUMENTO 
         INNER JOIN EMPRESA 
         ON DOCUMENTO.RutproveedorDocumento = EMPRESA.RutEmpresa 
@@ -67,6 +70,7 @@
         ON DOCUMENTO.EstadoDocumento = ESTADODOCUMENTO.IdEstadoDocumento
         INNER JOIN FORMAPAGO
         ON FORMAPAGO.IdFormapago=DOCUMENTO.IdFormapago
+        INNER JOIN USUARIO ON DOCUMENTO.IdUsuarioRegistro = USUARIO.IdUsuario 
         Where DOCUMENTO.IdTipomovimiento=2 AND DOCUMENTO.EstadoDocumento!=5 AND DOCUMENTO.RutEmpresa=@rutEmpresa
         ORDER BY DOCUMENTO.EstadoDocumento, DOCUMENTO.IdDocumento Desc">
         <SelectParameters>

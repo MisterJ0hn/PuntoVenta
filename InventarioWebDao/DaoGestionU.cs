@@ -196,12 +196,12 @@ namespace InventarioWebDao
 
             arrCampos.Add("IdRol");
             arrCampos.Add("NombreUsuario");
-            arrCampos.Add("Apellido");
-            arrCampos.Add("Correo");
-            arrCampos.Add("Usuario");
-            arrCampos.Add("Clave");
-            arrCampos.Add("Activo");
-            arrCampos.Add("FechaRegistro");
+            arrCampos.Add("ApellidoUsuario");
+            arrCampos.Add("CorreoUsuario");
+            arrCampos.Add("UsuarioUsuario");
+            arrCampos.Add("ClaveUsuario");
+            arrCampos.Add("ActivoUsuario");
+            arrCampos.Add("FecharegistroUsuario");
             arrCampos.Add("IdMaestra");
 
             arrValue.Add(objUsuario.TipoPerfil.ToString());
@@ -227,10 +227,10 @@ namespace InventarioWebDao
 
             arrValue.Add(" IdRol = "+objUsuario.TipoPerfil.ToString());
             arrValue.Add("NombreUsuario='" + objUsuario.Nombre + "'");
-            arrValue.Add("Apellido='" + objUsuario.Apellido + "'");
-            arrValue.Add("Correo='" + objUsuario.Mail + "'");
-            arrValue.Add("Usuario='" + objUsuario.Usuario1 + "'");
-            arrValue.Add("Clave='" + objUsuario.Pass + "'");
+            arrValue.Add("ApellidoUsuario='" + objUsuario.Apellido + "'");
+            arrValue.Add("CorreoUsuario='" + objUsuario.Mail + "'");
+            arrValue.Add("UsuarioUsuario='" + objUsuario.Usuario1 + "'");
+            arrValue.Add("ClaveUsuario='" + objUsuario.Pass + "'");
           
            
             objConexionDao.UpdateSql("USUARIO", arrValue,"IdUsuario="+objUsuario.IdUsuario);
@@ -252,11 +252,16 @@ namespace InventarioWebDao
         {
             DaoConexion objConexionDao = new DaoConexion();
             ArrayList arrValue = new ArrayList();
-            arrValue.Add(idSucursal.ToString());
+            ArrayList arrCampos = new ArrayList();
+            arrCampos.Add("IdUsuario");
+            arrCampos.Add("IdSucursal");
+
             arrValue.Add(idUsuario.ToString());
+            arrValue.Add(idSucursal.ToString());
+           
 
             objConexionDao.AddValue(arrValue);
-            int status = objConexionDao.InsertSql("SucursalUsuario");
+            int status = objConexionDao.InsertSql("SucursalUsuario", arrCampos);
         }
 
         

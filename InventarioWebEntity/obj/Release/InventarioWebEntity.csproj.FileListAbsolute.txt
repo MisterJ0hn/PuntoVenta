@@ -1,0 +1,4 @@
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebEntity\bin\InventarioWebEntity.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebEntity\bin\InventarioWebEntity.pdb
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebEntity\obj\Release\InventarioWebEntity.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebEntity\obj\Release\InventarioWebEntity.pdb

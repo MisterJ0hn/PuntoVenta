@@ -89,12 +89,14 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AppCaja.cs" />
     <Compile Include="AppDocumentos.cs" />
     <Compile Include="AppEmpresas.cs" />
     <Compile Include="AppGestionU.cs" />
     <Compile Include="DatatableToList.cs" />
     <Compile Include="NegocioAccesoLogica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoundInt.cs" />
     <Compile Include="ValidaRut.cs" />
     <Compile Include="WebForm.cs" />
     <Compile Include="XLS.cs" />

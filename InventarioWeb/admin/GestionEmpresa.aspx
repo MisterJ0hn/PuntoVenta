@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
     AllowSorting="True" AutoGenerateColumns="False" BackColor="White" 
     BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" 
@@ -12,8 +13,7 @@
             SortExpression="RutEmpresa" />
         <asp:BoundField DataField="NombreEmpresa" HeaderText="NombreEmpresa" 
             SortExpression="NombreEmpresa" />
-        <asp:BoundField DataField="RazonSocial" HeaderText="RazonSocial" 
-            SortExpression="RazonSocial" />
+        
     </Columns>
     <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
     <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
@@ -27,6 +27,6 @@
 </asp:GridView>
 <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
     ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString3 %>" 
-    SelectCommand="SELECT [RutEmpresa], [NombreEmpresa], [RazonSocial] FROM [EMPRESA]">
+    SelectCommand="SELECT [RutEmpresa], [NombreEmpresa] FROM [EMPRESA] WHERE ">
 </asp:SqlDataSource>
 </asp:Content>

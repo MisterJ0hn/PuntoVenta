@@ -13,7 +13,6 @@ namespace InventarioWeb
         {
             if (Session["nombrelogeado"] == null)
             {
-
                 Session.Abandon();
                 Session.Clear();
                 Response.Redirect("/Login.aspx");
@@ -22,20 +21,19 @@ namespace InventarioWeb
             {
                 if (Session["idPerfil"].ToString() != "2")
                 {
-                    switch (Session["idPerfil"].ToString())
-                    {
-                       
-                        case "3":
-                            Response.Redirect("/bodega/GestionDetalleproductos.aspx");
-                            break;
-                        case "4":
-                            Response.Redirect("/venta/GestionVentas.aspx");
-                            break;
-                    }
+                   switch (Session["idPerfil"].ToString())
+                   {
+                       case "3":
+                           Response.Redirect("/bodega/GestionDocumentos.aspx");
+                           //Response.Redirect("/admin/GestionU.aspx");
+                           break;
+                       case "4":
+                           Response.Redirect("/venta/GestionVentas.aspx");
+                           //Response.Redirect("/admin/GestionU.aspx");
+                           break;
+                   }
                 }
             }
-
-
         }
     }
 }

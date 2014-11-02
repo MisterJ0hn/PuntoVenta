@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="ApplicationServices-Web.config Connection String" description="ApplicationServices Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultvalue="data source=.\SQLEXPRESS;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\aspnetdb.mdf;User Instance=true" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="G:\\proyectosti\\proyectost\\punto\ de\ venta\\PuntoVenta\\InventarioWeb\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ApplicationServices']/@connectionString" />
+  </parameter>
+  <parameter name="InventarioWebConnectionString-Web.config Connection String" description="InventarioWebConnectionString Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultvalue="Data Source=localhost;Initial Catalog=InventarioWeb;User ID=sa;Password=955763" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="G:\\proyectosti\\proyectost\\punto\ de\ venta\\PuntoVenta\\InventarioWeb\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='InventarioWebConnectionString']/@connectionString" />
+  </parameter>
+  <parameter name="InventarioWebConnectionString2-Web.config Connection String" description="InventarioWebConnectionString2 Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultvalue="Data Source=localhost;Initial Catalog=InventarioWeb;User ID=sa" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="G:\\proyectosti\\proyectost\\punto\ de\ venta\\PuntoVenta\\InventarioWeb\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='InventarioWebConnectionString2']/@connectionString" />
+  </parameter>
+  <parameter name="InventarioWebConnectionString3-Web.config Connection String" description="InventarioWebConnectionString3 Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultvalue="Data Source=localhost;Initial Catalog=InventarioWeb;User ID=sa;Password=955763" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="G:\\proyectosti\\proyectost\\punto\ de\ venta\\PuntoVenta\\InventarioWeb\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='InventarioWebConnectionString3']/@connectionString" />
+  </parameter>
+  <parameter name="InventarioWebConnectionString4-Web.config Connection String" description="InventarioWebConnectionString4 Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultvalue="Data Source=localhost;Initial Catalog=InventarioWeb;User ID=sa;Password=955763" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="G:\\proyectosti\\proyectost\\punto\ de\ venta\\PuntoVenta\\InventarioWeb\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='InventarioWebConnectionString4']/@connectionString" />
+  </parameter>
+  <parameter name="prueba03-Web.config Connection String" description="prueba03 Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultvalue="Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};&#xD;&#xA;                         Extended Properties='Excel 8.0;HDR={1}'" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="G:\\proyectosti\\proyectost\\punto\ de\ venta\\PuntoVenta\\InventarioWeb\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='prueba03']/@connectionString" />
+  </parameter>
+  <parameter name="prueba07-Web.config Connection String" description="prueba07 Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultvalue="Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};&#xD;&#xA;                         Extended Properties='Excel 8.0;HDR={1}'" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="G:\\proyectosti\\proyectost\\punto\ de\ venta\\PuntoVenta\\InventarioWeb\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='prueba07']/@connectionString" />
+  </parameter>
+</parameters>

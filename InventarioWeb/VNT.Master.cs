@@ -25,10 +25,11 @@ namespace InventarioWeb
                     {
 
                         case "2":
-                            Response.Redirect("/admin/Welcome.aspx");
+                            Response.Redirect("/admin/GestionU.aspx");
                             break;
                         case "3":
-                            Response.Redirect("/bodega/GestionDetalleproductos.aspx");
+                            Response.Redirect("/bodega/GestionDocumentos.aspx");
+                            //Response.Redirect("/admin/GestionU.aspx");
                             break;
                     }
                 }

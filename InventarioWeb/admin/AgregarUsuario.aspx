@@ -13,6 +13,11 @@
 <asp:Label ID="lblApellido" runat="server" Text="Apellido" Width="50"></asp:Label>
 <asp:TextBox ID="txtApellido" runat="server"></asp:TextBox>
 <asp:RequiredFieldValidator id="vldApellido" runat="server" ControlToValidate="txtApellido" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+</p>
+<p>
+<asp:Label ID="lblMail" runat="server" Text="Mail" Width="50"></asp:Label>
+<asp:TextBox ID="txtMail" runat="server"></asp:TextBox>
+<asp:RequiredFieldValidator id="vldMail" runat="server" ControlToValidate="txtMail" ErrorMessage="Campo requerido" ForeColor="Red"></asp:RequiredFieldValidator>
 
 </p>
 <p>

@@ -9,12 +9,12 @@
 
     <asp:Panel ID="Panel1" runat="server">
     <p>
-    <asp:Button ID="btnAgregar" Text="Crear Producto" runat="server" 
+    <asp:Button ID="btnAgregar" Text="Ingresar Detalle Producto sin documento" runat="server" 
     onclick="btnAgregar_Click" />
     </p>
-    <asp:Button ID="btnProductos" Text="Gestion Productos" runat="server" 
+    <asp:Button ID="btnProductos" Text="Lista Productos" runat="server" 
             onclick="btnProductos_Click" />
-    <asp:Button ID="btnDepartamento" Text="Gestion Departamentos" runat="server" 
+    <asp:Button ID="btnDepartamento" Text="Lista Departamentos" runat="server" 
             onclick="btnDepartamento_Click" />
     </asp:Panel>
 
@@ -27,16 +27,17 @@
     </p>
 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
         DataSourceID="SqlDataSource1" AllowPaging="True" AllowSorting="True" 
-        BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" 
-        CellPadding="3" GridLines="Horizontal" PageSize="50"
+        BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" 
+        CellPadding="3" GridLines="Vertical" PageSize="50"
         onrowcommand="GridView1_RowCommand" ShowFooter="True" 
         ShowHeaderWhenEmpty="True" ViewStateMode="Enabled">
-    <AlternatingRowStyle BackColor="#F7F7F7" />
+    <AlternatingRowStyle BackColor="#DCDCDC" />
     <Columns>
         <asp:BoundField DataField="CodigoDetalleproducto" 
-            HeaderText="Codigo" SortExpression="CodigoDetalleproducto" />
+            HeaderText="Codigo" 
+            SortExpression="CodigoDetalleproducto" />
         <asp:BoundField DataField="DescripcionDetalleproducto" 
-            HeaderText="Nombre" 
+            HeaderText="Descripcion" 
             SortExpression="DescripcionDetalleproducto" />
         <asp:BoundField DataField="TipoproductoProducto" 
             HeaderText="Producto" SortExpression="TipoproductoProducto" />
@@ -47,33 +48,34 @@
             HeaderText="Precio Compra" 
             SortExpression="PreciocompraDetalleproducto" />
         <asp:BoundField DataField="PorcentajegananciaDetalleproducto" 
-            HeaderText="Ganancia" 
+            HeaderText="Procentaje Ganancia" 
             SortExpression="PorcentajegananciaDetalleproducto" />
         <asp:BoundField DataField="PrecioventaDetalleproducto" 
             HeaderText="Precio Venta" 
             SortExpression="PrecioventaDetalleproducto" />
-        <asp:ButtonField ButtonType="Button" Text="Editar"  CommandName="Editar" />
-        <asp:ButtonField ButtonType="Button" Text="Eliminar" />
+        <asp:BoundField DataField="CantidadStock" HeaderText="Stock" 
+            SortExpression="CantidadStock" />
+        <asp:ButtonField ButtonType="Button" CommandName="Editar" Text="Editar" />
     </Columns>
-    <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
-    <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
-    <PagerStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" HorizontalAlign="Right" />
-    <RowStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" />
-    <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="#F7F7F7" />
-    <SortedAscendingCellStyle BackColor="#F4F4FD" />
-    <SortedAscendingHeaderStyle BackColor="#5A4C9D" />
-    <SortedDescendingCellStyle BackColor="#D8D8F0" />
-    <SortedDescendingHeaderStyle BackColor="#3E3277" />
+    <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
+    <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />
+    <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
+    <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
+    <SelectedRowStyle BackColor="#008A8C" Font-Bold="True" ForeColor="White" />
+    <SortedAscendingCellStyle BackColor="#F1F1F1" />
+    <SortedAscendingHeaderStyle BackColor="#0000A9" />
+    <SortedDescendingCellStyle BackColor="#CAC9C9" />
+    <SortedDescendingHeaderStyle BackColor="#000065" />
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
-        SelectCommand="SELECT DP.CodigoDetalleproducto, DP.DescripcionDetalleproducto, P.TipoproductoProducto, D.TipodepartamentoDepartamento, 
-DP.PreciocompraDetalleproducto, DP.PorcentajegananciaDetalleproducto, DP.PrecioventaDetalleproducto
-FROM DETALLEPRODUCTO DP, PRODUCTO P, DEPARTAMENTO D, STOCK
-WHERE DP.IdProducto=p.IdProducto
-AND P.IdDepartamento=D.IdDepartamento
-"
-FilterExpression="( DescripcionDetalleproducto like '%{0}%' OR TipoproductoProducto like '%{0}%' OR TipodepartamentoDepartamento like '%{0}%')">
+        SelectCommand="SELECT DP.CodigoDetalleproducto, DP.DescripcionDetalleproducto, P.TipoproductoProducto, D.TipodepartamentoDepartamento, DP.PreciocompraDetalleproducto, DP.PorcentajegananciaDetalleproducto, DP.PrecioventaDetalleproducto, STOCK.CantidadStock 
+        FROM DETALLEPRODUCTO AS DP 
+        INNER JOIN PRODUCTO AS P ON DP.IdProducto = P.IdProducto 
+        INNER JOIN DEPARTAMENTO AS D ON P.IdDepartamento = D.IdDepartamento 
+        LEFT OUTER JOIN STOCK ON DP.IdDetalleproducto = STOCK.IdDetalleproducto"
+
+        FilterExpression="( DescripcionDetalleproducto like '%{0}%' OR TipoproductoProducto like '%{0}%' OR TipodepartamentoDepartamento like '%{0}%')">
 <FilterParameters>
     <asp:ControlParameter ControlID="txtFiltrar" PropertyName="text"/>
 </FilterParameters>

@@ -1,5 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/BDG.Master" AutoEventWireup="true" CodeBehind="IngresarProductos.aspx.cs" Inherits="InventarioWeb.bodega.IngresarProductos" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .style1
+        {
+            width: 390px;
+        }
+        .style2
+        {
+            width: 465px;
+            height: 66px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1>Ingreso de Productos</h1>
@@ -9,41 +20,80 @@
 </asp:DropDownList>
 </p>
 <p>
-<asp:Label ID="Label2" Text="RutEmpresa" runat="server" Width="100"></asp:Label>
+<asp:Label ID="Label2" Text="RutEmpresa" runat="server" Width="130"></asp:Label>
 <asp:Label ID="lblRutEmpresa" Text="" runat="server"></asp:Label>
 </p>
 <p>
-<asp:Label ID="label1" Text="Monto" runat="server" Width="100"></asp:Label>
+<asp:Label ID="label1" Text="Monto Total Factura" runat="server" Width="130"></asp:Label>
 <asp:Label ID="lblMonto" Text="" runat="server"></asp:Label>
 </p>
+<asp:Label ID="lblMontoDetalle" runat="server" Visible="false"></asp:Label>
 
-<p>
-<asp:Label ID="label3" Text="Monto" runat="server" Width="100"></asp:Label>
-<asp:Label ID="lblMontoDetalle" Text="" runat="server"></asp:Label>
-</p>
 
-        <h2>Ingresar Producto</h2>
-            <p>
+        <h2>Ingresar Producto
+    </h2><table style="width:100%;height:0%">
+            <tr>
+                <td class="style2">
             <asp:Label ID="lblCodigo" runat="server" Text="Codigo" Width="100"></asp:Label>
             <asp:TextBox ID="txtCodigo" runat="server" AutoPostBack="true" 
                     ontextchanged="txtCodigo_TextChanged"></asp:TextBox>
+                </td>
+                <td>
             <asp:Label ID="LblDescripcion" runat="server" Text="Descripcion" Width="100"></asp:Label>
             <asp:TextBox ID="txtDescripcion" runat="server" ></asp:TextBox>
-            </p>
-            <p>
+                </td>
+               
+            </tr>
+            <tr>
+                <td class="style2">
             <asp:Label ID="lblDepartamento" runat="server" Text="Departamento" Width="100">
             </asp:Label><asp:DropDownList ID="cboDepartamento" runat="server" 
                     AutoPostBack="true" 
                     onselectedindexchanged="cboDepartamento_SelectedIndexChanged"></asp:DropDownList>
+                </td>
+                <td>
             <asp:Label ID="lblProducto" runat="server" Text="Producto" Width="100"></asp:Label>
             <asp:DropDownList ID="cboProducto" runat="server" />
-            </p>
-            <p>
-            <asp:Label ID="lblPrecio" Text="Precio" runat="server" Width="100"></asp:Label>
+                </td>
+               
+            </tr>
+            <tr>
+                <td class="style2">
+            <asp:Label ID="lblPrecio" Text="Precio Neto" runat="server" Width="100"></asp:Label>
             <asp:TextBox ID="txtPrecio" runat="server"></asp:TextBox>
-            <asp:Label ID="lblCantidad" runat="server" Text="Cantidad" Width="100"></asp:Label>
+                </td>
+                <td>
+            <asp:Label ID="lblCantidad" runat="server" Text="Cantidad Unitaria" Width="100"></asp:Label>
             <asp:TextBox ID="txtCantidad" runat="server"></asp:TextBox>
-            </p>
+                </td>
+               
+            </tr>
+            <tr>
+                <td class="style2">
+                  
+                </td>
+                <td>
+            <asp:Label ID="Label5" runat="server" Text="Lote" Width="100"  Visible="false"></asp:Label>
+            <asp:TextBox ID="txtLote" runat="server"  Visible="false"></asp:TextBox>
+            
+           
+                </td>
+               
+            </tr>
+            <tr>
+                <td class="style2">
+            
+                </td>
+                <td>
+           
+            <asp:Label ID="Label7" runat="server" Text="Caja" Width="100"  Visible="false"></asp:Label>
+            <asp:TextBox ID="txtCaja" runat="server"  Visible="false"></asp:TextBox>
+           
+                </td>
+               
+            </tr>
+            </table>
+           
             <asp:Button ID="btnGuardar" runat="server" onclick="btnGuardar_Click" Text="Guardar" /> <asp:Button ID="btnIngresar" runat="server" Text="Ingresar a Stock" OnClick="btnIngresar_Click" />
         
             <h2>Detalle</h2>

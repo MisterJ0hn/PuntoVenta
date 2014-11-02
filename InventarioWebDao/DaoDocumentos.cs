@@ -9,7 +9,7 @@ namespace InventarioWebDao
 {
     public class DaoDocumentos
     {
-        public int Agregar(int numeroDoc, int monto, int tipoDocumento, String fechaEmision, String rutEmpresa, String rutEmpresaPropia,int tmov, int formaPago)
+        public int Agregar(int numeroDoc, int monto, int tipoDocumento, String fechaEmision, String rutEmpresa, String rutEmpresaPropia,int tmov, int formaPago, int idUsuario)
         {
             DaoConexion objConexion = new DaoConexion();
             ArrayList arrValores = new ArrayList();
@@ -22,10 +22,11 @@ namespace InventarioWebDao
             arrValores.Add("'" + numeroDoc.ToString() + "'");
             arrValores.Add("'" + fechaEmision.ToString() + "'");
             arrValores.Add(tmov.ToString());
-           // arrValores.Add("'" + hoy.ToString() + "'");
+            arrValores.Add("'" + hoy.ToString() + "'");
             arrValores.Add(monto.ToString());
             arrValores.Add("1");
             arrValores.Add(formaPago.ToString());
+            arrValores.Add(idUsuario.ToString());
           
             arrCampos.Add("IdTipoDocumento");
             arrCampos.Add("RutproveedorDocumento");
@@ -33,10 +34,11 @@ namespace InventarioWebDao
             arrCampos.Add("NumeroDocumento");
             arrCampos.Add("FechaemisionDocumento");
             arrCampos.Add("IdTipomovimiento");
-            //arrCampos.Add("FechaIngreso");
+            arrCampos.Add("FechaingresoDocumento");
             arrCampos.Add("MontototalDocumento");
             arrCampos.Add("EstadoDocumento");
             arrCampos.Add("IdFormapago");
+            arrCampos.Add("IdUsuarioRegistro");
 
             objConexion.AddValue(arrValores);
             int id=objConexion.InsertSql("DOCUMENTO",arrCampos,true);
@@ -82,7 +84,7 @@ namespace InventarioWebDao
             arrValores.Add(objDP.precioCompraDetalleproducto.ToString());
             //arrValores.Add(objDP.cantidadDetalleproducto.ToString());
             arrValores.Add(porcentaje.ToString());
-            arrValores.Add((objDP.precioCompraDetalleproducto+(objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100)).ToString().Replace(',','.'));
+            arrValores.Add("ROUND("+(objDP.precioCompraDetalleproducto+(objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100)).ToString().Replace(',','.')+",-1)");
             arrValores.Add(objDP.idProducto.ToString());
           
 
@@ -182,15 +184,18 @@ namespace InventarioWebDao
             
             String porcentaje = pganancia.ToString();
 
-
-            arrValores.Add("CodigoDetalleproducto='" + objDP.codigoDetalleproducto.ToString() + "'");
-            arrValores.Add("DescripcionDetalleproducto='" + objDP.descripcionDetalleproducto.ToString() + "'");
+            
+                arrValores.Add("CodigoDetalleproducto='" + objDP.codigoDetalleproducto.ToString() + "'");
+            
+                arrValores.Add("DescripcionDetalleproducto='" + objDP.descripcionDetalleproducto.ToString() + "'");
+            
             arrValores.Add("PreciocompraDetalleproducto=" + objDP.precioCompraDetalleproducto.ToString());
             //arrValores.Add(objDP.cantidadDetalleproducto.ToString());
-            arrValores.Add("PorcentajegananciaDetalleproducto=" + porcentaje.ToString().Replace(',', '.'));
-            arrValores.Add("PrecioventaDetalleproducto=" + Convert.ToInt32(objDP.precioCompraDetalleproducto + (objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100)));
-            arrValores.Add("IdProducto="+objDP.idProducto.ToString());
-
+            
+                arrValores.Add("PorcentajegananciaDetalleproducto=" + porcentaje.ToString().Replace(',', '.'));
+                arrValores.Add("PrecioventaDetalleproducto=" + Convert.ToInt32(objDP.precioCompraDetalleproducto + (objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100)));
+           
+               
 
          
             objConexion.UpdateSql("DETALLEPRODUCTO", arrValores, "IdDetalleproducto=" + objDP.idDetalleproducto);
@@ -275,9 +280,9 @@ namespace InventarioWebDao
             if (drArreglo.HasRows)
             {
                 if(signo=='+'){
-                    arrValores.Add("CantidadStock=CantidadStock+"+cantidad);
+                    arrValores.Add("CantidadStock=CantidadStock+(" + cantidad + ")");
                 }else{
-                    arrValores.Add("CantidadStock=CantidadStock-"+cantidad);
+                    arrValores.Add("CantidadStock=CantidadStock-("+cantidad+")");
                 }
                 
 
@@ -305,6 +310,28 @@ namespace InventarioWebDao
             }
 
         }
+        public int StockDetalleProducto( int idDetalleproducto, int idSucursal)
+        {
+            DaoConexion objConexion = new DaoConexion();
+            SqlDataReader drArreglo;
+     
+            ArrayList arrConexion = new ArrayList();
+            int stock = 0;
+            arrConexion = objConexion.QuerySql("select CantidadStock  from STOCK where IdSucursal=" + idSucursal + " and IdDetalleproducto=" + idDetalleproducto);
+             drArreglo = (SqlDataReader)arrConexion[0];
+             if (drArreglo.HasRows)
+             {
+                 while (drArreglo.Read())
+                 {
+                     Producto objProd = new Producto();
+
+                     stock = drArreglo.GetInt32(0);
+              
+                   
+                 }
+             }
+             return stock;
+        }
         public void AgregarDetalleDocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad)
         {
             DaoConexion objConexion = new DaoConexion();
@@ -330,12 +357,16 @@ namespace InventarioWebDao
             objConexion.InsertSql("DETALLEDOCUMENTO", arrCampos);
 
         }
-        public ArrayList seleccionaDocumento(int tMov, String rutEmpresa=null, int idDocumento=0, bool soloMax=false, int estadoDocumento=2, int numeroDocumento=0){
+        public ArrayList seleccionaDocumento(int tMov, String rutEmpresa=null, int idDocumento=0, bool soloMax=false, int estadoDocumento=2, int numeroDocumento=0, int documentoCerrado=2){
             DaoConexion objConexionDao = new DaoConexion();
             SqlDataReader drArreglo;
             SqlConnection conConexion = new SqlConnection();
             ArrayList arrConexion = new ArrayList();
             ArrayList arrDoc = new ArrayList();
+            String sqlCerrado = "";
+            if(documentoCerrado!=2){
+                sqlCerrado += " and DocumentoCerrado=" + documentoCerrado.ToString();
+            }
 
             if (soloMax)
             {
@@ -383,11 +414,11 @@ namespace InventarioWebDao
             {
                 if (idDocumento > 0)
                 {
-                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutproveedorDocumento, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento, EstadoDocumento FROM DOCUMENTO WHERE IdTipomovimiento=" + tMov + " and  IdDocumento = " + idDocumento);
+                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutproveedorDocumento, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento, EstadoDocumento FROM DOCUMENTO WHERE IdTipomovimiento=" + tMov + " and  IdDocumento = " + idDocumento+sqlCerrado);
                 }
                 else
                 {
-                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutproveedorDocumento, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento, EstadoDocumento FROM DOCUMENTO WHERE  IdTipomovimiento=" + tMov + " and RutEmpresa like '" + rutEmpresa + "' and EstadoDocumento=" + estadoDocumento);
+                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutproveedorDocumento, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento, EstadoDocumento FROM DOCUMENTO WHERE  IdTipomovimiento=" + tMov + " and RutEmpresa like '" + rutEmpresa + "' and EstadoDocumento=" + estadoDocumento+sqlCerrado);
                 }
             
         
@@ -571,12 +602,16 @@ namespace InventarioWebDao
             }
             return Total;
         }
-        public void ModificarEstadoDocumento(int idDocumento, int estadoDocumento)
+        public void ModificarEstadoDocumento(int idDocumento, int estadoDocumento, int montoTotal=0)
         {
             DaoConexion conn = new DaoConexion();
             ArrayList arr = new ArrayList();
 
-            arr.Add("EstadoDocumento=" + estadoDocumento);
+            arr.Add("EstadoDocumento=" + estadoDocumento.ToString());
+            if (montoTotal > 0)
+            {
+                arr.Add("MontototalDocumento=" + montoTotal.ToString());
+            }
 
             conn.UpdateSql("DOCUMENTO", arr, "IdDocumento=" + idDocumento);
 
@@ -598,7 +633,7 @@ namespace InventarioWebDao
             {
                 while (drArreglo.Read())
                 {
-                    porcentaje = drArreglo.GetString(0);
+                    porcentaje = drArreglo.GetDouble(0).ToString();
                 }
             }
             return porcentaje;

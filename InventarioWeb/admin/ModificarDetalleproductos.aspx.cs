@@ -19,7 +19,7 @@ namespace InventarioWeb.admin
                 AppDocumentos appDoc = new AppDocumentos();
                 String codigo=Request.Form["codigo"];
                 ArrayList arr= new ArrayList();
-                arr=appDoc.DetalleProductoBuscar(codigo);
+                arr=appDoc.DetalleProductoBuscar(codigo, Convert.ToInt32(Session["idSucursal"].ToString()));
                 txtCodigo.Text = codigo;
                 hdIdDetalleproducto.Value=arr[0].ToString();
                 txtDescripcion.Text = arr[1].ToString();
@@ -69,6 +69,11 @@ namespace InventarioWeb.admin
         protected void txtCosto_TextChanged(object sender, EventArgs e)
         {
             txtVenta.Text = (Convert.ToInt32(txtCosto.Text) + (Convert.ToInt32(txtCosto.Text) * Convert.ToInt32(txtGanancia.Text) / 100)).ToString();
+        }
+        protected void txtVenta_TextChanged(object sender, EventArgs e)
+        {
+            txtGanancia.Text = ((100 * Convert.ToInt32(txtVenta.Text) / Convert.ToInt32(txtCosto.Text)) - 100).ToString();
+
         }
 
         protected void cboDepartamento_SelectedIndexChanged(object sender, EventArgs e)

@@ -23,6 +23,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DesktopBuildPackageLocation>C:\Users\John\Desktop\InventarioWeb.zip</DesktopBuildPackageLocation>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -72,6 +74,9 @@
     <Content Include="admin\AgregarSucursal.aspx" />
     <Content Include="admin\AgregarUsuario.aspx" />
     <Content Include="admin\CierreCaja.aspx" />
+    <Content Include="admin\DetalleCierre.aspx" />
+    <Content Include="admin\DetalleDocumento.aspx" />
+    <Content Include="admin\GestionCierre.aspx" />
     <Content Include="admin\GestionDepartamento.aspx" />
     <Content Include="admin\GestionDetalleproductos.aspx" />
     <Content Include="admin\GestionDocumentos.aspx" />
@@ -96,6 +101,7 @@
     <Content Include="bodega\AgregarDetalleproducto.aspx" />
     <Content Include="bodega\AgregarProducto.aspx" />
     <Content Include="bodega\AgregarProveedor.aspx" />
+    <Content Include="bodega\DetalleDocumento.aspx" />
     <Content Include="bodega\GestionDepartamento.aspx" />
     <Content Include="bodega\GestionDetalleproductos.aspx" />
     <Content Include="bodega\GestionDocumentos.aspx" />
@@ -104,16 +110,20 @@
     <Content Include="bodega\IngresarProductos.aspx" />
     <Content Include="bodega\IngresoDocumento.aspx" />
     <Content Include="bodega\ModificarDetalleproductos.aspx" />
+    <Content Include="bodega\ModificarProductos.aspx" />
     <Content Include="bodega\ModificarProveedor.aspx" />
     <Content Include="bodega\productos.aspx" />
     <Content Include="bodega\Welcome.aspx" />
     <Content Include="ErrorDeCodigo.aspx" />
     <Content Include="historia.aspx" />
+    <Content Include="Imagenes\AcercaDe.jpg" />
     <Content Include="Imagenes\agregar.png" />
     <Content Include="Imagenes\alerta2.gif" />
+    <Content Include="Imagenes\central2.png" />
     <Content Include="Imagenes\eliminar.png" />
     <Content Include="Imagenes\finalizar.png" />
     <Content Include="Imagenes\IngresaPrincipal.jpg" />
+    <Content Include="Imagenes\logoPT50.png" />
     <Content Include="Imagenes\Satisfactorio.jpg" />
     <Content Include="ingresa.aspx" />
     <Content Include="Login.aspx" />
@@ -231,6 +241,27 @@
     </Compile>
     <Compile Include="admin\CierreCaja.aspx.designer.cs">
       <DependentUpon>CierreCaja.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\DetalleCierre.aspx.cs">
+      <DependentUpon>DetalleCierre.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\DetalleCierre.aspx.designer.cs">
+      <DependentUpon>DetalleCierre.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\DetalleDocumento.aspx.cs">
+      <DependentUpon>DetalleDocumento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\DetalleDocumento.aspx.designer.cs">
+      <DependentUpon>DetalleDocumento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\GestionCierre.aspx.cs">
+      <DependentUpon>GestionCierre.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\GestionCierre.aspx.designer.cs">
+      <DependentUpon>GestionCierre.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\GestionDepartamento.aspx.cs">
       <DependentUpon>GestionDepartamento.aspx</DependentUpon>
@@ -407,6 +438,13 @@
     <Compile Include="bodega\AgregarProveedor.aspx.designer.cs">
       <DependentUpon>AgregarProveedor.aspx</DependentUpon>
     </Compile>
+    <Compile Include="bodega\DetalleDocumento.aspx.cs">
+      <DependentUpon>DetalleDocumento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\DetalleDocumento.aspx.designer.cs">
+      <DependentUpon>DetalleDocumento.aspx</DependentUpon>
+    </Compile>
     <Compile Include="bodega\GestionDepartamento.aspx.cs">
       <DependentUpon>GestionDepartamento.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -462,6 +500,13 @@
     </Compile>
     <Compile Include="bodega\ModificarDetalleproductos.aspx.designer.cs">
       <DependentUpon>ModificarDetalleproductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bodega\ModificarProductos.aspx.cs">
+      <DependentUpon>ModificarProductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bodega\ModificarProductos.aspx.designer.cs">
+      <DependentUpon>ModificarProductos.aspx</DependentUpon>
     </Compile>
     <Compile Include="bodega\ModificarProveedor.aspx.cs">
       <DependentUpon>ModificarProveedor.aspx</DependentUpon>
@@ -558,6 +603,11 @@
       <DependentUpon>MPP.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="venta\GestionVentas.aspx.cs">
       <DependentUpon>GestionVentas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -612,6 +662,10 @@
     <Content Include="BDG.Master" />
     <None Include="Imagenes\Thumbs.db" />
     <Content Include="VNT.Master" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -624,10 +678,9 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>49829</DevelopmentServerPort>
+          <DevelopmentServerPort>56146</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost/InventarioWeb</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

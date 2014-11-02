@@ -47,7 +47,7 @@ AutoPostBack="true"
 </p>
 <p>
 <asp:Label ID="lblVenta" Text="Venta" runat="server" Width="100"></asp:Label>
-<asp:TextBox ID="txtVenta" runat="server"></asp:TextBox>
+<asp:TextBox ID="txtVenta" runat="server" ontextchanged="txtVenta_TextChanged" AutoPostBack="true"></asp:TextBox>
 </p>
 
 <asp:Button ID="btnGuardar" runat="server" Text="Guardar" OnClick="btnGuardar_Click" />

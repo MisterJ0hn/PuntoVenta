@@ -62,7 +62,7 @@ namespace InventarioWeb.admin
                 this.Validate();
                 if (this.IsValid)
                 {
-                    gestorU.AppAgregarUsuarios(txtNombre.Text, txtApellido.Text, "", txtUsuario.Text, txtClave.Text, int.Parse(lstPerfil.Value), int.Parse(lstSucursal.SelectedValue), int.Parse(Session["idMaestra"].ToString()));
+                    gestorU.AppAgregarUsuarios(txtNombre.Text, txtApellido.Text, txtMail.Text, txtUsuario.Text, txtClave.Text, int.Parse(lstPerfil.Value), int.Parse(lstSucursal.SelectedValue), int.Parse(Session["idMaestra"].ToString()));
 
                     Response.Redirect("gestionU.aspx");
                 }

@@ -1,0 +1,11 @@
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\InventarioWeb.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\InventarioWeb.pdb
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\InventarioWebApp.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\InventarioWebEntity.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\itextsharp.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\InventarioWebDao.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\InventarioWebApp.pdb
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\InventarioWebEntity.pdb
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\InventarioWebDao.pdb
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\obj\Release\InventarioWeb.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\obj\Release\InventarioWeb.pdb

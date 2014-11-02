@@ -27,10 +27,11 @@ namespace InventarioWeb.admin
             txtRutEmpresa.Text = "";
             txtNombreProveedor.Text = "";
             txtNumero.Text = "";
-            txtFechaVenc.Text = "";
+           
             txtMonto.Text = "";
             codigo = Codigo.Text;
             array = codigo.Split(new char[] { ';' });
+            String tipo="";
             foreach (String str in array)
             {
                 String[] subArray = str.Split(new char[] { ':' });
@@ -47,17 +48,22 @@ namespace InventarioWeb.admin
                 {
                     txtNumero.Text = subArray[1].ToString();
                 }
-                if (subArray[0].ToString() == "FE")
-                {
-                    txtFechaVenc.Text = subArray[1].ToString().Replace('\'', '-');
-                }
+                
                 if (subArray[0].ToString() == "MNT")
                 {
                     txtMonto.Text = subArray[1].ToString();
                 }
+                if (subArray[0].ToString() == "TD")
+                {
+                    tipo = subArray[1].ToString();
+
+                }
+
+
                 //Console.WriteLine(subArray[0].ToString() + " " + subArray[1].ToString());
                 
             }
+           
             Codigo.Text = "";
         }
         
@@ -71,14 +77,14 @@ namespace InventarioWeb.admin
             appEmpresa.AppAgregarEmpresa(txtRutEmpresa.Text, txtNombreProveedor.Text, txtNombreProveedor.Text, Convert.ToInt32(Session["idMaestra"].ToString()), 2);
             
             
-            if(appDocumentos.AgregarDocumento(Convert.ToInt32(txtNumero.Text), Convert.ToInt32(txtMonto.Text), txtFechaVenc.Text, txtRutEmpresa.Text, Session["rutEmpresa"].ToString()))
+            if(appDocumentos.AgregarDocumento(Convert.ToInt32(txtNumero.Text), Convert.ToInt32(txtMonto.Text), "", txtRutEmpresa.Text, Session["rutEmpresa"].ToString(),Convert.ToInt32(Session["idUsuario"].ToString())))
             {
                 Alerta.CssClass="alertaP";
                 Alerta.Text="Documento Salvado";
                 txtRutEmpresa.Text = "";
                 txtNombreProveedor.Text = "";
                 txtNumero.Text = "";
-                txtFechaVenc.Text = "";
+               
                 txtMonto.Text = "";
                 Codigo.Text = "";
                 Codigo.Focus();

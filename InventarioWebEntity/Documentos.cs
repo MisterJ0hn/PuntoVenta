@@ -18,9 +18,10 @@ namespace InventarioWebEntity
         private String FechaIngreso;
         private int MontoTotal;
         private int EstadoDocumento;
-
+        private int IdUsuarioResgistro;
+        private int DocumentoCerrado;
         public Documentos() { }
-        public Documentos(int idDocumento, int tipoDocumento, String rutEmpresa, String rutEmpresaPropia, int numeroDocumento, String fechaEmision, String fechaIngreso, int montoTotal, int estadoDocumento, int tipoMovimiento)
+        public Documentos(int idDocumento, int tipoDocumento, String rutEmpresa, String rutEmpresaPropia, int numeroDocumento, String fechaEmision, String fechaIngreso, int montoTotal, int estadoDocumento, int tipoMovimiento, int idUsuarioRegitro, int DocumentoCerrado)
         {
             this.IdDocumento = idDocumento;
             this.TipoDocumento = tipoDocumento;
@@ -32,6 +33,8 @@ namespace InventarioWebEntity
             this.MontoTotal = montoTotal;
             this.EstadoDocumento = estadoDocumento;
             this.TipoMovimiento = tipoMovimiento;
+            this.IdUsuarioResgistro=idUsuarioRegitro;
+            this.DocumentoCerrado = DocumentoCerrado;
         }
 
         public int idDocumento
@@ -89,6 +92,16 @@ namespace InventarioWebEntity
         {
             get { return TipoMovimiento; }
             set { TipoMovimiento = value; }
+        }
+        public int idUsuarioRegsitro{
+            get{return IdUsuarioResgistro;}
+            set{IdUsuarioResgistro=value;}
+        }
+        public int documentoCerrado
+        {
+            get { return DocumentoCerrado; }
+            set { DocumentoCerrado = value; }
+
         }
     }
 }

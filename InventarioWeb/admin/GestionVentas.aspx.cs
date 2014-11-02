@@ -47,9 +47,7 @@ namespace InventarioWeb.admin
                 GridViewRow row = GridView1.Rows[index];
                 TableCell tabla = row.Cells[0];
                 int idDocumento = Convert.ToInt32(tabla.Text);
-
                 AppDocumentos appDoc = new AppDocumentos();
-
                 appDoc.EliminarDetalleEgreso(Convert.ToInt32(Session["idSucursal"].ToString()), idDocumento);
 
                 GridView1.DataBind();

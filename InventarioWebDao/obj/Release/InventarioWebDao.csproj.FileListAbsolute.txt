@@ -1,0 +1,6 @@
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\bin\InventarioWebDao.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\bin\InventarioWebDao.pdb
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\bin\InventarioWebEntity.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\bin\InventarioWebEntity.pdb
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\obj\Release\InventarioWebDao.dll
+G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\obj\Release\InventarioWebDao.pdb

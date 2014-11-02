@@ -54,8 +54,9 @@ namespace InventarioWeb.bodega
             lblMonto.Text = arrDoc[5].ToString();
             lblRutEmpresa.Text = arrDoc[1].ToString();
             txtCodigo.Enabled = true;
+            txtCodigo.Focus();
 
-            lblMontoDetalle.Text = appDocumento.MontoTotal(Convert.ToInt32(cboFacturas.SelectedValue)).ToString();
+            //lblMontoDetalle.Text = appDocumento.MontoTotal(Convert.ToInt32(cboFacturas.SelectedValue)).ToString();
         }
 
         protected void txtCodigo_TextChanged(object sender, EventArgs e)
@@ -101,7 +102,8 @@ namespace InventarioWeb.bodega
                     i++;
                 }
                 cboProducto.SelectedIndex = i;
-
+                txtCaja.Enabled = true;
+                txtLote.Enabled = true;
                 txtCantidad.Enabled = true;
                 txtPrecio.Enabled = true;
                 txtPrecio.Focus();
@@ -111,6 +113,8 @@ namespace InventarioWeb.bodega
                 txtDescripcion.Enabled = true;
                 cboProducto.Enabled = true;
                 cboDepartamento.Enabled = true;
+                txtCaja.Enabled = true;
+                txtLote.Enabled = true;
                 txtCodigo.Enabled = true;
                 txtCantidad.Enabled = true;
                 txtPrecio.Enabled = true;
@@ -123,19 +127,22 @@ namespace InventarioWeb.bodega
             AppDocumentos appDocumentos = new AppDocumentos();
             ArrayList arrProd = new ArrayList();
             
+            int precioUnitario = 0;
+            
             arrProd = appDocumentos.DetalleProductoBuscar(txtCodigo.Text);
 
 
             if (arrProd.Count > 0)
             {
                 double porcentajeGanancia = Convert.ToDouble(arrProd[5].ToString());
-
+                
+                precioUnitario = Convert.ToInt32(txtPrecio.Text) / Convert.ToInt32(txtCantidad.Text);
+                txtPrecio.Text = precioUnitario.ToString();
+                
                 appDocumentos.AgregarDetalledocumento(Convert.ToInt32(arrProd[0].ToString()), Convert.ToInt32(cboFacturas.SelectedValue), Convert.ToInt32(txtCantidad.Text), 0, Convert.ToInt32(txtPrecio.Text), 0);
             }
             else
-            {
-                
-                
+            {  
 
                 int idProd = appDocumentos.AgregaProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtPrecio.Text));
                 appDocumentos.AgregarDetalledocumento(idProd, Convert.ToInt32(cboFacturas.SelectedValue), Convert.ToInt32(txtCantidad.Text), 0, Convert.ToInt32(txtPrecio.Text), 0);
@@ -145,6 +152,8 @@ namespace InventarioWeb.bodega
                 cboDepartamento.Enabled = false;
                 txtCantidad.Enabled = false;
                 txtPrecio.Enabled = false;
+                txtCaja.Enabled = false;
+                txtLote.Enabled = false;
 
             }
             txtCodigo.Focus();
@@ -154,10 +163,12 @@ namespace InventarioWeb.bodega
             txtCantidad.Text = "";
             txtPrecio.Text = "";
             txtCodigo.Text = "";
+            txtCaja.Text = "";
+            txtLote.Text = "";
 
             GridView1.DataBind();
-            lblMontoDetalle.Text = appDocumentos.MontoTotal(Convert.ToInt32(cboFacturas.SelectedValue)).ToString();
-            appDocumentos.ComparaTotales(Convert.ToInt32(lblMonto.Text), Convert.ToInt32(lblMontoDetalle.Text), Convert.ToInt32(cboFacturas.SelectedValue));
+            //lblMontoDetalle.Text = appDocumentos.MontoTotal(Convert.ToInt32(cboFacturas.SelectedValue)).ToString();
+            //appDocumentos.ComparaTotales(Convert.ToInt32(lblMonto.Text), Convert.ToInt32(lblMontoDetalle.Text), Convert.ToInt32(cboFacturas.SelectedValue));
         }
 
         protected void cboDepartamento_SelectedIndexChanged(object sender, EventArgs e)

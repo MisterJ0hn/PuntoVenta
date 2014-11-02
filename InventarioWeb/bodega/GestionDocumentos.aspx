@@ -20,22 +20,27 @@
         onrowcommand="GridView1_RowCommand">
         <AlternatingRowStyle BackColor="#F7F7F7" />
         <Columns>
-            <asp:BoundField DataField="IdDocumento" HeaderText="Id" 
-                SortExpression="IdDocumento" />
+            <asp:BoundField DataField="IdDocumento" HeaderText="IdDocumento" 
+                SortExpression="IdDocumento" InsertVisible="False" ReadOnly="True" />
             <asp:BoundField DataField="NombreEmpresa" HeaderText="Nombre Empresa" 
                 SortExpression="NombreEmpresa" />
-            <asp:BoundField DataField="RutEmpresa" HeaderText="Rut Empresa" ReadOnly="True" 
+            <asp:BoundField DataField="RutEmpresa" HeaderText="Rut Empresa" 
                 SortExpression="RutEmpresa" />
-            <asp:BoundField DataField="NumeroDocumento" HeaderText="Numero Documento" 
+            <asp:BoundField DataField="NumeroDocumento" HeaderText="Numero" 
                 SortExpression="NumeroDocumento" />
-            <asp:BoundField DataField="FechaemisionDocumento" 
-                HeaderText="Fecha Emision" SortExpression="FechaemisionDocumento" />
+            <asp:BoundField DataField="FechaingresoDocumento" 
+                HeaderText="Fecha Ingreso" 
+                SortExpression="FechaingresoDocumento" />
             <asp:BoundField DataField="MontototalDocumento" 
                 HeaderText="Monto Total" SortExpression="MontototalDocumento" />
             <asp:BoundField DataField="EstadoDocumento" HeaderText="Estado" 
                 SortExpression="EstadoDocumento" />
-           
+            <asp:BoundField DataField="UsuarioRegistro" HeaderText="Usuario Registro" 
+                SortExpression="UsuarioRegistro" />
+
+            <asp:ButtonField ButtonType="Button" Text="Detalle" CommandName="Detalle" />
             <asp:ButtonField ButtonType="Button" Text="Eliminar" CommandName="Eliminar" />
+            
         </Columns>
         <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
         <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
@@ -49,13 +54,13 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
-        SelectCommand="SELECT DOCUMENTO.IdDocumento, EMPRESA.NombreEmpresa, EMPRESA.RutEmpresa, DOCUMENTO.NumeroDocumento, DOCUMENTO.FechaemisionDocumento, DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.EstadoDocumento 
+        SelectCommand="SELECT DOCUMENTO.IdDocumento, EMPRESA.NombreEmpresa, EMPRESA.RutEmpresa, DOCUMENTO.NumeroDocumento, DOCUMENTO.FechaingresoDocumento, 
+        DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.EstadoDocumento, CONCAT(USUARIO.NombreUsuario,' ', USUARIO.ApellidoUsuario ) AS UsuarioRegistro
         FROM DOCUMENTO 
-        INNER JOIN EMPRESA 
-        ON DOCUMENTO.RutEmpresa = EMPRESA.RutEmpresa 
-        INNER JOIN ESTADODOCUMENTO 
-        ON DOCUMENTO.EstadoDocumento = ESTADODOCUMENTO.IdEstadoDocumento
-        Where DOCUMENTO.IdTipomovimiento=1 AND DOCUMENTO.EstadoDocumento!=5 AND DOCUMENTO.RutEmpresaPropia=@rutEmpresa">
+        INNER JOIN EMPRESA ON DOCUMENTO.RutproveedorDocumento = EMPRESA.RutEmpresa 
+        INNER JOIN ESTADODOCUMENTO ON DOCUMENTO.EstadoDocumento = ESTADODOCUMENTO.IdEstadoDocumento 
+        INNER JOIN USUARIO ON DOCUMENTO.IdUsuarioRegistro = USUARIO.IdUsuario 
+        WHERE (DOCUMENTO.IdTipomovimiento = 1) AND (DOCUMENTO.EstadoDocumento &lt;&gt; 5) AND (DOCUMENTO.RutEmpresa = @rutEmpresa)">
         <SelectParameters>
             <asp:ControlParameter ControlID="hdRutEmpresa" Name="rutEmpresa" Type="String"/>
         </SelectParameters>

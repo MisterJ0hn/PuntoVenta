@@ -22,10 +22,7 @@
 <asp:Label ID="Label2" runat="server" Text="Numero Factura" Width="150"></asp:Label>
 <asp:TextBox ID="txtNumero" runat="server"></asp:TextBox>
 </p>
-<p>
-<asp:Label ID="Label4" runat="server" Text="Fecha Vencimiento" Width="150"></asp:Label>
-<asp:TextBox ID="txtFechaVenc" runat="server"></asp:TextBox>
-</p>
+
 <p>
 <asp:Label ID="Label3" runat="server" Text="Monto" Width="150"></asp:Label>
 <asp:TextBox ID="txtMonto" runat="server"></asp:TextBox>

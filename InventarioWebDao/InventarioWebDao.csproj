@@ -89,6 +89,7 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DaoCaja.cs" />
     <Compile Include="DaoConexion.cs" />
     <Compile Include="DaoDocumentos.cs" />
     <Compile Include="DaoEmpresas.cs" />
