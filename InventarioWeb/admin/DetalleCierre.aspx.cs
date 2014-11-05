@@ -170,20 +170,105 @@ namespace InventarioWeb.admin
             prc.StartInfo.FileName = fileName;
             prc.Start();
         }
+        public String GeneraHtml()
+        {
+            String cuerpo = "";
+            String htmlGridCreditos = "";
+            String htmlGridIngreso = "";
+            string htmlGridEgreso = "";
+            String htmlGridVentamenor = "";
+            String htmlDetalleDinero = "";
+            String htmlDevolucion = "";
+            String htmlResumen = "";
+            String htmlCuadratura = "";
+
+            htmlGridIngreso = "INGRESOS<table border='1'><tr><td>Detalle</td><td>Cantidad</td></tr>";
+            foreach (GridViewRow row in GridIngresos.Rows)
+            {
+
+                htmlGridIngreso += "<tr><td>" + row.Cells[0].Text + "</td><td>" + row.Cells[1].Text + "</td></tr>";
+            }
+            htmlGridIngreso += "</table>";
+
+            htmlGridCreditos = "CREDITO<table border='1'><tr><td>Detalle</td><td>Cantidad</td><td>Fecha</td></tr>";
+            foreach (GridViewRow row2 in GridCreditos.Rows)
+            {
+                htmlGridCreditos += "<tr><td>" + row2.Cells[0].Text + "</td><td>" + row2.Cells[1].Text + "</td><td>" + row2.Cells[2].Text + "</td></tr>";
+            }
+            htmlGridCreditos+="</table>";
+
+            htmlGridEgreso = "EGRESOS<table border='1'><tr><td>Detalle</td><td>Cantidad</td></tr>";
+            foreach (GridViewRow row3 in GridIngresos.Rows)
+            {
+
+                htmlGridEgreso += "<tr><td>" + row3.Cells[0].Text + "</td><td>" + row3.Cells[1].Text + "</td></tr>";
+            }
+            htmlGridEgreso += "</table>";
+
+            htmlGridVentamenor = "VENTA MENOR<table border='1'><tr><td>Detalle</td><td>Cantidad</td></tr>";
+            foreach (GridViewRow row4 in GridIngresos.Rows)
+            {
+
+                htmlGridVentamenor += "<tr><td>" + row4.Cells[0].Text + "</td><td>" + row4.Cells[1].Text + "</td></tr>";
+            }
+            htmlGridVentamenor += "</table>";
+
+            htmlDetalleDinero = "DETALLE DINERO<table border='1'><tr><td>$20.000</td><td>" + txt20000.Text + "</td></tr>";
+            htmlDetalleDinero += "<tr><td>$10.000</td><td>" + txt10000.Text + "</td></tr>";
+            htmlDetalleDinero += "<tr><td>$5.000</td><td>" + txt5000.Text + "</td></tr>";
+            htmlDetalleDinero += "<tr><td>$2.000</td><td>" + txt2000.Text + "</td></tr>";
+            htmlDetalleDinero += "<tr><td>$1.000</td><td>" + txt1000.Text + "</td></tr>";
+            htmlDetalleDinero += "<tr><td>$500</td><td>" + txt500.Text + "</td></tr>";
+            htmlDetalleDinero += "<tr><td>$100</td><td>" + txt100.Text + "</td></tr>";
+            htmlDetalleDinero += "<tr><td>$50</td><td>" + txt50.Text + "</td></tr>";
+            htmlDetalleDinero += "<tr><td>$10</td><td>" + txt10.Text + "</td></tr>";
+            htmlDetalleDinero += "<tr><td>Cheque</td><td>" + txtCheque.Text + "</td></tr>";
+            htmlDetalleDinero += "<tr><td>Total</td><td>" + txtTotal.Text + "</td></tr></table>";
+
+
+            htmlDevolucion = "<table border='1'><tr><td>Devolucion de Garantia</td><td>" + txtDevolucion.Text + "</td></tr></table>";
+
+            htmlResumen = "RESUMEN<table border='1'><tr><td>Creditos</td><td>" + lblCreditos.Text + "</td></tr>";
+            htmlResumen += "<tr><td>Egresos</td><td>" + lblEgresos.Text + "</td></tr>";
+            htmlResumen += "<tr><td>Devolucion</td><td>" + lblDevolucionResumen.Text + "</td></tr>";
+            htmlResumen += "<tr><td>Efectivo</td><td>" + lblEfectivo.Text + "</td></tr>";
+            htmlResumen += "<tr><td>Total</td><td>" + lblTotalResumen.Text + "</td></tr></table>";
+
+            htmlCuadratura = "CUADRATURA<table border='1'><tr><td>Computador</td><td>" + lblComputador.Text + "</td></tr>";
+
+            htmlCuadratura += "<tr><td>Ingresos</td><td>" + lblIngesos.Text + "</td></tr>";
+            htmlCuadratura += "<tr><td>Diferencia</td><td>" + lblDiferencia.Text + "</td></tr></table>";
+           
+
+
+
+            cuerpo += "<table style='font-size:10px' align='center' valign='top'><tr><td>" + htmlGridCreditos +"<br /><br />"+ htmlGridVentamenor + "</td><td>" +
+                htmlGridEgreso + "<br /><br />" + htmlDevolucion + "<br /><br />" + htmlGridIngreso + "</td><td>" +
+                htmlDetalleDinero + "<br /><br />" + htmlResumen + "<br /><br />" + htmlCuadratura + "</td></tr></table>";
+           
+            return cuerpo;
+
+
+        }
         public void Exportar_Pdf()
         {
             Response.ContentType = "application/pdf";
             Response.AddHeader("content-disposition", "attachment;filename=Panel.pdf");
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            StringWriter sw = new StringWriter();
+            /*StringWriter sw = new StringWriter();
+           
             HtmlTextWriter hw = new HtmlTextWriter(sw);
-            pnlCierre.RenderControl(hw);
-            StringReader sr = new StringReader(sw.ToString());
+            pnlCierre.RenderControl(hw);*/
+            StringReader sr = new StringReader(GeneraHtml());
             Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
             PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            
+            pdfDoc.SetPageSize(PageSize.LETTER.Rotate());
+           
             pdfDoc.Open();
             htmlparser.Parse(sr);
+          
             pdfDoc.Close();
             Response.Write(pdfDoc);
             Response.End();
