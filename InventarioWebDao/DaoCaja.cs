@@ -199,7 +199,7 @@ namespace InventarioWebDao
             
 
             
-            arrConexion = objConexionDao.QuerySql("SELECT DetalleEgreso, CantidadEgreso FROM EGRESOS WHERE IdCierrecaja="+idCierre);
+            arrConexion = objConexionDao.QuerySql("SELECT DetalleEgreso, MontoEgreso FROM EGRESOS WHERE IdCierrecaja="+idCierre);
 
             drArreglo = (SqlDataReader)arrConexion[0];
             if (drArreglo.HasRows)
@@ -230,7 +230,7 @@ namespace InventarioWebDao
 
 
 
-            arrConexion = objConexionDao.QuerySql("SELECT DetalleIngreso, CantidadIngreso FROM INGRESOS WHERE IdCierrecaja=" + idCierre);
+            arrConexion = objConexionDao.QuerySql("SELECT DetalleIngreso, MontoIngreso FROM INGRESOS WHERE IdCierrecaja=" + idCierre);
 
             drArreglo = (SqlDataReader)arrConexion[0];
             if (drArreglo.HasRows)
@@ -257,10 +257,10 @@ namespace InventarioWebDao
 
             arrIngresos.Columns.Add("Detalle", typeof(String));
             arrIngresos.Columns.Add("Cantidad", typeof(Int32));
-            arrIngresos.Columns.Add("Fecha", typeof(Int32));
+            arrIngresos.Columns.Add("Fecha", typeof(String));
 
 
-            arrConexion = objConexionDao.QuerySql("SELECT DetalleCreditos, DeudaCreditos, FechaCreditos FROM INGRESOS WHERE IdCierrecaja=" + idCierre);
+            arrConexion = objConexionDao.QuerySql("SELECT DetalleCreditos, DeudaCreditos, FechaCreditos FROM CREDITOS WHERE IdCierrecaja=" + idCierre);
 
             drArreglo = (SqlDataReader)arrConexion[0];
             if (drArreglo.HasRows)
@@ -270,7 +270,7 @@ namespace InventarioWebDao
                     DataRow dt = arrIngresos.NewRow();
                     dt["Detalle"] = drArreglo.GetString(0);
                     dt["Cantidad"] = drArreglo.GetInt32(1);
-                    dt["Fecha"] = drArreglo.GetInt32(2);
+                    dt["Fecha"] = Convert.ToString(drArreglo.GetDateTime(2));
                     arrIngresos.Rows.Add(dt);
                 }
             }
@@ -326,7 +326,7 @@ namespace InventarioWebDao
                 while (drArreglo.Read())
                 {
 
-                    arrDetalle.Add(drArreglo.GetString(0));
+                    arrDetalle.Add(drArreglo.GetInt32(0));
                     arrDetalle.Add(drArreglo.GetInt32(1));
                     arrDetalle.Add(drArreglo.GetInt32(2));
                     arrDetalle.Add(drArreglo.GetInt32(3));

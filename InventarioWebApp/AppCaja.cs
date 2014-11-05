@@ -44,7 +44,14 @@ namespace InventarioWebApp
             dtCaja = daoCaja.SeleccionaCierre(idCierre);
             return dtCaja;
         }
+        public DataTable SeleccionaCredito(int idCierre)
+        {
+            DaoCaja daoCaja = new DaoCaja();
+            DataTable dtCaja = new DataTable();
 
+            dtCaja = daoCaja.SeleccionaCreditos(idCierre);
+            return dtCaja;
+        }
         public DataTable SeleccionaEgreso(int idCierre)
         {
             DaoCaja daoCaja = new DaoCaja();
@@ -70,7 +77,15 @@ namespace InventarioWebApp
             dtCaja = daoCaja.SeleccionaVentaMenor(idCierre);
             return dtCaja;
         }
+        public ArrayList SeleccionaDetalleDinero(int idCierre)
+        {
+            DaoCaja daoCaja = new DaoCaja();
+            ArrayList dtCaja = new ArrayList();
 
+            dtCaja = daoCaja.SeleccionaDetalleDinero(idCierre);
+            return dtCaja;
+
+        }
 
     }
 }

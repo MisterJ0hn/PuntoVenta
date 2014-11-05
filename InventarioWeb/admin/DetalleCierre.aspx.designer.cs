@@ -13,6 +13,24 @@ namespace InventarioWeb.admin {
     public partial class DetalleCierre {
         
         /// <summary>
+        /// Control btnExportar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportar;
+        
+        /// <summary>
+        /// Control pnlCierre.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCierre;
+        
+        /// <summary>
         /// Control lblResponsable.
         /// </summary>
         /// <remarks>
@@ -100,7 +118,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt20000;
+        protected global::System.Web.UI.WebControls.Label txt20000;
         
         /// <summary>
         /// Control lbl10000.
@@ -118,7 +136,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt10000;
+        protected global::System.Web.UI.WebControls.Label txt10000;
         
         /// <summary>
         /// Control lbl5000.
@@ -136,7 +154,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt5000;
+        protected global::System.Web.UI.WebControls.Label txt5000;
         
         /// <summary>
         /// Control lbl2000.
@@ -154,7 +172,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt2000;
+        protected global::System.Web.UI.WebControls.Label txt2000;
         
         /// <summary>
         /// Control lbl1000.
@@ -172,7 +190,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt1000;
+        protected global::System.Web.UI.WebControls.Label txt1000;
         
         /// <summary>
         /// Control lbl500.
@@ -190,7 +208,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt500;
+        protected global::System.Web.UI.WebControls.Label txt500;
         
         /// <summary>
         /// Control lbl100.
@@ -208,7 +226,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt100;
+        protected global::System.Web.UI.WebControls.Label txt100;
         
         /// <summary>
         /// Control Label9.
@@ -226,7 +244,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt50;
+        protected global::System.Web.UI.WebControls.Label txt50;
         
         /// <summary>
         /// Control lbl10.
@@ -244,7 +262,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt10;
+        protected global::System.Web.UI.WebControls.Label txt10;
         
         /// <summary>
         /// Control Label1.
@@ -262,7 +280,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCheque;
+        protected global::System.Web.UI.WebControls.Label txtCheque;
         
         /// <summary>
         /// Control Label2.
@@ -280,7 +298,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTotal;
+        protected global::System.Web.UI.WebControls.Label txtTotal;
         
         /// <summary>
         /// Control lbl1.
@@ -298,7 +316,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox lblCreditos;
+        protected global::System.Web.UI.WebControls.Label lblCreditos;
         
         /// <summary>
         /// Control label8.
@@ -316,7 +334,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox lblEgresos;
+        protected global::System.Web.UI.WebControls.Label lblEgresos;
         
         /// <summary>
         /// Control Label5.
@@ -334,7 +352,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox lblDevolucionResumen;
+        protected global::System.Web.UI.WebControls.Label lblDevolucionResumen;
         
         /// <summary>
         /// Control Label6.
@@ -352,7 +370,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox lblEfectivo;
+        protected global::System.Web.UI.WebControls.Label lblEfectivo;
         
         /// <summary>
         /// Control Label7.
@@ -370,7 +388,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox lblTotalResumen;
+        protected global::System.Web.UI.WebControls.Label lblTotalResumen;
         
         /// <summary>
         /// Control lblCuad1.
@@ -388,7 +406,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox lblComputador;
+        protected global::System.Web.UI.WebControls.Label lblComputador;
         
         /// <summary>
         /// Control lblCuad2.
@@ -406,7 +424,7 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox lblIngesos;
+        protected global::System.Web.UI.WebControls.Label lblIngesos;
         
         /// <summary>
         /// Control lblcuad3.
@@ -424,6 +442,6 @@ namespace InventarioWeb.admin {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox lblDiferencia;
+        protected global::System.Web.UI.WebControls.Label lblDiferencia;
     }
 }
