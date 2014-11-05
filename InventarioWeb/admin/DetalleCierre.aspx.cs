@@ -122,7 +122,7 @@ namespace InventarioWeb.admin
         public void crear_pdf()
         {
             string fileName = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".pdf";
-            Document document = new Document(PageSize.A4, 50, 50, 25, 25);
+            Document document = new Document(PageSize.A4, 50, 50, 10, 10);
             PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
             document.Open();
 
@@ -213,7 +213,7 @@ namespace InventarioWeb.admin
             }
             htmlGridVentamenor += "</table>";
 
-            htmlDetalleDinero = "DETALLE DINERO<table border='1'><tr><td>$20.000</td><td>" + txt20000.Text + "</td></tr>";
+            htmlDetalleDinero = "DETALLE DINERO<table border='1'><tr><td align='center'>$20.000</td><td>" + txt20000.Text + "</td></tr>";
             htmlDetalleDinero += "<tr><td>$10.000</td><td>" + txt10000.Text + "</td></tr>";
             htmlDetalleDinero += "<tr><td>$5.000</td><td>" + txt5000.Text + "</td></tr>";
             htmlDetalleDinero += "<tr><td>$2.000</td><td>" + txt2000.Text + "</td></tr>";
@@ -226,15 +226,15 @@ namespace InventarioWeb.admin
             htmlDetalleDinero += "<tr><td>Total</td><td>" + txtTotal.Text + "</td></tr></table>";
 
 
-            htmlDevolucion = "<table border='1'><tr><td>Devolucion de Garantia</td><td>" + txtDevolucion.Text + "</td></tr></table>";
+            htmlDevolucion = "<table border='1'><tr><td >Devolucion de Garantia</td><td>" + txtDevolucion.Text + "</td></tr></table>";
 
-            htmlResumen = "RESUMEN<table border='1'><tr><td>Creditos</td><td>" + lblCreditos.Text + "</td></tr>";
-            htmlResumen += "<tr><td>Egresos</td><td>" + lblEgresos.Text + "</td></tr>";
-            htmlResumen += "<tr><td>Devolucion</td><td>" + lblDevolucionResumen.Text + "</td></tr>";
-            htmlResumen += "<tr><td>Efectivo</td><td>" + lblEfectivo.Text + "</td></tr>";
-            htmlResumen += "<tr><td>Total</td><td>" + lblTotalResumen.Text + "</td></tr></table>";
+            htmlResumen = "RESUMEN<table border='1'><tr><td align='center'>Creditos</td><td>" + lblCreditos.Text + "</td></tr>";
+            htmlResumen += "<tr><td align='center'>Egresos</td><td>" + lblEgresos.Text + "</td></tr>";
+            htmlResumen += "<tr><td align='center'>Devolucion</td><td>" + lblDevolucionResumen.Text + "</td></tr>";
+            htmlResumen += "<tr><td align='center'>Efectivo</td><td>" + lblEfectivo.Text + "</td></tr>";
+            htmlResumen += "<tr><td align='center'>Total</td><td>" + lblTotalResumen.Text + "</td></tr></table>";
 
-            htmlCuadratura = "CUADRATURA<table border='1'><tr><td>Computador</td><td>" + lblComputador.Text + "</td></tr>";
+            htmlCuadratura = "CUADRATURA<table border='1'><tr><td align='center'>Computador</td><td align='center'>" + lblComputador.Text + "</td></tr>";
 
             htmlCuadratura += "<tr><td>Ingresos</td><td>" + lblIngesos.Text + "</td></tr>";
             htmlCuadratura += "<tr><td>Diferencia</td><td>" + lblDiferencia.Text + "</td></tr></table>";
@@ -242,7 +242,7 @@ namespace InventarioWeb.admin
 
 
 
-            cuerpo += "<table style='font-size:10px' align='center' valign='top'><tr><td>" + htmlGridCreditos +"<br /><br />"+ htmlGridVentamenor + "</td><td>" +
+            cuerpo += "<table style='font-size:10px' align='center' valign='top'><tr><td colspan='3'></td></tr><tr><td>" + htmlGridCreditos +"<br /><br />"+ htmlGridVentamenor + "</td><td>" +
                 htmlGridEgreso + "<br /><br />" + htmlDevolucion + "<br /><br />" + htmlGridIngreso + "</td><td>" +
                 htmlDetalleDinero + "<br /><br />" + htmlResumen + "<br /><br />" + htmlCuadratura + "</td></tr></table>";
            
@@ -260,13 +260,14 @@ namespace InventarioWeb.admin
             HtmlTextWriter hw = new HtmlTextWriter(sw);
             pnlCierre.RenderControl(hw);*/
             StringReader sr = new StringReader(GeneraHtml());
-            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
             PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             
             pdfDoc.SetPageSize(PageSize.LETTER.Rotate());
            
             pdfDoc.Open();
+           
             htmlparser.Parse(sr);
           
             pdfDoc.Close();

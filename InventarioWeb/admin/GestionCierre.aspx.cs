@@ -32,5 +32,10 @@ namespace InventarioWeb.admin
 
             }
         }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CierreCaja.aspx");
+        }
     }
 }

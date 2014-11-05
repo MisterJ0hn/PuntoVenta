@@ -65,3 +65,15 @@ G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\Inventario
 G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\InventarioWebDao.pdb
 G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.pdb
 G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\itextsharp.dll
+C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\bin\InventarioWeb.dll
+C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\bin\InventarioWeb.pdb
+C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\bin\InventarioWebApp.dll
+C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\bin\InventarioWebEntity.dll
+C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\bin\itextsharp.dll
+C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\bin\InventarioWebDao.dll
+C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\bin\InventarioWebApp.pdb
+C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\bin\InventarioWebEntity.pdb
+C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\bin\InventarioWebDao.pdb
+C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.csprojResolveAssemblyReference.cache
+C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.dll
+C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.pdb
