@@ -176,7 +176,7 @@ namespace InventarioWeb.admin
             else
             {
 
-                appDoc.AgregarDetalledocumento(Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(txtCantidad.Text), Convert.ToInt32(txtPrecio.Text), 0, 0);
+                appDoc.AgregarDetalledocumento(Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(txtCantidad.Text), Convert.ToInt32(txtPrecio.Text), 0, 0,0);
                 appDoc.AgregarDertalleVenta(Convert.ToInt32(txtCantidad.Text), Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(Session["idSucursal"].ToString()));
                 GridView1.DataBind();
                 arr = appDoc.GenerarTotales(Convert.ToInt32(hdIdDocumento.Text));
@@ -203,7 +203,7 @@ namespace InventarioWeb.admin
             }
             else
             {
-                appDoc.AgregarDetalledocumento(Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(txtCantidad.Text) * -1, Convert.ToInt32(txtPrecio.Text), 0, 0);
+                appDoc.AgregarDetalledocumento(Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(txtCantidad.Text) * -1, Convert.ToInt32(txtPrecio.Text), 0, 0,0);
                 appDoc.AgregarDertalleVenta(Convert.ToInt32(txtCantidad.Text) * -1, Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(Session["idSucursal"].ToString()));
                
                 GridView1.DataBind();

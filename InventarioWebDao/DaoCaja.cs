@@ -193,7 +193,7 @@ namespace InventarioWebDao
             SqlConnection conConexion = new SqlConnection();
             ArrayList arrConexion = new ArrayList();
             DataTable arrEgresos = new DataTable();
-            String sqlQuery = "";
+            
             arrEgresos.Columns.Add("Detalle", typeof(String));
             arrEgresos.Columns.Add("Cantidad", typeof(Int32));
             

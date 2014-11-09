@@ -36,11 +36,12 @@ AutoPostBack="true"
 </p>
 <p>
 <asp:Label ID="lblProcentaje" Text="Ganancia" runat="server" Width="100"></asp:Label>
-<asp:TextBox ID="txtGanancia" runat="server"  AutoPostBack="true"></asp:TextBox>
+<asp:TextBox ID="txtGanancia" runat="server"  AutoPostBack="true" 
+        ontextchanged="txtCosto_TextChanged"></asp:TextBox>
 </p>
 <p>
 <asp:Label ID="lblVenta" Text="Venta" runat="server" Width="100"></asp:Label>
-<asp:TextBox ID="txtVenta" runat="server"  ></asp:TextBox>
+<asp:TextBox ID="txtVenta" runat="server" ontextchanged="txtVenta_TextChanged1"  AutoPostBack="true" ></asp:TextBox>
 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtVenta" runat="server" Text="Campo Requerido" CssClass="failureNotification"></asp:RequiredFieldValidator>
 </p>
 

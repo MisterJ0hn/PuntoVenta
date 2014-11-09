@@ -88,6 +88,8 @@ namespace InventarioWeb.admin
                 txtMonto.Text = "";
                 Codigo.Text = "";
                 Codigo.Focus();
+
+                Response.Redirect("IngresarProductos.aspx");
             }
             else{
                 Alerta.CssClass="alertaN";
@@ -131,6 +133,20 @@ namespace InventarioWeb.admin
             AppEmpresas appEmpresa = new AppEmpresas();
             ArrayList arrEmpresa = appEmpresa.AppSeleccionaEmpresa(txtRutEmpresa.Text);
             txtNombreProveedor.Text = arrEmpresa[1].ToString();
+        }
+
+        protected void btnAgregarProductos_Click(object sender, EventArgs e)
+        {
+
+            Response.Redirect("IngresarProductos.aspx");
+        }
+
+        protected void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            txtRutEmpresa.Enabled = true;
+            txtNumero.Enabled = true;
+            txtNombreProveedor.Enabled = true;
+            txtMonto.Enabled = true;
         }
 
        

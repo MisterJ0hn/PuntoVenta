@@ -34,6 +34,8 @@
                 <td>
             <asp:Label ID="LblDescripcion" runat="server" Text="Descripcion" Width="100"></asp:Label>
             <asp:TextBox ID="txtDescripcion" runat="server" ></asp:TextBox>
+            <br />
+            <asp:RequiredFieldValidator ID="vldDescripcion" ControlToValidate="txtDescripcion" ErrorMessage="Debes ingresar una descripcion" CssClass="alertaN" runat="server"></asp:RequiredFieldValidator>
                 </td>
                
             </tr>
@@ -51,18 +53,57 @@
                
             </tr>
             <tr>
-                <td class="style1">
-                <asp:Label ID="lblPrecio" Text="Precio Neto" runat="server" Width="100"></asp:Label>
-            <asp:TextBox ID="txtPrecio" runat="server"></asp:TextBox>
                 
+                <td class="style1" colspan="2">
+                    <asp:Panel ID="Panel1" runat="server" DefaultButton="btnGuardar">
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <asp:Label ID="lblCantidad" runat="server" Text="Cantidad Unitaria" Width="100"></asp:Label>
+                                    <asp:TextBox ID="txtCantidad" runat="server"></asp:TextBox>
+                                    <br />
+                                    <asp:RegularExpressionValidator id="vldCantidad" runat="server" ControlToValidate="txtCantidad" ValidationExpression="\d*" Display="Static" ErrorMessage="Debes ingresar un numero" CssClass="alertaN"></asp:RegularExpressionValidator>
+         
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblPrecio" Text="Precio Compra" runat="server" Width="100"></asp:Label>
+                                    <asp:TextBox ID="txtPrecio" runat="server" 
+                                        ontextchanged="txtPrecio_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                        <br />
+                                        <asp:RegularExpressionValidator ID="vldCompra" runat="server" ControlToValidate="txtPrecio" ValidationExpression="\d*" Display="Static" ErrorMessage="Debes ingresar un numero" CssClass="alertaN"></asp:RegularExpressionValidator>
+         
+                                </td>
+                                <td rowspan="3" valign="middle">
+                                     <asp:Button ID="btnGuardar" runat="server" onclick="btnGuardar_Click" Text="Ingresar a Listado" Enabled="false"/></td>
+
+                            </tr>
+                            <tr>
+                            <td>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblGanancia" Text="% Ganancia" runat="server" Width="100"></asp:Label>
+                                <asp:TextBox ID="txtGanancia" runat="server"  ontextchanged="txtPrecio_TextChanged" AutoPostBack="true"
+                                    ></asp:TextBox>
+                                 <br />
+                                        <asp:RegularExpressionValidator ID="vldGanancia" runat="server" ControlToValidate="txtGanancia" ValidationExpression="\d*\.?\d*" Display="Static" ErrorMessage="Debes ingresar un numero" CssClass="alertaN"></asp:RegularExpressionValidator>
+         
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblVenta" Text="Precio Venta" runat="server" Width="100"></asp:Label>
+                                <asp:TextBox ID="txtVenta" runat="server" ontextchanged="txtVenta_TextChanged1"  AutoPostBack="true"></asp:TextBox>
+                                 <br />
+                                        <asp:RegularExpressionValidator ID="vldVenta" runat="server" ControlToValidate="txtVenta" ValidationExpression="\d*" Display="Static" ErrorMessage="Debes ingresar un numero" CssClass="alertaN"></asp:RegularExpressionValidator>
+         
+                            </td>
+                            </tr>
+                        </table>
+                    </asp:Panel>
                 </td>
-                <td>
-                 <asp:Label ID="lblCantidad" runat="server" Text="Cantidad Unitaria" Width="100"></asp:Label>
-            <asp:TextBox ID="txtCantidad" runat="server"></asp:TextBox>
-            
-            
-                </td>
-               
+     
             </tr>
             <tr>
                 <td class="style1">
@@ -90,7 +131,7 @@
             </tr>
             </table>
            
-            <asp:Button ID="btnGuardar" runat="server" onclick="btnGuardar_Click" Text="Guardar" /> <asp:Button ID="btnIngresar" runat="server" Text="Ingresar a Stock" OnClick="btnIngresar_Click" />
+             
         
             <h2>Detalle</h2>
             <p>
@@ -99,7 +140,7 @@
                     AllowSorting="True" AutoGenerateColumns="False" BackColor="White" 
                     BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" 
                     DataSourceID="SqlDataSource1" GridLines="Horizontal"
-                    DataKeyNames="IdDetalledocumento"
+                    DataKeyNames="IdDetalledocumento" 
                     
                     >
                     <AlternatingRowStyle BackColor="#F7F7F7" />
@@ -119,6 +160,7 @@
                             SortExpression="Cantidad" />
                         <asp:BoundField DataField="PrecioCosto" HeaderText="PrecioCosto" 
                             SortExpression="PrecioCosto" />
+                        <asp:BoundField DataField="Ganancia" HeaderText="Ganancia" SortExpression="Ganancia" Visible="false"/>
                         <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />
                     </Columns>
                     <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
@@ -133,7 +175,7 @@
                 </asp:GridView>
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                     ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" SelectCommand="
-            SELECT DD.IdDetalledocumento,P.TipoproductoProducto, D.TipodepartamentoDepartamento, DP.DescripcionDetalleproducto, DP.CodigoDetalleproducto, DD.Cantidad, DD.PrecioCosto
+            SELECT DD.IdDetalledocumento,P.TipoproductoProducto, D.TipodepartamentoDepartamento, DP.DescripcionDetalleproducto, DP.CodigoDetalleproducto, DD.Cantidad, DD.PrecioCosto, DD.Ganancia
             FROM PRODUCTO P, DETALLEPRODUCTO DP, DEPARTAMENTO D, DETALLEDOCUMENTO DD
             WHERE P.IdProducto=DP.IdProducto 
             AND P.IdDepartamento=D.IdDepartamento
@@ -150,5 +192,5 @@
             </asp:SqlDataSource>
 
             </p>
-            
+            <asp:Button ID="btnIngresar" runat="server" Text="Guardar Documento" OnClick="btnIngresar_Click" Enabled="false" CausesValidation="False" />
 </asp:Content>

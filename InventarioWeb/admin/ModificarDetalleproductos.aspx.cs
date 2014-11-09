@@ -53,11 +53,7 @@ namespace InventarioWeb.admin
                 }
                 cboProducto.SelectedIndex=i;
 
-                if(arr[7].ToString()=="1"){
-                    cboEnBoleta.SelectedIndex=0;
-                }else{
-                    cboEnBoleta.SelectedIndex=1;
-                }
+                
                 txtCosto.Text=arr[4].ToString();
                 txtGanancia.Text=arr[5].ToString();
                 txtVenta.Text=arr[6].ToString();
@@ -95,11 +91,13 @@ namespace InventarioWeb.admin
             AppDocumentos appDocumentos = new AppDocumentos();
             ArrayList arrProd = new ArrayList();
 
-            appDocumentos.ModificaProducto(Convert.ToInt32(hdIdDetalleproducto.Value),txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text), Convert.ToDouble(txtGanancia.Text), Convert.ToInt32(cboEnBoleta.SelectedValue));
+            appDocumentos.ModificaProducto(Convert.ToInt32(hdIdDetalleproducto.Value),txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text), Convert.ToDouble(txtGanancia.Text));
 
             lblAlerta.Text = "Producto modificado satisfactoriamente";
             lblAlerta.CssClass = "alertaP";
                 
         }
+
+        
     }
 }

@@ -67,7 +67,7 @@ namespace InventarioWebApp
             return idDocumento;
 
         }
-        public int AgregaProducto(String Codigo, String Descripcion, int idProducto, int precioCompra , double porcentaje=0)
+        public int AgregaProducto(String Codigo, String Descripcion, int idProducto, int precioCompra , double porcentaje=0, int precioVenta=0)
         {
             DaoDocumentos conexion = new DaoDocumentos();
             DetalleProducto objProd=new DetalleProducto();
@@ -75,7 +75,7 @@ namespace InventarioWebApp
             objProd.descripcionDetalleproducto=Descripcion;
             objProd.idProducto=idProducto;
             objProd.precioCompraDetalleproducto=precioCompra;
-            
+            objProd.precioVentaDetalleproducto = precioVenta;
 
             int id=conexion.AgregarProducto(objProd, porcentaje);
             return id;
@@ -106,7 +106,7 @@ namespace InventarioWebApp
             int id = conexion.AgregarDepartamento(objDep);
             return id;
         }
-        public  void ModificaProducto(int idDetalleproducto, String Codigo, String Descripcion, int idProducto, int precioCompra, double porcentaje = 0, int boleta = 1)
+        public  void ModificaProducto(int idDetalleproducto, String Codigo, String Descripcion, int idProducto, int precioCompra, double porcentaje = 0, int boleta = 1, int precioVenta=0)
         {
             DaoDocumentos conexion = new DaoDocumentos();
             DetalleProducto objProd = new DetalleProducto();
@@ -116,6 +116,7 @@ namespace InventarioWebApp
             objProd.idProducto = idProducto;
             objProd.precioCompraDetalleproducto = precioCompra;
             objProd.boleta = boleta;
+            objProd.precioVentaDetalleproducto = precioVenta;
 
             conexion.ModificarProducto(objProd, porcentaje);
            
@@ -172,11 +173,11 @@ namespace InventarioWebApp
             }
 
         }
-        public void AgregarDetalledocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad)
+        public void AgregarDetalledocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad, double ganancia)
         {
             DaoDocumentos daoDoc = new DaoDocumentos();
             DetalleProducto objProd=new DetalleProducto();
-            daoDoc.AgregarDetalleDocumento(idDetalleproducto, idDocumdento, cantida, precioVenta, precioCosto, utilidad);
+            daoDoc.AgregarDetalleDocumento(idDetalleproducto, idDocumdento, cantida, precioVenta, precioCosto, utilidad, ganancia);
             
 
 
@@ -391,7 +392,7 @@ namespace InventarioWebApp
 
             foreach(DetalleProducto objDetalle in arrDetalle){
                 daoDoc.AgregarStock('+', cantidad, objDetalle.idDetalleproducto, idSucursal);
-                ModificaProducto(objDetalle.idDetalleproducto, objDetalle.codigoDetalleproducto, objDetalle.descripcionDetalleproducto, objDetalle.idProducto, objDetalle.precioCompraDetalleproducto, Convert.ToDouble(objDetalle.porcentajeGanancia));
+                ModificaProducto(objDetalle.idDetalleproducto, objDetalle.codigoDetalleproducto, objDetalle.descripcionDetalleproducto, objDetalle.idProducto, objDetalle.precioCompraDetalleproducto, Convert.ToDouble(objDetalle.porcentajeGanancia), objDetalle.precioVentaDetalleproducto);
             }
             
         }

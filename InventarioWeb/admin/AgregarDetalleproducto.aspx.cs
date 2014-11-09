@@ -75,7 +75,7 @@ namespace InventarioWeb.admin
         {
             txtVenta.Text = (Convert.ToInt32(txtCosto.Text) + (Convert.ToInt32(txtCosto.Text) * Convert.ToInt32(txtGanancia.Text) / 100)).ToString();
         }
-
+       
         protected void cboProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
             AppDocumentos appDoc= new AppDocumentos();
@@ -96,6 +96,13 @@ namespace InventarioWeb.admin
             }
         }
 
+        protected void txtVenta_TextChanged1(object sender, EventArgs e)
+        {
+            txtGanancia.Text = ((100 * Convert.ToInt32(txtVenta.Text) / Convert.ToInt32(txtCosto.Text)) - 100).ToString();
+
+        }
+
+        
         
     }
 }

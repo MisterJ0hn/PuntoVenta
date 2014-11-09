@@ -225,7 +225,6 @@ namespace InventarioWeb.admin
             htmlDetalleDinero += "<tr><td>Cheque</td><td>" + txtCheque.Text + "</td></tr>";
             htmlDetalleDinero += "<tr><td>Total</td><td>" + txtTotal.Text + "</td></tr></table>";
 
-
             htmlDevolucion = "<table border='1'><tr><td >Devolucion de Garantia</td><td>" + txtDevolucion.Text + "</td></tr></table>";
 
             htmlResumen = "RESUMEN<table border='1'><tr><td align='center'>Creditos</td><td>" + lblCreditos.Text + "</td></tr>";

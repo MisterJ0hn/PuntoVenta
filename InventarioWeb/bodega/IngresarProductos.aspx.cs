@@ -139,13 +139,13 @@ namespace InventarioWeb.bodega
                 precioUnitario = Convert.ToInt32(txtPrecio.Text) / Convert.ToInt32(txtCantidad.Text);
                 txtPrecio.Text = precioUnitario.ToString();
                 
-                appDocumentos.AgregarDetalledocumento(Convert.ToInt32(arrProd[0].ToString()), Convert.ToInt32(cboFacturas.SelectedValue), Convert.ToInt32(txtCantidad.Text), 0, Convert.ToInt32(txtPrecio.Text), 0);
+                appDocumentos.AgregarDetalledocumento(Convert.ToInt32(arrProd[0].ToString()), Convert.ToInt32(cboFacturas.SelectedValue), Convert.ToInt32(txtCantidad.Text), 0, Convert.ToInt32(txtPrecio.Text), 0,0);
             }
             else
             {  
 
                 int idProd = appDocumentos.AgregaProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtPrecio.Text));
-                appDocumentos.AgregarDetalledocumento(idProd, Convert.ToInt32(cboFacturas.SelectedValue), Convert.ToInt32(txtCantidad.Text), 0, Convert.ToInt32(txtPrecio.Text), 0);
+                appDocumentos.AgregarDetalledocumento(idProd, Convert.ToInt32(cboFacturas.SelectedValue), Convert.ToInt32(txtCantidad.Text), 0, Convert.ToInt32(txtPrecio.Text), 0,0);
 
                 txtDescripcion.Enabled = false;
                 cboProducto.Enabled = false;

@@ -84,7 +84,7 @@ namespace InventarioWeb.admin
 
                         //appDoc.AgregarDetalledocumento(Convert.ToInt32(hdIdDetalle.Value), Convert.ToInt32(hdIdDocumento.Value), Convert.ToInt32(txtCantidad.Text), Convert.ToInt32(txtPrecio.Text), 0, 0);
 
-                        appDoc.AgregarDetalledocumento(Convert.ToInt32(arrFila[0].ToString()), idDocumento, Convert.ToInt32(fila.Cells[1].Text), 0, 0, 0);
+                        appDoc.AgregarDetalledocumento(Convert.ToInt32(arrFila[0].ToString()), idDocumento, Convert.ToInt32(fila.Cells[1].Text), 0, 0, 0,0);
                     
                 }
                 else

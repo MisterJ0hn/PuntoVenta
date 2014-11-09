@@ -184,22 +184,14 @@ namespace InventarioWebDao
             
             String porcentaje = pganancia.ToString();
 
-            
-                arrValores.Add("CodigoDetalleproducto='" + objDP.codigoDetalleproducto.ToString() + "'");
-            
-                arrValores.Add("DescripcionDetalleproducto='" + objDP.descripcionDetalleproducto.ToString() + "'");
-            
+            arrValores.Add("CodigoDetalleproducto='" + objDP.codigoDetalleproducto.ToString() + "'");
+            arrValores.Add("DescripcionDetalleproducto='" + objDP.descripcionDetalleproducto.ToString() + "'");
             arrValores.Add("PreciocompraDetalleproducto=" + objDP.precioCompraDetalleproducto.ToString());
             //arrValores.Add(objDP.cantidadDetalleproducto.ToString());
-            
-                arrValores.Add("PorcentajegananciaDetalleproducto=" + porcentaje.ToString().Replace(',', '.'));
-                arrValores.Add("PrecioventaDetalleproducto=" + Convert.ToInt32(objDP.precioCompraDetalleproducto + (objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100)));
-           
-               
+            arrValores.Add("PorcentajegananciaDetalleproducto=" + porcentaje.ToString().Replace(',', '.'));
+            arrValores.Add("PrecioventaDetalleproducto=" + Convert.ToInt32(objDP.precioCompraDetalleproducto + (objDP.precioCompraDetalleproducto * Convert.ToDouble(porcentaje) / 100)));
 
-         
             objConexion.UpdateSql("DETALLEPRODUCTO", arrValores, "IdDetalleproducto=" + objDP.idDetalleproducto);
-
         }
         public void ModificarDepartamento(Departamento objDP)
         {
@@ -332,7 +324,7 @@ namespace InventarioWebDao
              }
              return stock;
         }
-        public void AgregarDetalleDocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad)
+        public void AgregarDetalleDocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad, double ganancia)
         {
             DaoConexion objConexion = new DaoConexion();
             ArrayList arrValores = new ArrayList();
@@ -344,6 +336,7 @@ namespace InventarioWebDao
             arrCampos.Add("PrecioVenta");
             arrCampos.Add("PrecioCosto");
             arrCampos.Add("Utilidad");
+            arrCampos.Add("Ganancia");
                
             arrValores.Add(idDetalleproducto.ToString());
             arrValores.Add(idDocumdento.ToString());
@@ -351,6 +344,7 @@ namespace InventarioWebDao
             arrValores.Add(precioVenta.ToString());
             arrValores.Add(precioCosto.ToString());
             arrValores.Add(utilidad.ToString());
+            arrValores.Add(ganancia.ToString().Replace(',','.'));
  
 
             objConexion.AddValue(arrValores);
@@ -462,7 +456,7 @@ namespace InventarioWebDao
                         sql = " and CodigoDetalleproducto= '" + codigo + "'";
                     }
                     arrConexion = conexion.QuerySql("SELECT DD.IdDetalleproducto ,CodigoDetalleproducto, DescripcionDetalleproducto,DD.PrecioCosto,DD.Cantidad,  " +
-                                                    " '' as RutEmpresa, P.IdProducto, P.IdDepartamento, P.PorcentajeGananciaProducto,DD.PrecioVenta,ImpuestoProducto " +
+                                                    " '' as RutEmpresa, P.IdProducto, P.IdDepartamento, DD.Ganancia,DD.PrecioVenta,ImpuestoProducto " +
                                                     " FROM DETALLEDOCUMENTO DD, DOCUMENTO D, DETALLEPRODUCTO DP, PRODUCTO P" +
                                                     " WHERE DD.IdDocumento=D.IdDocumento " +
                                                     " AND DD.IdDetalleproducto=DP.IdDetalleproducto " +
