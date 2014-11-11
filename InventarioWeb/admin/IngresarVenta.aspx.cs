@@ -122,19 +122,26 @@ namespace InventarioWeb.admin
                     {
                         string dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
                         String[] datArr = dat.Split(':');
-                        txtCodigo_TextChanged(datArr[0]);
-                        txtCantidad.Text = datArr[1];
-                        //txtCantidad.Text = dat;
-                        btnAgregar_Click();
+                        bool status = txtCodigo_TextChanged(datArr[0]);
+
+                        if (status)
+                        {
+                            txtCantidad.Text = datArr[1];
+                            //txtCantidad.Text = dat;
+                            btnAgregar_Click();
+                        }
                     }
                     if (Page.Request.Params["__EVENTTARGET"] == "EliminarProducto")
                     {
                         string dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
                         String[] datArr = dat.Split(':');
-                        txtCodigo_TextChanged(datArr[0]);
-                        txtCantidad.Text = datArr[1];
-                       // txtCantidad.Text = dat;
-                        btnEliminar_Click();
+                        bool status = txtCodigo_TextChanged(datArr[0]);
+                        if (status)
+                        {
+                            txtCantidad.Text = datArr[1];
+                            // txtCantidad.Text = dat;
+                            btnEliminar_Click();
+                        }
                     }
                     if (Page.Request.Params["__EVENTTARGET"] == "Finalizar")
                     {
@@ -146,7 +153,7 @@ namespace InventarioWeb.admin
 
         }
 
-        protected void txtCodigo_TextChanged(String Codigo)
+        protected bool txtCodigo_TextChanged(String Codigo)
         {
             AppDocumentos appDocumentos = new AppDocumentos();
             ArrayList arrProd = new ArrayList();
@@ -162,6 +169,7 @@ namespace InventarioWeb.admin
                 
                 lblCantError.Text = "";
                 //btnAgregar_Click();
+                return true;
             }
             else
             {
@@ -172,6 +180,7 @@ namespace InventarioWeb.admin
                 ScriptManager.RegisterStartupScript(this, GetType(), "ProdNoExiste", "ProdNoExiste();", true);
                 
                 lblCantError.Text = "";
+                return false;
             }
            
         }
