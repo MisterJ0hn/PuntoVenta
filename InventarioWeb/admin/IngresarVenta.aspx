@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ADM.Master" AutoEventWireup="true" CodeBehind="IngresarVenta.aspx.cs" Inherits="InventarioWeb.admin.IngresarVenta" %>
 
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
 <script type="text/javascript" language="javascript">
     var codigo = "";
     var cantidad = "";
@@ -15,41 +18,46 @@
         var tecla = evObject.keyCode;
         var validacion = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUBWXYZ1234567890";
         var validaCantidad = "1234567890";
-        document.getElementById("Mensaje").innerHTML = tecla;
+        //document.getElementById("Caracter").innerHTML = elCaracter;
         if (validacion.indexOf(elCaracter, 0) != -1) {
-            if (document.getElementById("ContentPlaceHolder1_hdFuncion").value != "") {
-                if (validaCantidad.indexOf(elCaracter, 0) != -1) {
-
-                    if (document.getElementById("ContentPlaceHolder1_txtCodigo").value != "") {
-                        cantidad += elCaracter;
-                    } else {
-
-                        codigo += elCaracter;
-                    }
-                }
-            } else {
+            //if (document.getElementById("ContentPlaceHolder1_hdFuncion").value != "") {
+            if (validaCantidad.indexOf(elCaracter, 0) != -1) {
                 codigo += elCaracter;
+
+                document.getElementById("Mensaje").innerHTML = codigo;
             }
+            /*} else {
+                codigo += elCaracter;
+            }*/
+            
         }
         if (tecla == 13) {
+            
+            if (document.getElementById("ContentPlaceHolder1_hdFuncion").value == "" && codigo == "" && cantidad == "") {
+                if (confirm("Desea finalizar la venta?")) {
+                    __doPostBack('Finalizar');
+                }
+            }
             if (document.getElementById("ContentPlaceHolder1_hdFuncion").value != "") {
-                if (codigo != "") {
+                /*if (codigo != "") {
                     document.getElementById("Mensaje").innerHTML = "El codigo imputado es: "+codigo+", Ahora ingrese cantidad, si imputa por teclado, presione enter";
                     __doPostBack('SeleccionaCodigo', codigo);
                     codigo = "";
-                } else {
+                } else {*/
 
-                    if (document.getElementById("ContentPlaceHolder1_hdFuncion").value == "+") {
-                        __doPostBack('AgregarProducto', cantidad);
-                        cantidad = "";
-                        document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
-                    }
-                    if (document.getElementById("ContentPlaceHolder1_hdFuncion").value == "-") {
-                        __doPostBack('EliminarProducto', cantidad);
-                        cantidad = "";
-                        document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
-                    }
+                if (document.getElementById("ContentPlaceHolder1_hdFuncion").value == "+") {
+                        
+                    __doPostBack('AgregarProducto', codigo+":"+cantidad);
+                    cantidad = "";
+                    document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
                 }
+                if (document.getElementById("ContentPlaceHolder1_hdFuncion").value == "-") {
+                        
+                    __doPostBack('EliminarProducto', codigo + ":" + cantidad);
+                    cantidad = "";
+                    document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
+                }
+                //}
             } else {
                 if (codigo != "") {
                     document.getElementById("Mensaje").innerHTML = codigo;
@@ -59,22 +67,38 @@
                 } 
             }
         }
-        if (tecla == 187) {
-            document.getElementById("ContentPlaceHolder1_hdFuncion").value = "+";
-            document.getElementById("Mensaje").innerHTML = "Impute Codigo a agregar, si imputa por teclado, presione Enter";
-            codigo = "";
-            cantidad = "";
-            document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
+        if (tecla == 119) {
+            if (codigo == "") {
+                document.getElementById("Mensaje").innerHTML = "Debe Imputar una cantidad antes de presionar F8";
+                tecla = "";
+                codigo = "";
+                cantidad = "";
+            } else {
+                document.getElementById("ContentPlaceHolder1_hdFuncion").value = "+";
+                document.getElementById("Mensaje").innerHTML = "Impute Codigo a agregar, si imputa por teclado, presione Enter";
+
+                cantidad = codigo;
+                codigo = "";
+                document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
+            }
 
         }
-        if (tecla == 189) {
-            document.getElementById("ContentPlaceHolder1_hdFuncion").value = "-";
-            document.getElementById("Mensaje").innerHTML = "Impute Codigo a eliminar, si imputa por teclado, presione Enter";
-            codigo = "";
-            cantidad = "";
-            document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
+        if (tecla == 120) {
+            if (codigo == "") {
+                document.getElementById("Mensaje").innerHTML = "Debe Imputar una cantidad antes de presionar F9";
+                tecla = "";
+                codigo = "";
+                cantidad = "";
+            } else {
+                document.getElementById("ContentPlaceHolder1_hdFuncion").value = "-";
+                document.getElementById("Mensaje").innerHTML = "Impute Codigo a eliminar, si imputa por teclado, presione Enter";
+
+                cantidad = codigo;
+                codigo = "";
+                document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
+            }
         }
-        document.getElementById("Funcion").innerHTML = document.getElementById("ContentPlaceHolder1_hdFuncion").value;
+        //document.getElementById("Funcion").innerHTML = document.getElementById("ContentPlaceHolder1_hdFuncion").value;
     }
    
 
@@ -84,6 +108,9 @@
             window.location.href = "AgregarDetalleproducto.aspx";
         }
     }
+
+   
+
 </script>
     <style type="text/css">
         .style6
@@ -95,11 +122,24 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 <table width="100%" border="1" cellpadding="0" cellspacing="0">
 <tr>
+<td width="200px">
+<h2>Agregar solo uno</h2>
+Codigo
+<h2>Agregar</h2>
+cant=>F8=>Codigo
+<h2>Eliminar</h2>
+cant=>F9=>Codigo
+
+
+</td>
 <td valign="top" class="style6">
 <h2>Ingreso</h2>
 <asp:TextBox ID="hdFuncion" runat="server" AutoPostBack="true" style="display:none"></asp:TextBox>
 Accion: <div id="Funcion"></div>
-<div id="Mensaje" ></div>
+<div id="Mensaje" class="alertaP">
+            <asp:Label ID="lblCantError" runat="server" CssClass="alertaN"></asp:Label>
+        
+            </div>
 <p>
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
@@ -111,12 +151,12 @@ Accion: <div id="Funcion"></div>
 
         <asp:Panel ID="Panel1" runat="server" DefaultButton="btnCodigo">
         <asp:Button ID="btnCodigo" runat="server"  style="display:none"/>
-<asp:Label ID="lblCodigo" runat="server" Text="Codigo" Width="100"></asp:Label>
+<asp:Label ID="lblCodigo" runat="server" Text="Codigo" Width="100" Visible="false"></asp:Label>
 
 <asp:TextBox ID="txtCodigo" runat="server"  AutoPostBack="true" Enabled="false" style="display:none"/>
 <asp:RequiredFieldValidator ID="vldCodigo" Text="Campo Requerido" runat="server" ControlToValidate="txtCodigo"></asp:RequiredFieldValidator>
 <br />
-<asp:Label ID="lblCOdigoError" runat="server"></asp:Label>
+<asp:Label ID="lblCOdigoError" runat="server" ></asp:Label>
 </asp:Panel>
         
         
@@ -128,18 +168,17 @@ Accion: <div id="Funcion"></div>
         
              <asp:TextBox ID="txtDisp" runat="server" style="display:none"/>
         
-            <asp:TextBox ID="txtCantidad" runat="server" style="display:none"/><br />
-            <asp:Label ID="lblCantError" runat="server" CssClass="alertaN" Visible="false"></asp:Label>
+            <asp:TextBox ID="txtCantidad" runat="server" style="display:none"/>
+           
+        <br />
         
             <asp:DropDownList ID="cboFormapago" runat="server">
             </asp:DropDownList>
 
     </ContentTemplate>
     </asp:UpdatePanel>
-<asp:ImageButton ID="btnFinalizar" runat="server" 
-    ImageUrl="~/Imagenes/finalizar.png" onclick="btnFinalizar_Click" CausesValidation="False" Height="80px" Width="160px"/>
     </td>
-    <td>
+    <td width="200px">
     
 <asp:Label ID="Label4" runat="server" Text="Boleta"></asp:Label> <asp:Label ID="lblTotal" runat="server"></asp:Label>
 
@@ -149,7 +188,7 @@ Accion: <div id="Funcion"></div>
 </td>
 </tr>
 <tr>
-<td valign="top" colspan="2">
+<td valign="top" colspan="3">
 <h2>Detalle
     </h2>
 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
