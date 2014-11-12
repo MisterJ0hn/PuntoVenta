@@ -56,7 +56,7 @@ namespace InventarioWeb.admin
                         txtCodigo.Enabled = false;
 
                        
-                        btnFinalizar.Enabled = false;
+                        //btnFinalizar.Enabled = false;
                     }
                 }
                 else
@@ -112,28 +112,48 @@ namespace InventarioWeb.admin
                     }
                     if (Page.Request.Params["__EVENTTARGET"] == "AgregarCodigoSeleccion")
                     {
-                        string dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
-                        txtCantidad.Text = dat;
+                        String dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
+                        String[] datArr = dat.Split(':');
+                        txtCodigo_TextChanged(datArr[0]);
+                        txtCantidad.Text = datArr[1];
                         btnAgregar_Click();
                     }
                     if (Page.Request.Params["__EVENTTARGET"] == "AgregarProducto")
                     {
                         string dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
-                        txtCantidad.Text = dat;
-                        btnAgregar_Click();
+                        String[] datArr = dat.Split(':');
+                        bool status = txtCodigo_TextChanged(datArr[0]);
+
+                        if (status)
+                        {
+                            txtCantidad.Text = datArr[1];
+                            //txtCantidad.Text = dat;
+                            btnAgregar_Click();
+                        }
                     }
                     if (Page.Request.Params["__EVENTTARGET"] == "EliminarProducto")
                     {
                         string dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
-                        txtCantidad.Text = dat;
-                        btnEliminar_Click();
+                        String[] datArr = dat.Split(':');
+                        bool status = txtCodigo_TextChanged(datArr[0]);
+                        if (status)
+                        {
+                            txtCantidad.Text = datArr[1];
+                            // txtCantidad.Text = dat;
+                            btnEliminar_Click();
+                        }
+                    }
+                    if (Page.Request.Params["__EVENTTARGET"] == "Finalizar")
+                    {
+                        
+                        btnFinalizar_Click();
                     }
                 
             }
 
         }
 
-        protected void txtCodigo_TextChanged(String Codigo)
+        protected bool txtCodigo_TextChanged(String Codigo)
         {
             AppDocumentos appDocumentos = new AppDocumentos();
             ArrayList arrProd = new ArrayList();
@@ -149,6 +169,7 @@ namespace InventarioWeb.admin
                 
                 lblCantError.Text = "";
                 //btnAgregar_Click();
+                return true;
             }
             else
             {
@@ -159,6 +180,7 @@ namespace InventarioWeb.admin
                 ScriptManager.RegisterStartupScript(this, GetType(), "ProdNoExiste", "ProdNoExiste();", true);
                 
                 lblCantError.Text = "";
+                return false;
             }
            
         }
@@ -170,8 +192,8 @@ namespace InventarioWeb.admin
             if (Convert.ToInt32(txtCantidad.Text) > Convert.ToInt32(txtDisp.Text))
             {
                 lblCantError.Text = "La cantidad ingresada sobrepasa la disponible";
-                txtCantidad.Focus();
-
+                //txtCantidad.Focus();
+                hdFuncion.Text = "";
             }
             else
             {
@@ -219,7 +241,7 @@ namespace InventarioWeb.admin
             }
         }
 
-        protected void btnFinalizar_Click(object sender, ImageClickEventArgs e)
+        protected void btnFinalizar_Click()
         {
             vldCodigo.Enabled = false;
             AppDocumentos appDoc = new AppDocumentos();
@@ -229,7 +251,7 @@ namespace InventarioWeb.admin
             Response.Redirect("IngresarVenta.aspx");
         }
 
-        
+       
        
 
        

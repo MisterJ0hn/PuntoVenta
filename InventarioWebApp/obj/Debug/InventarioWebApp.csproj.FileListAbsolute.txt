@@ -52,6 +52,7 @@ C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWebApp\bin\Inventario
 C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWebApp\obj\Debug\InventarioWebApp.csprojResolveAssemblyReference.cache
 C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWebApp\obj\Debug\InventarioWebApp.dll
 C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWebApp\obj\Debug\InventarioWebApp.pdb
+<<<<<<< HEAD
 D:\Desarrollos\PuntoVenta\InventarioWebApp\bin\InventarioWebApp.dll
 D:\Desarrollos\PuntoVenta\InventarioWebApp\bin\InventarioWebApp.pdb
 D:\Desarrollos\PuntoVenta\InventarioWebApp\bin\InventarioWebDao.dll
@@ -61,3 +62,14 @@ D:\Desarrollos\PuntoVenta\InventarioWebApp\bin\InventarioWebEntity.pdb
 D:\Desarrollos\PuntoVenta\InventarioWebApp\obj\Debug\InventarioWebApp.csprojResolveAssemblyReference.cache
 D:\Desarrollos\PuntoVenta\InventarioWebApp\obj\Debug\InventarioWebApp.dll
 D:\Desarrollos\PuntoVenta\InventarioWebApp\obj\Debug\InventarioWebApp.pdb
+=======
+C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebApp\bin\InventarioWebApp.dll
+C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebApp\bin\InventarioWebApp.pdb
+C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebApp\bin\InventarioWebDao.dll
+C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebApp\bin\InventarioWebEntity.dll
+C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebApp\bin\InventarioWebDao.pdb
+C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebApp\bin\InventarioWebEntity.pdb
+C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebApp\obj\Debug\InventarioWebApp.csprojResolveAssemblyReference.cache
+C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebApp\obj\Debug\InventarioWebApp.dll
+C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebApp\obj\Debug\InventarioWebApp.pdb
+>>>>>>> origin/master
