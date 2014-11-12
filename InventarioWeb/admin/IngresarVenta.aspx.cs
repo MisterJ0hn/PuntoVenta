@@ -90,10 +90,10 @@ namespace InventarioWeb.admin
                     arr = appDoc.GenerarTotales(Convert.ToInt32(hdIdDocumento.Text));
                     
                     if(arr.Count>0){
-                       
-                       
-                        lblTotal.Text = String.Format("{0:N0}", Convert.ToInt32(arr[2].ToString()));
-                        lblTotalCobrar.Text = String.Format("{0:N0}",Convert.ToInt32(arr[3].ToString()));
+
+
+                        lblTotal.Text = "$ " + String.Format("{0:N0}", Convert.ToInt32(arr[2].ToString()));
+                        lblTotalCobrar.Text = "$ " + String.Format("{0:N0}", Convert.ToInt32(arr[3].ToString()));
 
                        
                     }
@@ -212,9 +212,9 @@ namespace InventarioWeb.admin
                 appDoc.AgregarDertalleVenta(Convert.ToInt32(txtCantidad.Text), Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(Session["idSucursal"].ToString()));
                 GridView1.DataBind();
                 arr = appDoc.GenerarTotales(Convert.ToInt32(hdIdDocumento.Text));
-                
-                lblTotal.Text = String.Format("{0:N0}", Convert.ToInt32(arr[2].ToString()));
-                lblTotalCobrar.Text = String.Format("{0:N0}", Convert.ToInt32(arr[3].ToString()));
+
+                lblTotal.Text = "$ " + String.Format("{0:N0}", Convert.ToInt32(arr[2].ToString()));
+                lblTotalCobrar.Text = "$ " + String.Format("{0:N0}", Convert.ToInt32(arr[3].ToString()));
 
                 /*
                 txtDisp.Text = (Convert.ToInt32(txtDisp.Text)-Convert.ToInt32(txtCantidad.Text)).ToString();
@@ -246,8 +246,8 @@ namespace InventarioWeb.admin
                 GridView1.DataBind();
                 arr = appDoc.GenerarTotales(Convert.ToInt32(hdIdDocumento.Text));
                 
-                lblTotal.Text = String.Format("{0:N0}", Convert.ToInt32(arr[2].ToString()));
-                lblTotalCobrar.Text =String.Format("{0:N0}", Convert.ToInt32( arr[3].ToString()));
+                lblTotal.Text = "$ "+String.Format("{0:N0}", Convert.ToInt32(arr[2].ToString()));
+                lblTotalCobrar.Text = "$ " + String.Format("{0:N0}", Convert.ToInt32(arr[3].ToString()));
 
 
                 hdFuncion.Text = "";

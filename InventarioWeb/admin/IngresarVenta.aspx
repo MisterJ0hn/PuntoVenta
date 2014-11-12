@@ -216,11 +216,11 @@ Accion: <div id="Funcion"></div>
     </td>
     <td width="200px" valign="top" align="Center">
 <p>
-<asp:Label ID="Label4" runat="server" Text="Boleta" CssClass="tsinboleta" ></asp:Label> <br />$<asp:Label ID="lblTotal" runat="server" CssClass="tsinboleta"></asp:Label>
+<asp:Label ID="Label4" runat="server" Text="Boleta" CssClass="tsinboleta" ></asp:Label> <br /><asp:Label ID="lblTotal" runat="server" CssClass="tsinboleta"></asp:Label>
 
 </p>
 <p>
-<asp:Label ID="Label5" runat="server" Text="Total A Cobrar" CssClass="tboleta"></asp:Label><br /> $<asp:Label ID="lblTotalCobrar" runat="server" CssClass="tboleta"></asp:Label>
+<asp:Label ID="Label5" runat="server" Text="Total A Cobrar" CssClass="tboleta"></asp:Label><br /> <asp:Label ID="lblTotalCobrar" runat="server" CssClass="tboleta"></asp:Label>
 </p>
 <p>
 <asp:DropDownList ID="cboFormapago" runat="server">
