@@ -64,7 +64,8 @@ namespace InventarioWeb.admin
         }
         protected void txtCosto_TextChanged(object sender, EventArgs e)
         {
-            txtVenta.Text = (Convert.ToInt32(txtCosto.Text) + (Convert.ToInt32(txtCosto.Text) * Convert.ToInt32(txtGanancia.Text) / 100)).ToString();
+            RoundInt roundInt = new RoundInt();
+            txtVenta.Text = roundInt.Round((Convert.ToInt32(txtCosto.Text) + (Convert.ToInt32(txtCosto.Text) * Convert.ToInt32(txtGanancia.Text) / 100))).ToString();
         }
         protected void txtVenta_TextChanged(object sender, EventArgs e)
         {

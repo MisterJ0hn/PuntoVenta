@@ -157,13 +157,22 @@ namespace InventarioWeb.admin {
         protected global::System.Web.UI.WebControls.TextBox txtCantidad;
         
         /// <summary>
-        /// Control cboFormapago.
+        /// Control GridView1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cboFormapago;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
+        
+        /// <summary>
+        /// Control SqlDataSource1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
         /// Control Label4.
@@ -202,21 +211,21 @@ namespace InventarioWeb.admin {
         protected global::System.Web.UI.WebControls.Label lblTotalCobrar;
         
         /// <summary>
-        /// Control GridView1.
+        /// Control cboFormapago.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.DropDownList cboFormapago;
         
         /// <summary>
-        /// Control SqlDataSource1.
+        /// Control btnFinalizar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.Button btnFinalizar;
     }
 }

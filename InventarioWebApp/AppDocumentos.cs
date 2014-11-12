@@ -471,8 +471,8 @@ namespace InventarioWebApp
 
             totales.Add(neto);
             totales.Add(iva);
-            totales.Add(total);
-            totales.Add(total + netoSinBoleta);
+            totales.Add(neto);
+            totales.Add(neto + netoSinBoleta);
             return totales;
 
         }

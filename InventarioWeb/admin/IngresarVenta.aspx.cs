@@ -91,8 +91,11 @@ namespace InventarioWeb.admin
                     
                     if(arr.Count>0){
                        
-                        lblTotal.Text = arr[2].ToString();
-                        lblTotalCobrar.Text = arr[3].ToString();
+                       
+                        lblTotal.Text = String.Format("{0:N0}", Convert.ToInt32(arr[2].ToString()));
+                        lblTotalCobrar.Text = String.Format("{0:N0}",Convert.ToInt32(arr[3].ToString()));
+
+                       
                     }
                 }
             }
@@ -102,8 +105,11 @@ namespace InventarioWeb.admin
                     if (Page.Request.Params["__EVENTTARGET"] == "AgregarCodigo")
                     {
                         string dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
-                        txtCodigo_TextChanged(dat);
-                        btnAgregar_Click();
+                        bool status = txtCodigo_TextChanged(dat);
+                        if (status)
+                        {
+                            btnAgregar_Click();
+                        }
                     }
                     if (Page.Request.Params["__EVENTTARGET"] == "SeleccionaCodigo")
                     {
@@ -174,12 +180,16 @@ namespace InventarioWeb.admin
             else
             {
                 
-                vldCodigo.Visible = true;
-                
+                //vldCodigo.Visible = true;
+                lblCantError.Text = "";
+                txtDisp.Text = "0";
+                txtCantidad.Text = "0";
+                txtCodigo.Text = "0";
+                hdFuncion.Text = "0";
 
                 ScriptManager.RegisterStartupScript(this, GetType(), "ProdNoExiste", "ProdNoExiste();", true);
                 
-                lblCantError.Text = "";
+                
                 return false;
             }
            
@@ -206,11 +216,16 @@ namespace InventarioWeb.admin
                 lblTotal.Text = arr[2].ToString();
                 lblTotalCobrar.Text = arr[3].ToString();
 
-               
+                /*
                 txtDisp.Text = (Convert.ToInt32(txtDisp.Text)-Convert.ToInt32(txtCantidad.Text)).ToString();
                 txtCantidad.Text = "0";
                 txtCantidad.Enabled = false;
                 txtCodigo.Focus();
+                hdFuncion.Text = "";*/
+
+                txtDisp.Text = "0";
+                txtCantidad.Text = "0";
+                txtCodigo.Text = "0";
                 hdFuncion.Text = "";
             }
 
@@ -246,9 +261,14 @@ namespace InventarioWeb.admin
             vldCodigo.Enabled = false;
             AppDocumentos appDoc = new AppDocumentos();
 
-            appDoc.CerrarVenta(Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(Convert.ToDouble(lblTotal.Text)));
+            appDoc.CerrarVenta(Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(Convert.ToDouble(lblTotal.Text.Replace(".",""))));
 
             Response.Redirect("IngresarVenta.aspx");
+        }
+
+        protected void btnFinalizar2_Click(object sender, EventArgs e)
+        {
+            btnFinalizar_Click();
         }
 
        

@@ -247,6 +247,7 @@ namespace InventarioWeb.admin
 
         protected void txtPrecio_TextChanged(object sender, EventArgs e)
         {
+            RoundInt roundInt = new RoundInt();
             if (txtGanancia.Text == "")
             {
                 txtGanancia.Text = "0";
@@ -259,7 +260,7 @@ namespace InventarioWeb.admin
             {
                 txtPrecio.Text = "0";
             }
-            txtVenta.Text = (Convert.ToInt32(txtPrecio.Text) + (Convert.ToInt32(txtPrecio.Text) * Convert.ToInt32(txtGanancia.Text) / 100)).ToString();
+            txtVenta.Text = roundInt.Round((Convert.ToInt32(txtPrecio.Text) + (Convert.ToInt32(txtPrecio.Text) * Convert.ToInt32(txtGanancia.Text) / 100))).ToString();
         }
 
        

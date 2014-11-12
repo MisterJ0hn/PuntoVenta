@@ -19,6 +19,7 @@
         var validacion = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUBWXYZ1234567890";
         var validaCantidad = "1234567890";
         //document.getElementById("Caracter").innerHTML = elCaracter;
+        //document.getElementById("Mensaje").innerHTML = tecla;
         if (validacion.indexOf(elCaracter, 0) != -1) {
             //if (document.getElementById("ContentPlaceHolder1_hdFuncion").value != "") {
             if (validaCantidad.indexOf(elCaracter, 0) != -1) {
@@ -29,7 +30,15 @@
             /*} else {
                 codigo += elCaracter;
             }*/
-            
+
+        }
+        if (tecla == 27) {
+            codigo = "";
+            cantidad = "";
+            document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
+            document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
+            document.getElementById("Mensaje").innerHTML = "";
+
         }
         if (tecla == 13) {
             
@@ -39,6 +48,7 @@
                 }
             }
             if (document.getElementById("ContentPlaceHolder1_hdFuncion").value != "") {
+                document.getElementById("Mensaje").innerHTML = "paso";
                 /*if (codigo != "") {
                     document.getElementById("Mensaje").innerHTML = "El codigo imputado es: "+codigo+", Ahora ingrese cantidad, si imputa por teclado, presione enter";
                     __doPostBack('SeleccionaCodigo', codigo);
@@ -59,6 +69,7 @@
                 }
                 //}
             } else {
+            
                 if (codigo != "") {
                     document.getElementById("Mensaje").innerHTML = codigo;
                     __doPostBack('AgregarCodigo', codigo);
@@ -122,24 +133,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 <table width="100%" border="1" cellpadding="0" cellspacing="0">
 <tr>
-<td width="200px">
-<h2>Agregar solo uno</h2>
-Codigo
-<h2>Agregar</h2>
-cant=>F8=>Codigo
-<h2>Eliminar</h2>
-cant=>F9=>Codigo
-
-
-</td>
 <td valign="top" class="style6">
-<h2>Ingreso</h2>
 <asp:TextBox ID="hdFuncion" runat="server" AutoPostBack="true" style="display:none"></asp:TextBox>
 Accion: <div id="Funcion"></div>
 <div id="Mensaje" class="alertaP">
             <asp:Label ID="lblCantError" runat="server" CssClass="alertaN"></asp:Label>
-        
-            </div>
+</div>
 <p>
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
@@ -170,28 +169,7 @@ Accion: <div id="Funcion"></div>
         
             <asp:TextBox ID="txtCantidad" runat="server" style="display:none"/>
            
-        <br />
-        
-            <asp:DropDownList ID="cboFormapago" runat="server">
-            </asp:DropDownList>
-
-    </ContentTemplate>
-    </asp:UpdatePanel>
-    </td>
-    <td width="200px">
-    
-<asp:Label ID="Label4" runat="server" Text="Boleta"></asp:Label> <asp:Label ID="lblTotal" runat="server"></asp:Label>
-
-<h2>
-<asp:Label ID="Label5" runat="server" Text="Total A Cobrar"></asp:Label> <asp:Label ID="lblTotalCobrar" runat="server"></asp:Label>
-</h2>
-</td>
-</tr>
-<tr>
-<td valign="top" colspan="3">
-<h2>Detalle
-    </h2>
-<asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
+       <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
         BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" 
         CellPadding="4" DataKeyNames="IdDetalledocumento" DataSourceID="SqlDataSource1" 
         ForeColor="Black" GridLines="Vertical" Width="100%" RowStyle-Font-Size="Large">
@@ -199,16 +177,16 @@ Accion: <div id="Funcion"></div>
     <Columns>
         <asp:BoundField DataField="IdDetalledocumento" HeaderText="ID" 
             InsertVisible="False" ReadOnly="True" SortExpression="IdDetalledocumento" ControlStyle-Width="20px" />
-            <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" 
-            SortExpression="Cantidad" ControlStyle-Width="20px"/>
+            
         <asp:BoundField DataField="CodigoDetalleproducto" 
             HeaderText="Codigo" SortExpression="CodigoDetalleproducto" ControlStyle-Width="100px"/>
-        
+        <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" 
+            SortExpression="Cantidad" ControlStyle-Width="20px" ItemStyle-HorizontalAlign="Right" ItemStyle-Font-Bold="true"/>
         <asp:BoundField DataField="DescripcionDetalleproducto" 
-            HeaderText="Nombre" 
+            HeaderText="Detalle" 
             SortExpression="DescripcionDetalleproducto" />
-        <asp:BoundField DataField="Total" HeaderText="Total" 
-            SortExpression="Total" ControlStyle-Width="20px" DataFormatString="{0:C}" ItemStyle-Font-Bold="true"/> 
+        <asp:BoundField DataField="Total" HeaderText="Precio" 
+            SortExpression="Total" ControlStyle-Width="20px" DataFormatString="{0:N0}" ItemStyle-Font-Bold="true" ItemStyle-HorizontalAlign="Right"/> 
     </Columns>
     <FooterStyle BackColor="#CCCC99" />
     <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
@@ -222,7 +200,7 @@ Accion: <div id="Funcion"></div>
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
-        SelectCommand="SELECT DD.IdDetalledocumento, P.TipoproductoProducto, DP.DescripcionDetalleproducto, DP.CodigoDetalleproducto, DD.Cantidad, DD.PrecioVenta, (DD.Cantidad* DD.PrecioVenta)*1.19 as Total
+        SelectCommand="SELECT DD.IdDetalledocumento, P.TipoproductoProducto, DP.DescripcionDetalleproducto, DP.CodigoDetalleproducto, DD.Cantidad, DD.PrecioVenta, Round((DD.Cantidad* DD.PrecioVenta),-1) as Total
         FROM PRODUCTO AS P 
         INNER JOIN DETALLEPRODUCTO AS DP ON P.IdProducto = DP.IdProducto 
         INNER JOIN DETALLEDOCUMENTO AS DD ON DP.IdDetalleproducto = DD.IdDetalleproducto
@@ -231,6 +209,35 @@ Accion: <div id="Funcion"></div>
             <asp:ControlParameter ControlID="hdIdDocumento" Name="IdDocumento" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
+            
+
+    </ContentTemplate>
+    </asp:UpdatePanel>
+    </td>
+    <td width="200px" valign="top" align="Center">
+<p>
+<asp:Label ID="Label4" runat="server" Text="Boleta" CssClass="tsinboleta" ></asp:Label> <br />$<asp:Label ID="lblTotal" runat="server" CssClass="tsinboleta"></asp:Label>
+
+</p>
+<p>
+<asp:Label ID="Label5" runat="server" Text="Total A Cobrar" CssClass="tboleta"></asp:Label><br /> $<asp:Label ID="lblTotalCobrar" runat="server" CssClass="tboleta"></asp:Label>
+</p>
+<p>
+<asp:DropDownList ID="cboFormapago" runat="server">
+           </asp:DropDownList>
+</p>
+
+<p class="submitButton">
+<asp:Button ID="btnFinalizar" Text="Finalizar" OnClick="btnFinalizar2_Click" runat="server" CausesValidation="false"/>
+</p>
+</td>
+</tr>
+<tr>
+<td valign="top" colspan="2">
+<div class="footer">
+Agregar: Cant + F8 + Codigo Prod. <> Eliminar: Cant + F9 + Codigo Prod.
+</div>
+
 </td>
 </tr>
 
