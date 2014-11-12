@@ -77,6 +77,20 @@ C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\bin\InventarioWeb
 C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.csprojResolveAssemblyReference.cache
 C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.dll
 C:\visual studio\GitHub\InventarioWeb\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.pdb
+<<<<<<< HEAD
+D:\Desarrollos\PuntoVenta\InventarioWeb\bin\InventarioWeb.dll
+D:\Desarrollos\PuntoVenta\InventarioWeb\bin\InventarioWeb.pdb
+D:\Desarrollos\PuntoVenta\InventarioWeb\bin\InventarioWebApp.dll
+D:\Desarrollos\PuntoVenta\InventarioWeb\bin\InventarioWebEntity.dll
+D:\Desarrollos\PuntoVenta\InventarioWeb\bin\itextsharp.dll
+D:\Desarrollos\PuntoVenta\InventarioWeb\bin\InventarioWebDao.dll
+D:\Desarrollos\PuntoVenta\InventarioWeb\bin\InventarioWebApp.pdb
+D:\Desarrollos\PuntoVenta\InventarioWeb\bin\InventarioWebEntity.pdb
+D:\Desarrollos\PuntoVenta\InventarioWeb\bin\InventarioWebDao.pdb
+D:\Desarrollos\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.csprojResolveAssemblyReference.cache
+D:\Desarrollos\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.dll
+D:\Desarrollos\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.pdb
+=======
 G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\Microsoft.WindowsAzure.Storage.dll
 G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\HtmlAgilityPack.dll
 G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWeb\bin\AjaxMin.dll
@@ -199,3 +213,4 @@ C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWeb\bin\zh-Hant\System.S
 C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.csprojResolveAssemblyReference.cache
 C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.dll
 C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWeb\obj\Debug\InventarioWeb.pdb
+>>>>>>> origin/master

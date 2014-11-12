@@ -33,6 +33,15 @@ G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\bin\Inventa
 G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\bin\InventarioWebEntity.dll
 G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\bin\InventarioWebEntity.pdb
 G:\proyectosti\proyectost\punto de venta\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.pdb
+<<<<<<< HEAD
+D:\Desarrollos\PuntoVenta\InventarioWebDao\bin\InventarioWebDao.dll
+D:\Desarrollos\PuntoVenta\InventarioWebDao\bin\InventarioWebDao.pdb
+D:\Desarrollos\PuntoVenta\InventarioWebDao\bin\InventarioWebEntity.dll
+D:\Desarrollos\PuntoVenta\InventarioWebDao\bin\InventarioWebEntity.pdb
+D:\Desarrollos\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.csprojResolveAssemblyReference.cache
+D:\Desarrollos\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.dll
+D:\Desarrollos\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.pdb
+=======
 C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebDao\bin\InventarioWebDao.dll
 C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebDao\bin\InventarioWebDao.pdb
 C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebDao\bin\InventarioWebEntity.dll
@@ -40,3 +49,4 @@ C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebDao\bin\InventarioWeb
 C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.csprojResolveAssemblyReference.cache
 C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.dll
 C:\Users\jonathan\Documents\GitHub\PuntoVenta\InventarioWebDao\obj\Debug\InventarioWebDao.pdb
+>>>>>>> origin/master

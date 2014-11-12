@@ -14,8 +14,8 @@ namespace InventarioWebDao
         private ArrayList arrOr=new ArrayList();
         private ArrayList arrAnd = new ArrayList();
         private ArrayList arrValue = new ArrayList();
-        //private String strCadenaConexion = "Data Source=JONATHAN-PC; Initial Catalgo=InventarioWeb;Integrated Security=True";
-        private String strCadenaConexion = "Data Source=localhost;User ID=sa;Password=955763;Initial Catalog=InventarioWeb";
+        //private String strCadenaConexion = "Data Source=localhost;User ID=sa;Password=955763;Initial Catalog=InventarioWeb";
+        private String strCadenaConexion = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=InventarioWeb;Data Source=HANSZUÑIGA-PC";
         public ArrayList QuerySql(String sql)
         {
             SqlCommand cmd;
