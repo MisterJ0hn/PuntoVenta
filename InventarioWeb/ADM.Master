@@ -60,6 +60,7 @@
                             <asp:MenuItem NavigateUrl="~/admin/GestionVentas.aspx" Text="Venta"/>
                             <asp:MenuItem NavigateUrl="~/admin/GestionDetalleproductos.aspx" Text="Productos"/>
                             <asp:MenuItem NavigateUrl="~/admin/GestionCierre.aspx" Text="Cierre de Caja"/>
+                            <asp:MenuItem NavigateUrl="~/admin/GestionPromociones.aspx" Text="Promociones"/>
                         </Items>
                     </asp:Menu>
                  </div>

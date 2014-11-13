@@ -13,5 +13,10 @@ namespace InventarioWeb.admin
         {
 
         }
+
+        protected void btnNuevo_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarPromocion.aspx");
+        }
     }
 }
