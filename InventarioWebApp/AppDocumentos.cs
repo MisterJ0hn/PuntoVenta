@@ -67,6 +67,59 @@ namespace InventarioWebApp
             return idDocumento;
 
         }
+        public bool AgregarPromocion(String nombre, String codigo, int precio, DataTable dtDetalle)
+        {
+            DaoDocumentos daoDoc = new DaoDocumentos();
+
+            try
+            {
+                int idPromo = daoDoc.AgregarPromocion(nombre, codigo, precio);
+
+                foreach (DataRow rdPromo in dtDetalle.Rows)
+                {
+                    daoDoc.AgregarDetallepromocion(idPromo, Convert.ToInt32(rdPromo["IdProducto"].ToString()), Convert.ToInt32(rdPromo["Cantidad"].ToString()));
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+        public bool AgregarPromocionVenta(String codigo, int idSucursal, int IdDocumento)
+        {
+            DaoDocumentos daoDoc = new DaoDocumentos();
+            DataTable promo = daoDoc.SeleccionaPromocion(0, codigo);
+            int disp=0;
+            int idPromo = 0;
+            int precio = 0;
+
+            foreach (DataRow RowPromo in promo.Rows)
+            {
+                idPromo = Convert.ToInt32(RowPromo["IdPromociones"]);
+                precio= Convert.ToInt32(RowPromo["PrecioVenta"]);
+
+            }
+            DataTable detallePromo = daoDoc.SeleccionaDetallepromocion(idPromo,0);
+            foreach (DataRow RowDet in detallePromo.Rows)
+            {
+                disp = daoDoc.StockDetalleProducto(Convert.ToInt32(RowDet["IdDetalleproducto"]), idSucursal);
+                if (disp< Convert.ToInt32(RowDet["Cantidad"]))
+                {
+                    return false;
+                }
+            }
+            AgregarDetalledocumento(idPromo, IdDocumento, 1, precio, 0, 0, 0,1);
+            foreach (DataRow RowDet in detallePromo.Rows)
+            {
+                 AgregarDertalleVenta(Convert.ToInt32(RowDet["Cantidad"].ToString()), Convert.ToInt32(RowDet["IdDetalleproducto"].ToString()), idSucursal);
+            }
+
+            return true;
+            
+          
+        }
         public int AgregaProducto(String Codigo, String Descripcion, int idProducto, int precioCompra , double porcentaje=0, int precioVenta=0)
         {
             DaoDocumentos conexion = new DaoDocumentos();
@@ -173,11 +226,11 @@ namespace InventarioWebApp
             }
 
         }
-        public void AgregarDetalledocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad, double ganancia)
+        public void AgregarDetalledocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad, double ganancia, int esPromocion=0)
         {
             DaoDocumentos daoDoc = new DaoDocumentos();
-            DetalleProducto objProd=new DetalleProducto();
-            daoDoc.AgregarDetalleDocumento(idDetalleproducto, idDocumdento, cantida, precioVenta, precioCosto, utilidad, ganancia);
+ 
+            daoDoc.AgregarDetalleDocumento(idDetalleproducto, idDocumdento, cantida, precioVenta, precioCosto, utilidad, ganancia,esPromocion );
             
 
 
@@ -327,7 +380,7 @@ namespace InventarioWebApp
             DaoDocumentos daoDoc = new DaoDocumentos();
             ArrayList arrProducto = new ArrayList();
             ArrayList arrProductoReturn = new ArrayList();
-            arrProducto = daoDoc.SeleccionaProducto(Codigo);
+            arrProducto = daoDoc.SeleccionaProducto(Codigo); ;
 
             foreach (DetalleProducto objDP in arrProducto)
             {

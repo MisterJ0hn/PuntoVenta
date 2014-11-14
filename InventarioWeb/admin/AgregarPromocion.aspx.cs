@@ -14,49 +14,90 @@ namespace InventarioWeb.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["dt"] = "";
+            if (!IsPostBack)
+            {
+                Session["dt"] = "";
+            }
 
 
-            
         }
-       
+
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             if (Session["dt"] == null || Session["dt"] == "")
             {
-                DataTable dt = new DataTable();
-                dt.Columns.Add("IdProducto", typeof(Int32));
-                dt.Columns.Add("Codigo", typeof(String));
-                dt.Columns.Add("Nombre", typeof(String));
-                dt.Columns.Add("Cantidad", typeof(Int32));
-                DataRow Row1;
-                Row1 = dt.NewRow();
-                Row1["IdProducto"] = Convert.ToInt32(hdIdProducto.Value);
-                Row1["Codigo"] = txtCodigoDetalle.Text;
-                Row1["Nombre"] = txtDescripcion.Text;
-                Row1["Cantidad"] =Convert.ToInt32(txtCantidad.Text);
-                dt.Rows.Add(Row1);
-                GridProductos.DataSource = dt;
-                GridProductos.DataBind();
-                Session["dt"] = dt;
+                try
+                {
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("IdProducto", typeof(Int32));
+                    dt.Columns.Add("Codigo", typeof(String));
+                    dt.Columns.Add("Nombre", typeof(String));
+                    dt.Columns.Add("Cantidad", typeof(Int32));
+                    DataRow Row1;
+                    Row1 = dt.NewRow();
+                    Row1["IdProducto"] = Convert.ToInt32(hdIdProducto.Value);
+                    Row1["Codigo"] = txtCodigoDetalle.Text;
+                    Row1["Nombre"] = txtDescripcion.Text;
+                    Row1["Cantidad"] = Convert.ToInt32(txtCantidad.Text);
+                    dt.Rows.Add(Row1);
+                    GridProductos.DataSource = dt;
+                    GridProductos.DataBind();
+                    Session["dt"] = dt;
+                }
+                catch { }
+                
+
             }
             else
             {
-                DataTable dt = (Session["dt"]) as DataTable;
-                DataRow Row1;
-                Row1 = dt.NewRow();
-                Row1["IdProducto"] = Convert.ToInt32(hdIdProducto.Value);
-                Row1["Codigo"] = txtCodigoDetalle.Text;
-                Row1["Nombre"] = txtDescripcion.Text;
-                Row1["Cantidad"] = Convert.ToInt32(txtCantidad.Text);
-                dt.Rows.Add(Row1);
-                GridProductos.DataSource = dt;
-                GridProductos.DataBind();
-                Session["dt"] = dt;
+                try
+                {
+                    DataTable dt = (Session["dt"]) as DataTable;
+                    DataRow Row1;
+                    Row1 = dt.NewRow();
+                    Row1["IdProducto"] = Convert.ToInt32(hdIdProducto.Value);
+                    Row1["Codigo"] = txtCodigoDetalle.Text;
+                    Row1["Nombre"] = txtDescripcion.Text;
+                    Row1["Cantidad"] = Convert.ToInt32(txtCantidad.Text);
+                    dt.Rows.Add(Row1);
+                    GridProductos.DataSource = dt;
+                    GridProductos.DataBind();
+                    Session["dt"] = dt;
+                }
+                catch { }
+                
             }
+            txtCodigoDetalle.Text = "";
+            txtDescripcion.Text = "";
+            txtCantidad.Text = "";
+            hdIdProducto.Value = "";
+            txtCodigoDetalle.Focus();
         }
 
-        protected void txtCodigoDetalle_TextChanged(object sender, EventArgs e)
+        
+        protected void btnFinalizar_Click(object sender, EventArgs e)
+        {
+            AppDocumentos appDoc = new AppDocumentos();
+            bool status = false;
+            DataTable dt = Session["dt"] as DataTable;
+
+            if (dt.Rows.Count > 0)
+            {
+            
+                status = appDoc.AgregarPromocion(txtNombre.Text, txtCodigo.Text, Convert.ToInt32(txtPrecio.Text), dt);
+            }
+            if (status)
+            {
+                Response.Redirect("GestionPromociones.aspx");
+            }
+            else
+            {
+                lblError.Text = "A ocurrido un error, Revisa los datos";
+            }
+
+        }
+
+        protected void txtCodigoDetalle_TextChanged1(object sender, EventArgs e)
         {
             AppDocumentos appDocumentos = new AppDocumentos();
             ArrayList arrProd = new ArrayList();
@@ -74,11 +115,11 @@ namespace InventarioWeb.admin
                 txtDescripcion.Text = "";
                 txtCantidad.Text = "0";
                 txtCodigoDetalle.Text = "0";
-                
+
             }
         }
 
-         
+
 
     }
 }

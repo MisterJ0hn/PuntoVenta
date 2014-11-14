@@ -325,7 +325,7 @@ namespace InventarioWebDao
              }
              return stock;
         }
-        public void AgregarDetalleDocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad, double ganancia)
+        public void AgregarDetalleDocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad, double ganancia, int esPromocion=0)
         {
             DaoConexion objConexion = new DaoConexion();
             ArrayList arrValores = new ArrayList();
@@ -338,6 +338,7 @@ namespace InventarioWebDao
             arrCampos.Add("PrecioCosto");
             arrCampos.Add("Utilidad");
             arrCampos.Add("Ganancia");
+            arrCampos.Add("EsPromocion");
                
             arrValores.Add(idDetalleproducto.ToString());
             arrValores.Add(idDocumdento.ToString());
@@ -346,6 +347,7 @@ namespace InventarioWebDao
             arrValores.Add(precioCosto.ToString());
             arrValores.Add(utilidad.ToString());
             arrValores.Add(ganancia.ToString().Replace(',','.'));
+            arrValores.Add(esPromocion.ToString());
  
 
             objConexion.AddValue(arrValores);
@@ -655,8 +657,8 @@ namespace InventarioWebDao
             arrCampos.Add("CodigoPromocion");
             arrCampos.Add("PrecioVenta");
             
-            arrValores.Add(nombre);
-            arrValores.Add(codigo);
+            arrValores.Add("'"+nombre+"'");
+            arrValores.Add("'" + codigo + "'");
             arrValores.Add(precio.ToString());
           
 
@@ -705,7 +707,7 @@ namespace InventarioWebDao
                 }
                 sql += " IdDetallepromociones=" + idDetallepromocion;
             }
-            arrConexion = conexion.QuerySql("SELECT IdDetallepromociones, IdPromociones, IdDetalleproducto, CantidadDetallepromociones Where "+sql);
+            arrConexion = conexion.QuerySql("SELECT IdDetallepromociones, IdPromociones, IdDetalleproducto, CantidadDetallepromocion FROM DETALLEPROMOCIONES Where "+sql);
             drArreglo = (SqlDataReader)arrConexion[0];
 
 
@@ -734,7 +736,7 @@ namespace InventarioWebDao
             return arr;
 
         }
-        public DataTable SeleccionaPromocion(int idPromocion, int idsucursal = 0)
+        public DataTable SeleccionaPromocion(int idPromocion,String codigoPromocion="", int idsucursal = 0)
         {
             DaoConexion conexion = new DaoConexion();
             SqlDataReader drArreglo;
@@ -747,14 +749,18 @@ namespace InventarioWebDao
             {
                 sql += " IdPromociones=" + idPromocion;
             }
-            arrConexion = conexion.QuerySql("SELECT IdPromociones, CodigoPromocion, Descripcion, PrecioVenta Where " + sql);
+            if (codigoPromocion != "")
+            {
+                sql = " CodigoPromocion LIKE '" + codigoPromocion + "'";
+            }
+            arrConexion = conexion.QuerySql("SELECT IdPromociones, CodigoPromocion, Descripcion, PrecioVenta FROM PROMOCIONES Where " + sql);
             drArreglo = (SqlDataReader)arrConexion[0];
 
 
-            arr.Columns.Add("IdPromociones");
-            arr.Columns.Add("CodigoPromocion");
-            arr.Columns.Add("Descripcion");
-            arr.Columns.Add("PrecioVenta");
+            arr.Columns.Add("IdPromociones", typeof(Int32));
+            arr.Columns.Add("CodigoPromocion", typeof(String));
+            arr.Columns.Add("Descripcion", typeof(String));
+            arr.Columns.Add("PrecioVenta", typeof(Int32));
             if (drArreglo.HasRows)
             {
                 while (drArreglo.Read())
@@ -763,8 +769,8 @@ namespace InventarioWebDao
                     DataRow Row1;
                     Row1 = arr.NewRow();
                     Row1["IdPromociones"] = drArreglo.GetInt32(0);
-                    Row1["CodigoPromocion"] = drArreglo.GetInt32(1);
-                    Row1["Descripcion"] = drArreglo.GetInt32(2);
+                    Row1["CodigoPromocion"] = drArreglo.GetString(1);
+                    Row1["Descripcion"] = drArreglo.GetString(2);
                     Row1["PrecioVenta"] = drArreglo.GetInt32(3);
 
                     arr.Rows.Add(Row1);

@@ -111,6 +111,11 @@ namespace InventarioWeb.admin
                             btnAgregar_Click();
                         }
                     }
+                    if (Page.Request.Params["__EVENTTARGET"] == "AgregarPromocion")
+                    {
+                        string dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
+                        AgregarPromocion(dat);
+                    }
                     if (Page.Request.Params["__EVENTTARGET"] == "SeleccionaCodigo")
                     {
                         string dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
@@ -255,7 +260,18 @@ namespace InventarioWeb.admin
                 txtCodigo.Focus();
             }
         }
+        protected void AgregarPromocion(String Codigo)
+        {
+            AppDocumentos appDoc = new AppDocumentos();
+            bool Status = false;
+            Status=appDoc.AgregarPromocionVenta(Codigo, Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text));
+            if (!Status)
+            {
+                lblCantError.Text = "No hay promociones disponibles";
+            }
+            GridView1.DataBind();
 
+        }
         protected void btnFinalizar_Click()
         {
             vldCodigo.Enabled = false;

@@ -24,7 +24,7 @@
             if (validaCantidad.indexOf(elCaracter, 0) != -1) {
                 codigo += elCaracter;
 
-                document.getElementById("Mensaje").innerHTML = codigo;
+               document.getElementById("Mensaje").innerHTML = codigo;
             }
             /*} else {
                 codigo += elCaracter;
@@ -63,6 +63,12 @@
                 if (document.getElementById("ContentPlaceHolder1_hdFuncion").value == "-") {
                         
                     __doPostBack('EliminarProducto', codigo + ":" + cantidad);
+                    cantidad = "";
+                    document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
+                }
+                if (document.getElementById("ContentPlaceHolder1_hdFuncion").value == "+p") {
+                        
+                    __doPostBack('AgregarPromocion', codigo );
                     cantidad = "";
                     document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
                 }
@@ -107,6 +113,15 @@
                 codigo = "";
                 document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
             }
+        }
+        if (tecla == 121) {
+            
+            document.getElementById("ContentPlaceHolder1_hdFuncion").value = "+p";
+            document.getElementById("Mensaje").innerHTML = "Impute Codigo de Promocion a agregar, si imputa por teclado, presione Enter";
+
+            codigo = "";
+            document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
+            
         }
         //document.getElementById("Funcion").innerHTML = document.getElementById("ContentPlaceHolder1_hdFuncion").value;
     }
@@ -203,7 +218,14 @@ Accion: <div id="Funcion"></div>
         FROM PRODUCTO AS P 
         INNER JOIN DETALLEPRODUCTO AS DP ON P.IdProducto = DP.IdProducto 
         INNER JOIN DETALLEDOCUMENTO AS DD ON DP.IdDetalleproducto = DD.IdDetalleproducto
-        WHERE DD.IdDocumento=@IdDocumento">
+        WHERE DD.EsPromocion=0 and DD.IdDocumento=@IdDocumento
+        Union
+        Select DD.IdDetalledocumento, '' as TipoproductoProducto, PP.Descripcion as DescripcionDetalleproducto, PP.CodigoPromocion as CodigoDetalleproducto, '1' as Cantidad, PP.PrecioVenta, PP.PrecioVenta as Total
+        From DETALLEDOCUMENTO AS DD, PROMOCIONES PP 
+        WHERE DD.IdDetalleproducto=PP.idPromociones
+        and DD.EsPromocion=1 
+        and DD.IdDocumento=@IdDocumento
+        ">
         <SelectParameters>
             <asp:ControlParameter ControlID="hdIdDocumento" Name="IdDocumento" Type="Int32" />
         </SelectParameters>
