@@ -77,7 +77,7 @@ namespace InventarioWebApp
 
                 foreach (DataRow rdPromo in dtDetalle.Rows)
                 {
-                    daoDoc.AgregarDetallepromocion(idPromo, Convert.ToInt32(rdPromo["IdProducto"].ToString()), Convert.ToInt32(rdPromo["Cantidad"].ToString()));
+                    daoDoc.AgregarDetallepromocion(idPromo, Convert.ToInt32(rdPromo[0].ToString()), Convert.ToInt32(rdPromo[3].ToString()));
                 }
                 return true;
             }
@@ -105,7 +105,7 @@ namespace InventarioWebApp
             foreach (DataRow RowDet in detallePromo.Rows)
             {
                 disp = daoDoc.StockDetalleProducto(Convert.ToInt32(RowDet["IdDetalleproducto"]), idSucursal);
-                if (disp< Convert.ToInt32(RowDet["Cantidad"]))
+                if (disp< Convert.ToInt32(RowDet["CantidadDetalle"]))
                 {
                     return false;
                 }
@@ -113,7 +113,7 @@ namespace InventarioWebApp
             AgregarDetalledocumento(idPromo, IdDocumento, 1, precio, 0, 0, 0,1);
             foreach (DataRow RowDet in detallePromo.Rows)
             {
-                 AgregarDertalleVenta(Convert.ToInt32(RowDet["Cantidad"].ToString()), Convert.ToInt32(RowDet["IdDetalleproducto"].ToString()), idSucursal);
+                 AgregarDertalleVenta(Convert.ToInt32(RowDet["CantidadDetalle"].ToString()), Convert.ToInt32(RowDet["IdDetalleproducto"].ToString()), idSucursal);
             }
 
             return true;
@@ -591,6 +591,11 @@ namespace InventarioWebApp
                 suma += docObj.montoTotal;
             }
             return suma;
+        }
+        public DataTable EntregarDetalleVenta(int IdDocumento)
+        {
+            DaoDocumentos daoDoc = new DaoDocumentos();
+            return daoDoc.PreparaDetalleVenta(IdDocumento);
         }
     }
 }

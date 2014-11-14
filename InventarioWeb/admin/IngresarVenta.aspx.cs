@@ -49,7 +49,7 @@ namespace InventarioWeb.admin
 
                     ArrayList arrDoc = new ArrayList();
                     arrDoc = appDoc.SeleccionaVenta(Convert.ToInt32(hdIdDocumento.Text));
-
+                    
 
                     if (arrDoc[6].ToString() == "2")
                     {
@@ -88,7 +88,8 @@ namespace InventarioWeb.admin
                     arr.Clear();
                     hdIdDocumento.Text = idDocumento.ToString();
                     arr = appDoc.GenerarTotales(Convert.ToInt32(hdIdDocumento.Text));
-                    
+                    GridDetalle.DataSource = (DataTable)appDoc.EntregarDetalleVenta(Convert.ToInt32(hdIdDocumento.Text));
+                    GridDetalle.DataBind();
                     if(arr.Count>0){
 
 

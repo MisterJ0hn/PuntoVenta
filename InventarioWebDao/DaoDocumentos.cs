@@ -676,7 +676,7 @@ namespace InventarioWebDao
 
             arrCampos.Add("IdPromociones");
             arrCampos.Add("IdDetalleproducto");
-            arrCampos.Add("CantidadDetallepromociones");
+            arrCampos.Add("CantidadDetallepromocion");
 
             arrValores.Add(idPromocion.ToString());
             arrValores.Add(idDetalleproducto.ToString());
@@ -781,6 +781,81 @@ namespace InventarioWebDao
 
             return arr;
         }
-        
+        public DataTable PreparaDetalleVenta(int IdDocumento)
+        {
+            DaoConexion conexion = new DaoConexion();
+            SqlDataReader drArreglo;
+            SqlConnection conConexion = new SqlConnection();
+            DataTable arr = new DataTable();
+            ArrayList arrConexion = new ArrayList();
+            arrConexion = conexion.QuerySql("SELECT DD.EsPromocion, DD.IdDetalledocumento, P.TipoproductoProducto, DP.DescripcionDetalleproducto, DP.CodigoDetalleproducto, DD.Cantidad, DD.PrecioVenta, Round((DD.Cantidad* DD.PrecioVenta),-1) as Total, '' as IdPromociones "+
+                                        "FROM PRODUCTO AS P "+
+                                        "INNER JOIN DETALLEPRODUCTO AS DP ON P.IdProducto = DP.IdProducto "+
+                                        "INNER JOIN DETALLEDOCUMENTO AS DD ON DP.IdDetalleproducto = DD.IdDetalleproducto "+
+                                        "WHERE DD.EsPromocion=0 and DD.IdDocumento= "+IdDocumento +
+                                        " Union Select DD.EsPromocion,DD.IdDetalledocumento, '' as TipoproductoProducto, PP.Descripcion as DescripcionDetalleproducto, PP.CodigoPromocion as CodigoDetalleproducto, '1' as Cantidad, PP.PrecioVenta, PP.PrecioVenta as Total, PP.IdPromociones "+
+                                        "From DETALLEDOCUMENTO AS DD, PROMOCIONES PP "+
+                                        "WHERE DD.IdDetalleproducto=PP.idPromociones "+
+                                        "and DD.EsPromocion=1 "+
+                                        "and DD.IdDocumento=" + IdDocumento);
+            drArreglo = (SqlDataReader)arrConexion[0];
+
+
+            arr.Columns.Add("IdDetalledocumento", typeof(Int32));
+            arr.Columns.Add("DescripcionDetalleproducto", typeof(String));
+            arr.Columns.Add("Cantidad", typeof(Int32));
+            arr.Columns.Add("CodigoDetalleproducto", typeof(String));
+            arr.Columns.Add("Total", typeof(Int32));
+
+            if (drArreglo.HasRows)
+            {
+                while (drArreglo.Read())
+                {
+
+                    DataRow Row1;
+                    Row1 = arr.NewRow();
+                    Row1["IdDetalledocumento"] = drArreglo.GetInt32(1);
+                    Row1["DescripcionDetalleproducto"] = drArreglo.GetString(3);
+                    Row1["CodigoDetalleproducto"] = drArreglo.GetString(4);
+                    Row1["Cantidad"] = drArreglo.GetInt32(5);
+                    Row1["Total"] = drArreglo.GetInt32(7);
+                    arr.Rows.Add(Row1);
+                    if (drArreglo.GetInt32(0) > 0)
+                    {
+                        SqlConnection conConexion2 = new SqlConnection();
+                        SqlDataReader drArreglo2;
+                        ArrayList arrConexion2 = new ArrayList();
+                        arrConexion2 = conexion.QuerySql("Select '0' IdDetalledocumento,  P.TipoproductoProducto, DP.DescripcionDetalleproducto, DP.CodigoDetalleproducto, DPR.CantidadDetallepromocion as Cantidad, '' as PrecioVenta,'' as Total " +
+                                            "FROM DETALLEPRODUCTO DP, PRODUCTO P, DETALLEPROMOCIONES DPR, PROMOCIONES PR " +
+                                            "WHERE DP.IdDetalleproducto=DPR.IdDetalleproducto " +
+                                            "and DP.IdProducto=P.IdProducto and DPR.IdPromociones=PR.IdPromociones and PR.IdPromociones= "+drArreglo.GetInt32(8));
+
+
+                        drArreglo2 = (SqlDataReader)arrConexion2[0];
+
+                        if (drArreglo2.HasRows)
+                        {
+                            while (drArreglo2.Read())
+                            {
+                                DataRow Row2;
+
+                                Row2 = arr.NewRow();
+                                Row2["IdDetalledocumento"] =0;
+                                Row2["DescripcionDetalleproducto"] = drArreglo2.GetString(2);
+                                Row2["CodigoDetalleproducto"] = drArreglo2.GetString(3);
+                                Row2["Cantidad"] = drArreglo2.GetInt32(4);
+                                Row2["Total"] = 0;
+                                arr.Rows.Add(Row2);
+                            }
+                        }
+                        drArreglo2.Close();
+                    }
+
+                }
+            }
+            drArreglo.Close();
+           
+            return arr;
+        }
     }
 }
