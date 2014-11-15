@@ -274,8 +274,14 @@ namespace InventarioWebDao
             {
                 if(signo=='+'){
                     arrValores.Add("CantidadStock=CantidadStock+(" + cantidad + ")");
-                }else{
-                    arrValores.Add("CantidadStock=CantidadStock-("+cantidad+")");
+                }
+                else if (signo == '-')
+                {
+                    arrValores.Add("CantidadStock=CantidadStock-(" + cantidad + ")");
+                }
+                else
+                {
+                    arrValores.Add("CantidadStock=" + cantidad + "");
                 }
                 
 
@@ -287,14 +293,15 @@ namespace InventarioWebDao
                 arrCampos.Add("IdDetalleproducto");
 
                 arrValores.Add(idSucursal.ToString());
-                if (signo == '+')
+                if (signo == '+' || signo==' ')
                 {
                     arrValores.Add(cantidad.ToString());
                 }
-                else
+                else if (signo == '-')
                 {
-                    arrValores.Add("-"+cantidad.ToString());
+                    arrValores.Add("-" + cantidad.ToString());
                 }
+                
                 
                 arrValores.Add(idDetalleproducto.ToString());
 
@@ -441,7 +448,7 @@ namespace InventarioWebDao
             drArreglo.Close();
             return arrDoc;
         }
-        public ArrayList SeleccionaProducto(String codigo="",  int idDocumento=0)
+        public ArrayList SeleccionaProducto(String codigo="",  int idDocumento=0, int esPromocion=0)
         {
             DaoConexion conexion = new DaoConexion();
             SqlDataReader drArreglo;
@@ -464,6 +471,7 @@ namespace InventarioWebDao
                                                     " WHERE DD.IdDocumento=D.IdDocumento " +
                                                     " AND DD.IdDetalleproducto=DP.IdDetalleproducto " +
                                                     "AND P.IdProducto=DP.IdProducto "+
+                                                    " And DD.EsPromocion="+esPromocion+
                                                     " AND D.IdDocumento= "+ idDocumento +
                                                     sql);
 
@@ -710,7 +718,7 @@ namespace InventarioWebDao
             arrConexion = conexion.QuerySql("SELECT IdDetallepromociones, IdPromociones, IdDetalleproducto, CantidadDetallepromocion FROM DETALLEPROMOCIONES Where "+sql);
             drArreglo = (SqlDataReader)arrConexion[0];
 
-
+             
             arr.Columns.Add("IdDetalle");
             arr.Columns.Add("IdPromociones");
             arr.Columns.Add("IdDetalleproducto");
@@ -757,23 +765,17 @@ namespace InventarioWebDao
             drArreglo = (SqlDataReader)arrConexion[0];
 
 
-            arr.Columns.Add("IdPromociones", typeof(Int32));
-            arr.Columns.Add("CodigoPromocion", typeof(String));
-            arr.Columns.Add("Descripcion", typeof(String));
-            arr.Columns.Add("PrecioVenta", typeof(Int32));
+           
+            arr.Columns.AddRange(new DataColumn[4] { new DataColumn("IdPromociones", typeof(int)),  
+                            new DataColumn("CodigoPromocion", typeof(string)),  
+                            new DataColumn("Descripcion",typeof(string)),
+                            new DataColumn("PrecioVenta",typeof(string))});  
+
             if (drArreglo.HasRows)
             {
                 while (drArreglo.Read())
                 {
-
-                    DataRow Row1;
-                    Row1 = arr.NewRow();
-                    Row1["IdPromociones"] = drArreglo.GetInt32(0);
-                    Row1["CodigoPromocion"] = drArreglo.GetString(1);
-                    Row1["Descripcion"] = drArreglo.GetString(2);
-                    Row1["PrecioVenta"] = drArreglo.GetInt32(3);
-
-                    arr.Rows.Add(Row1);
+                    arr.Rows.Add(drArreglo.GetInt32(0), drArreglo.GetString(1), drArreglo.GetString(2), drArreglo.GetInt32(3));
 
                 }
             }
@@ -799,27 +801,19 @@ namespace InventarioWebDao
                                         "and DD.EsPromocion=1 "+
                                         "and DD.IdDocumento=" + IdDocumento);
             drArreglo = (SqlDataReader)arrConexion[0];
-
-
-            arr.Columns.Add("IdDetalledocumento", typeof(Int32));
-            arr.Columns.Add("DescripcionDetalleproducto", typeof(String));
-            arr.Columns.Add("Cantidad", typeof(Int32));
-            arr.Columns.Add("CodigoDetalleproducto", typeof(String));
-            arr.Columns.Add("Total", typeof(Int32));
+            arr.Columns.AddRange(new DataColumn[5] { new DataColumn("IdDetalledocumento", typeof(int)),  
+                            
+                            new DataColumn("CodigoDetalleproducto",typeof(string)),
+                            new DataColumn("Cantidad",typeof(int)),
+                            new DataColumn("DescripcionDetalleproducto", typeof(string)),  
+                            
+                            new DataColumn("Total",typeof(int))});  
 
             if (drArreglo.HasRows)
             {
                 while (drArreglo.Read())
                 {
-
-                    DataRow Row1;
-                    Row1 = arr.NewRow();
-                    Row1["IdDetalledocumento"] = drArreglo.GetInt32(1);
-                    Row1["DescripcionDetalleproducto"] = drArreglo.GetString(3);
-                    Row1["CodigoDetalleproducto"] = drArreglo.GetString(4);
-                    Row1["Cantidad"] = drArreglo.GetInt32(5);
-                    Row1["Total"] = drArreglo.GetInt32(7);
-                    arr.Rows.Add(Row1);
+                    arr.Rows.Add(drArreglo.GetInt32(1), drArreglo.GetString(4),  drArreglo.GetInt32(5),drArreglo.GetString(3), drArreglo.GetInt32(7));
                     if (drArreglo.GetInt32(0) > 0)
                     {
                         SqlConnection conConexion2 = new SqlConnection();
@@ -837,15 +831,9 @@ namespace InventarioWebDao
                         {
                             while (drArreglo2.Read())
                             {
-                                DataRow Row2;
-
-                                Row2 = arr.NewRow();
-                                Row2["IdDetalledocumento"] =0;
-                                Row2["DescripcionDetalleproducto"] = drArreglo2.GetString(2);
-                                Row2["CodigoDetalleproducto"] = drArreglo2.GetString(3);
-                                Row2["Cantidad"] = drArreglo2.GetInt32(4);
-                                Row2["Total"] = 0;
-                                arr.Rows.Add(Row2);
+                               
+                                arr.Rows.Add(0,drArreglo.GetString(3),drArreglo.GetInt32(4), drArreglo.GetString(2), 0);
+                    
                             }
                         }
                         drArreglo2.Close();

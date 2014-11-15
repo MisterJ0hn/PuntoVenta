@@ -5,7 +5,7 @@
 <asp:Button ID="btnNuevo" Text="Nuevo" runat="server" onclick="btnNuevo_Click" />
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
         AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="IdPromociones" 
-        DataSourceID="SqlDataSource1">
+        DataSourceID="SqlDataSource1" onrowcommand="GridView1_RowCommand">
         <Columns>
             <asp:BoundField DataField="IdPromociones" HeaderText="IdPromociones" 
                 InsertVisible="False" ReadOnly="True" SortExpression="IdPromociones" 
@@ -16,7 +16,7 @@
                 SortExpression="Descripcion" />
             <asp:BoundField DataField="PrecioVenta" HeaderText="Precio" 
                 SortExpression="PrecioVenta" />
-            <asp:ButtonField ButtonType="Button" Text="Ver" />
+            <asp:ButtonField ButtonType="Button" Text="Ver" CommandName="Editar" />
             <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />
         </Columns>
     </asp:GridView>

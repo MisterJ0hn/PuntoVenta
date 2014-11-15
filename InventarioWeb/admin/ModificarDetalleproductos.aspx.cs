@@ -92,11 +92,31 @@ namespace InventarioWeb.admin
             AppDocumentos appDocumentos = new AppDocumentos();
             ArrayList arrProd = new ArrayList();
 
-            appDocumentos.ModificaProducto(Convert.ToInt32(hdIdDetalleproducto.Value),txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text), Convert.ToDouble(txtGanancia.Text));
-
+            if (chkAjustar.Checked == true)
+            {
+                appDocumentos.ModificaProducto(Convert.ToInt32(hdIdDetalleproducto.Value), txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text), Convert.ToDouble(txtGanancia.Text), 1, 0, Convert.ToInt32(txtAjustar.Text), Convert.ToInt32(Session["idSucursal"].ToString()));
+            }
+            else
+            {
+                appDocumentos.ModificaProducto(Convert.ToInt32(hdIdDetalleproducto.Value), txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text), Convert.ToDouble(txtGanancia.Text));
+            }
+            
             lblAlerta.Text = "Producto modificado satisfactoriamente";
             lblAlerta.CssClass = "alertaP";
                 
+        }
+
+        protected void chkAjustar_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAjustar.Checked == true)
+            {
+                txtAjustar.Enabled = true;
+            }
+            else
+            {
+                txtAjustar.Enabled = false;
+                txtAjustar.Text = "0";
+            }
         }
 
         

@@ -72,6 +72,12 @@
                     cantidad = "";
                     document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
                 }
+                if (document.getElementById("ContentPlaceHolder1_hdFuncion").value == "-p") {
+
+                    __doPostBack('EliminarPromocion', codigo);
+                    cantidad = "";
+                    document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
+                }
                 //}
             } else {
             
@@ -114,14 +120,23 @@
                 document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
             }
         }
-        if (tecla == 121) {
+        if (tecla == 117) {
             
             document.getElementById("ContentPlaceHolder1_hdFuncion").value = "+p";
             document.getElementById("Mensaje").innerHTML = "Impute Codigo de Promocion a agregar, si imputa por teclado, presione Enter";
 
             codigo = "";
             document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
-            
+
+        }
+        if (tecla == 118) {
+
+            document.getElementById("ContentPlaceHolder1_hdFuncion").value = "-p";
+            document.getElementById("Mensaje").innerHTML = "Impute Codigo de Promocion a agregar, si imputa por teclado, presione Enter";
+
+            codigo = "";
+            document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
+
         }
         //document.getElementById("Funcion").innerHTML = document.getElementById("ContentPlaceHolder1_hdFuncion").value;
     }
@@ -191,7 +206,6 @@ Accion: <div id="Funcion"></div>
     <Columns>
         <asp:BoundField DataField="IdDetalledocumento" HeaderText="ID" 
             InsertVisible="False" ReadOnly="True" SortExpression="IdDetalledocumento" ControlStyle-Width="20px" />
-            
         <asp:BoundField DataField="CodigoDetalleproducto" 
             HeaderText="Codigo" SortExpression="CodigoDetalleproducto" ControlStyle-Width="100px"/>
         <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" 
@@ -232,21 +246,7 @@ Accion: <div id="Funcion"></div>
     </asp:SqlDataSource>
             
     
-        <asp:GridView ID="GridDetalle" runat="server" BackColor="White" 
-            BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" 
-            ForeColor="Black" GridLines="Vertical">
-            <AlternatingRowStyle BackColor="White" />
-            <FooterStyle BackColor="#CCCC99" />
-            <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
-            <RowStyle BackColor="#F7F7DE" />
-            <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
-            <SortedAscendingCellStyle BackColor="#FBFBF2" />
-            <SortedAscendingHeaderStyle BackColor="#848384" />
-            <SortedDescendingCellStyle BackColor="#EAEAD3" />
-            <SortedDescendingHeaderStyle BackColor="#575357" />
-        </asp:GridView>
-            
+      
     
     </ContentTemplate>
     </asp:UpdatePanel>

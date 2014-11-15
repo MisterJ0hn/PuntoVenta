@@ -193,6 +193,33 @@ namespace InventarioWeb.admin {
         protected global::System.Web.UI.WebControls.TextBox txtVenta;
         
         /// <summary>
+        /// Control lblAjustarStock.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAjustarStock;
+        
+        /// <summary>
+        /// Control txtAjustar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAjustar;
+        
+        /// <summary>
+        /// Control chkAjustar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkAjustar;
+        
+        /// <summary>
         /// Control btnGuardar.
         /// </summary>
         /// <remarks>

@@ -88,8 +88,8 @@ namespace InventarioWeb.admin
                     arr.Clear();
                     hdIdDocumento.Text = idDocumento.ToString();
                     arr = appDoc.GenerarTotales(Convert.ToInt32(hdIdDocumento.Text));
-                    GridDetalle.DataSource = (DataTable)appDoc.EntregarDetalleVenta(Convert.ToInt32(hdIdDocumento.Text));
-                    GridDetalle.DataBind();
+                    
+                    
                     if(arr.Count>0){
 
 
@@ -116,6 +116,11 @@ namespace InventarioWeb.admin
                     {
                         string dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
                         AgregarPromocion(dat);
+                    }
+                    if (Page.Request.Params["__EVENTTARGET"] == "EliminarPromocion")
+                    {
+                        string dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
+                        EliminarPromocion(dat);
                     }
                     if (Page.Request.Params["__EVENTTARGET"] == "SeleccionaCodigo")
                     {
@@ -236,6 +241,7 @@ namespace InventarioWeb.admin
             }
 
         }
+        
         protected void btnEliminar_Click()
         {
             AppDocumentos appDoc = new AppDocumentos();
@@ -268,7 +274,22 @@ namespace InventarioWeb.admin
             Status=appDoc.AgregarPromocionVenta(Codigo, Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text));
             if (!Status)
             {
-                lblCantError.Text = "No hay promociones disponibles";
+                lblCantError.Text = "No hay stock para esta promoci&oacute;n";
+            }
+            GridView1.DataBind();
+
+        }
+        protected void EliminarPromocion(String Codigo)
+        {
+            AppDocumentos appDoc = new AppDocumentos();
+
+            if (!appDoc.ExisteEnDoc(txtCodigo.Text, Convert.ToInt32(hdIdDocumento.Text),1))
+            {
+                lblCantError.Text = "No hay promociones para eliminar";
+            }
+            else
+            {
+
             }
             GridView1.DataBind();
 
