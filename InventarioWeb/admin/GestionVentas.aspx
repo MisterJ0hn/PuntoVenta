@@ -11,31 +11,25 @@
     onclick="btnCrear_Click" />
       </p>
       <asp:HiddenField id="hdIdDocumento" runat="server"  />
-       
-  
-      
-    
+
       <asp:HiddenField ID="hdRutEmpresa" runat="server" />
             
-        
-   
-    
+ 
     
    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
         AllowSorting="True" AutoGenerateColumns="False" BackColor="White" 
         BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" 
         DataKeyNames="RutEmpresa" DataSourceID="SqlDataSource1" GridLines="Horizontal"
-        onrowcommand="GridView1_RowCommand">
+        onrowcommand="GridView1_RowCommand" Width="100%">
         <AlternatingRowStyle BackColor="#F7F7F7" />
         <Columns>
             <asp:BoundField DataField="IdDocumento" HeaderText="Id" 
                 SortExpression="IdDocumento" />
             <asp:BoundField DataField="NombreEmpresa" HeaderText="Nombre Cliente" 
-                SortExpression="NombreEmpresa" />
+                SortExpression="NombreEmpresa" ItemStyle-Width="200px" />
             <asp:BoundField DataField="RutEmpresa" HeaderText="Rut Cliente" ReadOnly="True" 
                 SortExpression="RutEmpresa" />
-            <asp:BoundField DataField="NumeroDocumento" HeaderText="Numero Documento" 
-                SortExpression="NumeroDocumento" />
+            
             <asp:BoundField DataField="FechaingresoDocumento" 
                 HeaderText="Fecha Ingreso" SortExpression="FechaingresoDocumento" />
             <asp:BoundField DataField="MontototalDocumento" 
@@ -44,10 +38,7 @@
                 SortExpression="EstadoDocumento" />
            <asp:BoundField DataField="UsuarioRegistro" HeaderText="Usuario Registro" 
                 SortExpression="UsuarioRegistro" />
-
             <asp:ButtonField ButtonType="Button" Text="Editar" CommandName="Editar" />
-           
-            <asp:ButtonField ButtonType="Button" Text="Eliminar" CommandName="Eliminar" />
         </Columns>
         <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
         <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />

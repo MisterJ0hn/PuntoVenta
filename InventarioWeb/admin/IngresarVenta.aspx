@@ -234,7 +234,7 @@ Accion: <div id="Funcion"></div>
         INNER JOIN DETALLEDOCUMENTO AS DD ON DP.IdDetalleproducto = DD.IdDetalleproducto
         WHERE DD.EsPromocion=0 and DD.IdDocumento=@IdDocumento
         Union
-        Select DD.IdDetalledocumento, '' as TipoproductoProducto, PP.Descripcion as DescripcionDetalleproducto, PP.CodigoPromocion as CodigoDetalleproducto, '1' as Cantidad, PP.PrecioVenta, PP.PrecioVenta as Total
+        Select DD.IdDetalledocumento, '' as TipoproductoProducto, PP.Descripcion as DescripcionDetalleproducto, PP.CodigoPromocion as CodigoDetalleproducto, DD.Cantidad, PP.PrecioVenta, PP.PrecioVenta as Total
         From DETALLEDOCUMENTO AS DD, PROMOCIONES PP 
         WHERE DD.IdDetalleproducto=PP.idPromociones
         and DD.EsPromocion=1 

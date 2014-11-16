@@ -31,10 +31,7 @@ namespace InventarioWeb.admin
                     hdIdDocumento.Text = valor;
 
                     GridView1.DataBind();
-                    arr = appDoc.GenerarTotales(Convert.ToInt32(hdIdDocumento.Text));
-                    
-                    lblTotal.Text = arr[2].ToString();
-                    lblTotalCobrar.Text = arr[3].ToString();
+                    totales();
                     txtDisp.Enabled = false;
                     txtNombre.Enabled = false;
                     txtPrecio.Enabled = false;
@@ -87,17 +84,13 @@ namespace InventarioWeb.admin
                     }
                     arr.Clear();
                     hdIdDocumento.Text = idDocumento.ToString();
-                    arr = appDoc.GenerarTotales(Convert.ToInt32(hdIdDocumento.Text));
+                   
                     
                     
-                    if(arr.Count>0){
-
-
-                        lblTotal.Text = "$ " + String.Format("{0:N0}", Convert.ToInt32(arr[2].ToString()));
-                        lblTotalCobrar.Text = "$ " + String.Format("{0:N0}", Convert.ToInt32(arr[3].ToString()));
+                        totales();
 
                        
-                    }
+                   
                 }
             }
             else
@@ -222,10 +215,7 @@ namespace InventarioWeb.admin
                 appDoc.AgregarDetalledocumento(Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(txtCantidad.Text), Convert.ToInt32(txtPrecio.Text), 0, 0,0);
                 appDoc.AgregarDertalleVenta(Convert.ToInt32(txtCantidad.Text), Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(Session["idSucursal"].ToString()));
                 GridView1.DataBind();
-                arr = appDoc.GenerarTotales(Convert.ToInt32(hdIdDocumento.Text));
-
-                lblTotal.Text = "$ " + String.Format("{0:N0}", Convert.ToInt32(arr[2].ToString()));
-                lblTotalCobrar.Text = "$ " + String.Format("{0:N0}", Convert.ToInt32(arr[3].ToString()));
+                totales();
 
                 /*
                 txtDisp.Text = (Convert.ToInt32(txtDisp.Text)-Convert.ToInt32(txtCantidad.Text)).ToString();
@@ -256,11 +246,8 @@ namespace InventarioWeb.admin
                 appDoc.AgregarDertalleVenta(Convert.ToInt32(txtCantidad.Text) * -1, Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(Session["idSucursal"].ToString()));
                
                 GridView1.DataBind();
-                arr = appDoc.GenerarTotales(Convert.ToInt32(hdIdDocumento.Text));
-                
-                lblTotal.Text = "$ "+String.Format("{0:N0}", Convert.ToInt32(arr[2].ToString()));
-                lblTotalCobrar.Text = "$ " + String.Format("{0:N0}", Convert.ToInt32(arr[3].ToString()));
 
+                totales();
 
                 hdFuncion.Text = "";
                 txtCantidad.Enabled = false;
@@ -277,7 +264,7 @@ namespace InventarioWeb.admin
                 lblCantError.Text = "No hay stock para esta promoci&oacute;n";
             }
             GridView1.DataBind();
-
+            totales();
         }
         protected void EliminarPromocion(String Codigo)
         {
@@ -289,17 +276,18 @@ namespace InventarioWeb.admin
             }
             else
             {
+                appDoc.EliminarPromocionVenta(Codigo, Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text));
 
             }
             GridView1.DataBind();
-
+            totales();
         }
         protected void btnFinalizar_Click()
         {
             vldCodigo.Enabled = false;
             AppDocumentos appDoc = new AppDocumentos();
 
-            appDoc.CerrarVenta(Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(Convert.ToDouble(lblTotal.Text.Replace(".",""))));
+            appDoc.CerrarVenta(Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(Convert.ToDouble(lblTotal.Text.Replace(".","").Replace("$",""))));
 
             Response.Redirect("IngresarVenta.aspx");
         }
@@ -309,7 +297,16 @@ namespace InventarioWeb.admin
             btnFinalizar_Click();
         }
 
-       
+        public void totales()
+        {
+            ArrayList arr = new ArrayList();
+            AppDocumentos appDoc = new AppDocumentos();
+            arr = appDoc.GenerarTotales(Convert.ToInt32(hdIdDocumento.Text));
+
+            lblTotal.Text = "$ " + String.Format("{0:N0}", Convert.ToInt32(arr[2].ToString()));
+            lblTotalCobrar.Text = "$ " + String.Format("{0:N0}", Convert.ToInt32(arr[3].ToString()));
+
+        }
        
 
        
