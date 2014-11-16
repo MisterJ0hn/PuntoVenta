@@ -44,6 +44,10 @@ AutoPostBack="true"
 <asp:TextBox ID="txtVenta" runat="server" ontextchanged="txtVenta_TextChanged1"  AutoPostBack="true" ></asp:TextBox>
 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtVenta" runat="server" Text="Campo Requerido" CssClass="failureNotification"></asp:RequiredFieldValidator>
 </p>
-
+<p>
+<asp:Label ID="lblAjustarStock" Text="Agregar Stock" runat="server" Width="100"></asp:Label>
+<asp:TextBox ID="txtAgregar" runat="server" Text="0" Enabled="false"></asp:TextBox>
+<asp:CheckBox ID="chkAgregar" runat="server" Checked="false" AutoPostBack="true" oncheckedchanged="chkAgregar_CheckedChanged"  />
+</p>
 <asp:Button ID="btnGuardar" runat="server" onclick="btnGuardar_Click" Text="Guardar" />
 </asp:Content>

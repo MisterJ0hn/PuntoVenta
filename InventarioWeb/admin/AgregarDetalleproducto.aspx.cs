@@ -26,6 +26,7 @@ namespace InventarioWeb.admin
                 cboProducto.DataTextField = "Nombre";
                 cboProducto.DataValueField = "Id";
                 cboProducto.DataBind();
+                txtCodigo.Focus();
             }
         }
 
@@ -41,10 +42,18 @@ namespace InventarioWeb.admin
         {
             AppDocumentos appDocumentos = new AppDocumentos();
             ArrayList arrProd = new ArrayList();
+            int idProd=0;
+            if (chkAgregar.Checked == true)
+            {
+                idProd = appDocumentos.AgregaProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text), Convert.ToDouble(txtGanancia.Text),0, Convert.ToInt32(Session["idSucursal"]), Convert.ToInt32(txtAgregar.Text));
+          
+            }
+            else{
+            
+                idProd = appDocumentos.AgregaProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text), Convert.ToDouble(txtGanancia.Text));
+            }
 
-            int idProd = appDocumentos.AgregaProducto(txtCodigo.Text, txtDescripcion.Text, Convert.ToInt32(cboProducto.SelectedValue), Convert.ToInt32(txtCosto.Text),Convert.ToDouble(txtGanancia.Text));
-
-            if (idProd > 0)
+            if(idProd >0)
             {
                 lblAlerta.Text = "Producto ingresado satisfactoriamente";
                 lblAlerta.CssClass = "alertaP";
@@ -103,6 +112,26 @@ namespace InventarioWeb.admin
         }
 
         
+        protected void chkAjustar_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+       
+
+        protected void chkAgregar_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAgregar.Enabled == true)
+            {
+                txtAgregar.Enabled = true;
+            }
+            else
+            {
+                txtAgregar.Enabled = false;
+                txtAgregar.Text = "0";
+            }
+
+        }
         
     }
 }

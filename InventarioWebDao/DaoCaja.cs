@@ -17,12 +17,12 @@ namespace InventarioWebDao
 
             DateTime hoy = DateTime.Today;
 
-            arrayCampos.Add("UsuarioCierre");
-            arrayCampos.Add("FechaCierre");
-            arrayCampos.Add("IdSucursalCierre");
-            arrayCampos.Add("Computador");
-            arrayCampos.Add("Ingresos");
-            arrayCampos.Add("Devolucion");
+            arrayCampos.Add("IdUsuario");
+            arrayCampos.Add("FechaCierrecaja");
+            arrayCampos.Add("IdSucursal");
+            arrayCampos.Add("SistemaCierrecaja");
+            arrayCampos.Add("IngresoCierrecaja");
+            arrayCampos.Add("DevolucionCierrecaja");
 
             arrayValores.Add(idUsuarioCierre.ToString());
             arrayValores.Add("'" + hoy.ToString()+"'");
@@ -51,7 +51,7 @@ namespace InventarioWebDao
             arrayValores.Add(montoEgreso.ToString());
 
             daoCon.AddValue(arrayValores);
-            daoCon.InsertSql("EGRESOS", arrayCampos);
+            daoCon.InsertSql("EGRESO", arrayCampos);
         }
         public void AgregarIngresos(int idCierrecaja, String detalleIngreso, int montoIngreso)
         {
@@ -68,7 +68,7 @@ namespace InventarioWebDao
             arrayValores.Add(montoIngreso.ToString());
 
             daoCon.AddValue(arrayValores);
-            daoCon.InsertSql("INGRESOS", arrayCampos);
+            daoCon.InsertSql("INGRESO", arrayCampos);
         }
         public void AgregarCreditos(int idCierrecaja, String detalleCredito, int montoCredito, String fechaCredito)
         {
@@ -77,9 +77,9 @@ namespace InventarioWebDao
             ArrayList arrayCampos = new ArrayList();
 
             arrayCampos.Add("IdCierrecaja");
-            arrayCampos.Add("DetalleCreditos");
-            arrayCampos.Add("DeudaCreditos");
-            arrayCampos.Add("FechaCreditos");
+            arrayCampos.Add("DetalleCredito");
+            arrayCampos.Add("DeudaCredito");
+            arrayCampos.Add("FechaCredito");
 
             arrayValores.Add(idCierrecaja.ToString());
             arrayValores.Add("'" + detalleCredito + "'");
@@ -87,7 +87,7 @@ namespace InventarioWebDao
             arrayValores.Add("'"+fechaCredito.ToString()+"'");
 
             daoCon.AddValue(arrayValores);
-            daoCon.InsertSql("CREDITOS", arrayCampos);
+            daoCon.InsertSql("CREDITO", arrayCampos);
         }
         public void AgregarVentaMenor(int idCierrecaja, String detalleVentamenor, int montoVentamenor)
         {
@@ -157,14 +157,14 @@ namespace InventarioWebDao
             
             if (idSucursal > 0)
             {
-                sqlQuery = " idSucursalCierre=" + idSucursal;
+                sqlQuery = " idSucursal=" + idSucursal;
 
             }
             if (idCierre > 0)
             {
-                sqlQuery = " idCierre=" + idCierre;
+                sqlQuery = " idCierrecaja=" + idCierre;
             }
-            arrConexion = objConexionDao.QuerySql("SELECT FechaCierre, UsuarioCierre, IdSucursalCierre, Computador, Devolucion, Ingresos FROM CIERRECAJA WHERE " + sqlQuery);
+            arrConexion = objConexionDao.QuerySql("SELECT FechaCierrecaja, IdUsuario, IdSucursal, SistemaCierrecaja, DevolucionCierrecaja, IngresoCierrecaja FROM CIERRECAJA WHERE " + sqlQuery);
 
             drArreglo = (SqlDataReader)arrConexion[0];
             if (drArreglo.HasRows)
@@ -199,7 +199,7 @@ namespace InventarioWebDao
             
 
             
-            arrConexion = objConexionDao.QuerySql("SELECT DetalleEgreso, MontoEgreso FROM EGRESOS WHERE IdCierrecaja="+idCierre);
+            arrConexion = objConexionDao.QuerySql("SELECT DetalleEgreso, MontoEgreso FROM EGRESO WHERE IdCierrecaja="+idCierre);
 
             drArreglo = (SqlDataReader)arrConexion[0];
             if (drArreglo.HasRows)
@@ -230,7 +230,7 @@ namespace InventarioWebDao
 
 
 
-            arrConexion = objConexionDao.QuerySql("SELECT DetalleIngreso, MontoIngreso FROM INGRESOS WHERE IdCierrecaja=" + idCierre);
+            arrConexion = objConexionDao.QuerySql("SELECT DetalleIngreso, MontoIngreso FROM INGRESO WHERE IdCierrecaja=" + idCierre);
 
             drArreglo = (SqlDataReader)arrConexion[0];
             if (drArreglo.HasRows)
@@ -260,7 +260,7 @@ namespace InventarioWebDao
             arrIngresos.Columns.Add("Fecha", typeof(String));
 
 
-            arrConexion = objConexionDao.QuerySql("SELECT DetalleCreditos, DeudaCreditos, FechaCreditos FROM CREDITOS WHERE IdCierrecaja=" + idCierre);
+            arrConexion = objConexionDao.QuerySql("SELECT DetalleCredito, DeudaCredito, FechaCredito FROM CREDITO WHERE IdCierrecaja=" + idCierre);
 
             drArreglo = (SqlDataReader)arrConexion[0];
             if (drArreglo.HasRows)

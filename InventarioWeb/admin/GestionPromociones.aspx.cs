@@ -35,6 +35,20 @@ namespace InventarioWeb.admin
 
                 frm.RedirectAndPOST(this.Page, "ModificarPromocion.aspx", data);
             }
+            if (e.CommandName == "Vender")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                WebForm frm = new WebForm();
+                GridViewRow row = GridView1.Rows[index];
+                TextBox tb = (TextBox)GridView1.Rows[index].FindControl("txtCantidad");
+                TableCell tabla = row.Cells[1];
+                String Codigo = tabla.Text;
+                NameValueCollection data = new NameValueCollection();
+                data.Add("Codigo", Codigo);
+                data.Add("Cantidad", tb.Text);
+
+                frm.RedirectAndPOST(this.Page, "IngresarVenta.aspx", data);
+            }
         }
     }
 }

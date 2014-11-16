@@ -4,28 +4,34 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 <asp:Button ID="btnNuevo" Text="Nuevo" runat="server" onclick="btnNuevo_Click" />
     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
-        AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="IdPromociones" 
+        AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="IdPromocion" 
         DataSourceID="SqlDataSource1" onrowcommand="GridView1_RowCommand">
         <Columns>
-            <asp:BoundField DataField="IdPromociones" HeaderText="IdPromociones" 
-                InsertVisible="False" ReadOnly="True" SortExpression="IdPromociones" 
+            <asp:BoundField DataField="IdPromocion" HeaderText="ID" 
+                InsertVisible="False" ReadOnly="True" SortExpression="IdPromocion" 
                 ShowHeader="False" />
             <asp:BoundField DataField="CodigoPromocion" HeaderText="Codigo" 
                 SortExpression="CodigoPromocion" />
-            <asp:BoundField DataField="Descripcion" HeaderText="Descripcion" 
-                SortExpression="Descripcion" />
-            <asp:BoundField DataField="PrecioVenta" HeaderText="Precio" 
-                SortExpression="PrecioVenta" />
+            <asp:BoundField DataField="DescripcionPromocion" HeaderText="Descripcion" 
+                SortExpression="DescripcionPromocion" />
+            <asp:BoundField DataField="PrecioventaPromocion" HeaderText="Precio" 
+                SortExpression="PrecioventaPromocion" />
             <asp:ButtonField ButtonType="Button" Text="Ver" CommandName="Editar" />
             <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />
+            <asp:TemplateField HeaderText="Cantidad">
+        <ItemTemplate>
+            <asp:TextBox ID="txtCantidad" runat="server" Text="1" Width="50"></asp:TextBox>
+        </ItemTemplate>
+        </asp:TemplateField>
+        <asp:ButtonField Text="Vender" ButtonType="Button"  CommandName="Vender"  />
         </Columns>
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
-        SelectCommand="SELECT * FROM [PROMOCIONES]" 
-        DeleteCommand="DELETE FROM PROMOCIONES WHERE IdPromociones=@IdPromociones">
+        SelectCommand="SELECT * FROM [PROMOCION]" 
+        DeleteCommand="DELETE FROM PROMOCION WHERE IdPromocion=@IdPromocion">
         <DeleteParameters>
-            <asp:Parameter Name="IdPromociones" Type="Int32" />
+            <asp:Parameter Name="IdPromocion" Type="Int32" />
         </DeleteParameters>
         </asp:SqlDataSource>
 </asp:Content>

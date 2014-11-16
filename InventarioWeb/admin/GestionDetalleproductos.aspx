@@ -30,7 +30,8 @@
         BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" 
         CellPadding="3" GridLines="Vertical" PageSize="50"
         onrowcommand="GridView1_RowCommand" ShowFooter="True" 
-        ShowHeaderWhenEmpty="True" ViewStateMode="Enabled">
+        ShowHeaderWhenEmpty="True" ViewStateMode="Enabled" 
+        >
     <AlternatingRowStyle BackColor="#DCDCDC" />
     <Columns>
         <asp:BoundField DataField="CodigoDetalleproducto" 
@@ -56,6 +57,12 @@
         <asp:BoundField DataField="CantidadStock" HeaderText="Stock" 
             SortExpression="CantidadStock" />
         <asp:ButtonField ButtonType="Button" CommandName="Editar" Text="Editar" />
+        <asp:TemplateField HeaderText="Cantidad">
+        <ItemTemplate>
+            <asp:TextBox ID="txtCantidad" runat="server" Text="1" Width="50"></asp:TextBox>
+        </ItemTemplate>
+        </asp:TemplateField>
+        <asp:ButtonField Text="Vender" ButtonType="Button"  CommandName="Vender"  />
     </Columns>
     <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
     <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />

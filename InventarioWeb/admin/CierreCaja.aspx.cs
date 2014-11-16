@@ -29,7 +29,7 @@ namespace InventarioWeb.admin
                 Session["dt3"] = "";
                 Session["dt4"] = "";
 
-                computador = appDoc.VentasDelDia(Session["rutEmpresa"].ToString()) - appDoc.ComprasDelDia(Session["rutEmpresa"].ToString());
+                computador = appDoc.VentasDelDia(Session["rutEmpresa"].ToString());
 
                 lblComputador.Text = computador.ToString();
             }
