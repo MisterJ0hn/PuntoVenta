@@ -18,6 +18,7 @@ namespace InventarioWebEntity
         private int IdDepartamento;
         private String PorcentajeGanancia;
         private int Boleta;
+        private int EsPromocion;
 
         public DetalleProducto()
         {
@@ -78,6 +79,11 @@ namespace InventarioWebEntity
         {
             get { return Boleta; }
             set { Boleta = value; }
+        }
+        public int esPromocion
+        {
+            get { return EsPromocion; }
+            set{EsPromocion=value;}
         }
     }
 }

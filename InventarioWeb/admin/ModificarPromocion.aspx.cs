@@ -48,14 +48,14 @@ namespace InventarioWeb.admin
             {
                 hdIdProducto.Value = arrProd[0].ToString();
                 txtDescripcion.Text = arrProd[1].ToString();
-                txtCantidad.Text = "1";
+                
             }
             else
             {
                 //vldCodigo.Visible = true;
                 hdIdProducto.Value = "";
                 txtDescripcion.Text = "";
-                txtCantidad.Text = "0";
+                
                 txtCodigoDetalle.Text = "0";
 
             }
@@ -64,12 +64,12 @@ namespace InventarioWeb.admin
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             AppDocumentos appDoc = new AppDocumentos();
-            appDoc.AgregarDetallepromocion(Convert.ToInt32(hdIdPromo.Value), Convert.ToInt32(hdIdProducto.Value), Convert.ToInt32(txtCantidad.Text));
+            appDoc.AgregarDetallepromocion(Convert.ToInt32(hdIdPromo.Value), Convert.ToInt32(hdIdProducto.Value));
             GridProductos.DataBind();
 
             hdIdProducto.Value = "";
             txtDescripcion.Text = "";
-            txtCantidad.Text = "0";
+         
             txtCodigoDetalle.Text = "0";
         }
 

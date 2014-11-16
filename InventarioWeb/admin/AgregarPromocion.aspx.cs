@@ -32,13 +32,13 @@ namespace InventarioWeb.admin
                     dt.Columns.Add("IdProducto", typeof(Int32));
                     dt.Columns.Add("Codigo", typeof(String));
                     dt.Columns.Add("Nombre", typeof(String));
-                    dt.Columns.Add("Cantidad", typeof(Int32));
+                    
                     DataRow Row1;
                     Row1 = dt.NewRow();
                     Row1["IdProducto"] = Convert.ToInt32(hdIdProducto.Value);
                     Row1["Codigo"] = txtCodigoDetalle.Text;
                     Row1["Nombre"] = txtDescripcion.Text;
-                    Row1["Cantidad"] = Convert.ToInt32(txtCantidad.Text);
+                    
                     dt.Rows.Add(Row1);
                     GridProductos.DataSource = dt;
                     GridProductos.DataBind();
@@ -58,7 +58,7 @@ namespace InventarioWeb.admin
                     Row1["IdProducto"] = Convert.ToInt32(hdIdProducto.Value);
                     Row1["Codigo"] = txtCodigoDetalle.Text;
                     Row1["Nombre"] = txtDescripcion.Text;
-                    Row1["Cantidad"] = Convert.ToInt32(txtCantidad.Text);
+                   
                     dt.Rows.Add(Row1);
                     GridProductos.DataSource = dt;
                     GridProductos.DataBind();
@@ -69,7 +69,7 @@ namespace InventarioWeb.admin
             }
             txtCodigoDetalle.Text = "";
             txtDescripcion.Text = "";
-            txtCantidad.Text = "";
+            
             hdIdProducto.Value = "";
             txtCodigoDetalle.Focus();
         }
@@ -106,14 +106,14 @@ namespace InventarioWeb.admin
             {
                 hdIdProducto.Value = arrProd[0].ToString();
                 txtDescripcion.Text = arrProd[1].ToString();
-                txtCantidad.Text = "1";
+                
             }
             else
             {
                 //vldCodigo.Visible = true;
                 hdIdProducto.Value = "";
                 txtDescripcion.Text = "";
-                txtCantidad.Text = "0";
+                
                 txtCodigoDetalle.Text = "0";
 
             }

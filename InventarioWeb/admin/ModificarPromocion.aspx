@@ -31,8 +31,7 @@
     <asp:Label ID="Label3" Text="Descripcion" runat="server" Width="100"></asp:Label>
     <asp:TextBox ID="txtDescripcion" runat="server"></asp:TextBox>
 
-    <asp:Label ID="lblCantidad" Text="Cantidad" runat="server" Width="100"></asp:Label>
-    <asp:TextBox ID="txtCantidad" runat="server" ></asp:TextBox>
+    
     
 <p class="submitButton">
     <asp:Button ID="btnAgregar" Text="Agregar al listado" runat="server" 
@@ -41,18 +40,16 @@
 <p>
     <asp:GridView ID="GridProductos" runat="server" AutoGenerateColumns="False" 
         BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" 
-        CellPadding="4" DataKeyNames="IdDetallepromociones" 
+        CellPadding="4" 
         DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Vertical">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
-            <asp:BoundField DataField="IdDetallepromociones" HeaderText="ID" 
-                InsertVisible="False" ReadOnly="True" SortExpression="IdDetallepromociones" />
+           
             <asp:BoundField DataField="CodigoDetalleproducto" HeaderText="Codigo" 
                 SortExpression="CodigoDetalleproducto" />
             <asp:BoundField DataField="DescripcionDetalleproducto" HeaderText="Detalle" 
                 SortExpression="DescripcionDetalleproducto" />
-            <asp:BoundField DataField="CantidadDetallepromocion" HeaderText="Cantidad" 
-                SortExpression="CantidadDetallepromocion" />
+            
             <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />
         </Columns>
         <FooterStyle BackColor="#CCCC99" />
@@ -67,15 +64,12 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
-        DeleteCommand="DELETE FROM DETALLEPROMOCIONES where IdDetallepromociones=@IdDetallepromociones" 
-        SelectCommand="SELECT DETALLEPROMOCIONES.IdDetallepromociones, DETALLEPRODUCTO.CodigoDetalleproducto, DETALLEPRODUCTO.DescripcionDetalleproducto, 
-        DETALLEPROMOCIONES.CantidadDetallepromocion 
+        
+        SelectCommand="SELECT DETALLEPRODUCTO.CodigoDetalleproducto, DETALLEPRODUCTO.DescripcionDetalleproducto
         FROM DETALLEPRODUCTO 
         INNER JOIN DETALLEPROMOCIONES ON DETALLEPRODUCTO.IdDetalleproducto = DETALLEPROMOCIONES.IdDetalleproducto
         WHERE IdPromociones=@IdPromo">
-        <DeleteParameters>
-            <asp:Parameter Name="IdDetallepromociones" Type="Int32" /> 
-        </DeleteParameters>
+        
         <SelectParameters >
             <asp:ControlParameter ControlID="hdIdPromo" Name="IdPromo" Type="Int32" />
         </SelectParameters>

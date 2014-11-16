@@ -326,10 +326,11 @@ namespace InventarioWebDao
                      Producto objProd = new Producto();
 
                      stock = drArreglo.GetInt32(0);
-              
-                   
+
+
                  }
              }
+             
              return stock;
         }
         public void AgregarDetalleDocumento(int idDetalleproducto, int idDocumdento, int cantida, int precioVenta, int precioCosto, int utilidad, double ganancia, int esPromocion=0)
@@ -361,17 +362,21 @@ namespace InventarioWebDao
             objConexion.InsertSql("DETALLEDOCUMENTO", arrCampos);
 
         }
-        public ArrayList seleccionaDocumento(int tMov, String rutEmpresa=null, int idDocumento=0, bool soloMax=false, int estadoDocumento=2, int numeroDocumento=0, int documentoCerrado=2){
+        public ArrayList seleccionaDocumento(int tMov, String rutEmpresa=null, int idDocumento=0, bool soloMax=false, int estadoDocumento=2, int numeroDocumento=0, int documentoCerrado=2,String fecha=null){
             DaoConexion objConexionDao = new DaoConexion();
             SqlDataReader drArreglo;
             SqlConnection conConexion = new SqlConnection();
             ArrayList arrConexion = new ArrayList();
             ArrayList arrDoc = new ArrayList();
             String sqlCerrado = "";
+            String sqlFecha = "";
             if(documentoCerrado!=2){
                 sqlCerrado += " and DocumentoCerrado=" + documentoCerrado.ToString();
             }
-
+            if (fecha != null)
+            {
+                sqlFecha = " And FechaemisionDocumento='" + fecha + "' ";
+            }
             if (soloMax)
             {
                 String sql = "";
@@ -391,7 +396,7 @@ namespace InventarioWebDao
                     sql += " and NumeroDocumento=" + numeroDocumento;
                     select = "NumeroDocumento";
                 }
-                arrConexion = objConexionDao.QuerySql("SELECT "+select+" FROM DOCUMENTO WHERE EstadoDocumento!=5 AND IdTipomovimiento=" + tMov +sql);
+                arrConexion = objConexionDao.QuerySql("SELECT "+select+" FROM DOCUMENTO WHERE EstadoDocumento!=5 AND IdTipomovimiento=" + tMov +sql+sqlFecha);
 
                 drArreglo = (SqlDataReader)arrConexion[0];
                 if (drArreglo.HasRows)
@@ -418,11 +423,11 @@ namespace InventarioWebDao
             {
                 if (idDocumento > 0)
                 {
-                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutproveedorDocumento, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento, EstadoDocumento FROM DOCUMENTO WHERE IdTipomovimiento=" + tMov + " and  IdDocumento = " + idDocumento+sqlCerrado);
+                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutproveedorDocumento, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento, EstadoDocumento FROM DOCUMENTO WHERE IdTipomovimiento=" + tMov + " and  IdDocumento = " + idDocumento + sqlCerrado + sqlFecha);
                 }
                 else
                 {
-                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutproveedorDocumento, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento, EstadoDocumento FROM DOCUMENTO WHERE  IdTipomovimiento=" + tMov + " and RutEmpresa like '" + rutEmpresa + "' and EstadoDocumento=" + estadoDocumento+sqlCerrado);
+                    arrConexion = objConexionDao.QuerySql("SELECT IdDocumento, RutproveedorDocumento, IdTipodocumento,NumeroDocumento, FechaemisionDocumento, MontototalDocumento, EstadoDocumento FROM DOCUMENTO WHERE  IdTipomovimiento=" + tMov + " and RutEmpresa like '" + rutEmpresa + "' and EstadoDocumento=" + estadoDocumento + sqlCerrado + sqlFecha);
                 }
             
         
@@ -448,7 +453,7 @@ namespace InventarioWebDao
             drArreglo.Close();
             return arrDoc;
         }
-        public ArrayList SeleccionaProducto(String codigo="",  int idDocumento=0, int esPromocion=0)
+        public ArrayList SeleccionaProducto(String codigo="",  int idDocumento=0, int esPromocion=0,int contar=0)
         {
             DaoConexion conexion = new DaoConexion();
             SqlDataReader drArreglo;
@@ -456,24 +461,74 @@ namespace InventarioWebDao
             ArrayList arrConexion = new ArrayList();
             ArrayList arr = new ArrayList();
             String sql = "";
+            String sql_promo = "";
+            String cantidad_total = "1 as CantidadTotal";
 
-          
-
-                if (idDocumento> 0)
+            if (contar > 0)
+            {
+                if (codigo != "")
                 {
+
+                    sql = " and CodigoDetalleproducto= '" + codigo + "'";
+                    sql_promo = " and PP.CodigoPromocion='" + codigo + "'";
+
+                }
+                sql += " group by DD.IdDocumento";
+                sql_promo += " group by DD.IdDocumento";
+                arrConexion = conexion.QuerySql("SELECT SUM(DD.Cantidad) as cantidad_total " +
+                                                   " FROM DETALLEDOCUMENTO DD, DOCUMENTO D, DETALLEPRODUCTO DP, PRODUCTO P" +
+                                                   " WHERE DD.IdDocumento=D.IdDocumento " +
+                                                   " AND DD.IdDetalleproducto=DP.IdDetalleproducto " +
+                                                   "AND P.IdProducto=DP.IdProducto " +
+
+                                                   " AND D.IdDocumento= " + idDocumento +
+                                                   sql +
+                                                   " Union Select SUM(DD.Cantidad) as cantidad_total " +
+                                                   " From DETALLEDOCUMENTO  DD, PROMOCION PP " +
+                                                   " WHERE DD.IdDetalleproducto=PP.idPromocion " +
+                                                   " AND DD.IdDocumento= " + idDocumento +
+                                                    sql_promo);
+                drArreglo = (SqlDataReader)arrConexion[0];
+                if (drArreglo.HasRows)
+                {
+                    while (drArreglo.Read())
+                    {
+                        arr.Add(drArreglo.GetInt32(0));
+                    }
+
+                }
+            }
+            else
+            {
+
+
+                if (idDocumento > 0)
+                {
+
+
                     if (codigo != "")
                     {
+
                         sql = " and CodigoDetalleproducto= '" + codigo + "'";
+                        sql_promo = " and PP.CodigoPromocion='" + codigo + "'";
+
                     }
+
                     arrConexion = conexion.QuerySql("SELECT DD.IdDetalleproducto ,CodigoDetalleproducto, DescripcionDetalleproducto,DD.PrecioCosto,DD.Cantidad,  " +
-                                                    " '' as RutEmpresa, P.IdProducto, P.IdDepartamento, DD.Ganancia,DD.PrecioVenta,ImpuestoProducto " +
+                                                    " '' as RutEmpresa, P.IdProducto, P.IdDepartamento, DD.Ganancia,DD.PrecioVenta,ImpuestoProducto , DD.EsPromocion" + 
                                                     " FROM DETALLEDOCUMENTO DD, DOCUMENTO D, DETALLEPRODUCTO DP, PRODUCTO P" +
                                                     " WHERE DD.IdDocumento=D.IdDocumento " +
-                                                    " AND DD.IdDetalleproducto=DP.IdDetalleproducto " +
-                                                    "AND P.IdProducto=DP.IdProducto "+
-                                                    " And DD.EsPromocion="+esPromocion+
-                                                    " AND D.IdDocumento= "+ idDocumento +
-                                                    sql);
+                                                    " AND DD.IdDetalleproducto=DP.IdDetalleproducto AND EsPromocion=0" +
+                                                    "AND P.IdProducto=DP.IdProducto " +
+
+                                                    " AND D.IdDocumento= " + idDocumento +
+                                                    sql +
+                                                    " Union all Select PP.IdPromocion AS IdDetalleproducto, PP.CodigoPromocion AS CodigoDetalleproducto,PP.DescripcionPromocion AS  DescripcionDetalleproducto,0 AS PreciocompraDetalleproducto, " +
+                                                    " DD.Cantidad,'' as  RutEmpresa,0 AS IdProducto, 0 AS IdDepartamento, 0.0 AS PorcentajegananciaDetalleproducto,PP.PrecioventaPromocion AS PrecioventaDetalleproducto,1 AS ImpuestoProducto, 1 as EsPromocion " +
+                                                    " From DETALLEDOCUMENTO  DD, PROMOCION PP " +
+                                                    " WHERE DD.IdDetalleproducto=PP.idPromocion AND EsPromocion=1 " +
+                                                    " AND DD.IdDocumento= " + idDocumento +
+                                                     sql_promo);
 
                 }
                 else
@@ -481,35 +536,46 @@ namespace InventarioWebDao
                     if (codigo != "")
                     {
                         sql = "and CodigoDetalleproducto= '" + codigo + "'";
+                        sql_promo = " and PP.CodigoPromocion='" + codigo + "'";
                     }
                     arrConexion = conexion.QuerySql("SELECT IdDetalleproducto, CodigoDetalleproducto, DescripcionDetalleproducto, PreciocompraDetalleproducto, " +
-                                                    "0 as CantidadDetalleproducto,'' as  RutEmpresa, DETALLEPRODUCTO.IdProducto, IdDepartamento, PorcentajegananciaDetalleproducto, PrecioventaDetalleproducto,ImpuestoProducto" +
+                                                    "0 as CantidadDetalleproducto,'' as  RutEmpresa, DETALLEPRODUCTO.IdProducto, IdDepartamento, PorcentajegananciaDetalleproducto, PrecioventaDetalleproducto,ImpuestoProducto, 0 as EsPromocion" + 
                                                     " FROM DETALLEPRODUCTO, PRODUCTO " +
-                                                    " WHERE DETALLEPRODUCTO.IdProducto= PRODUCTO.IdProducto " + sql);
-                }
-           
-            
-            drArreglo = (SqlDataReader)arrConexion[0];
-            if (drArreglo.HasRows)
-            {
-                while (drArreglo.Read())
-                {
-                    DetalleProducto objDP = new DetalleProducto();
-                    objDP.idDetalleproducto = drArreglo.GetInt32(0);
-                    objDP.codigoDetalleproducto = drArreglo.GetString(1);
-                    objDP.descripcionDetalleproducto = drArreglo.GetString(2);
-                    objDP.precioCompraDetalleproducto = drArreglo.GetInt32(3);
-                    objDP.cantidadDetalleproducto = drArreglo.GetInt32(4);
-                    objDP.rutEmpresa = drArreglo.GetString(5);
-                    objDP.idProducto = drArreglo.GetInt32(6);
-                    objDP.idDepartamento = drArreglo.GetInt32(7);
-                    objDP.porcentajeGanancia = Convert.ToString(drArreglo.GetDouble(8));
-                    objDP.precioVentaDetalleproducto = drArreglo.GetInt32(9);
-                    objDP.boleta = drArreglo.GetInt32(10);
-                    arr.Add(objDP);
+                                                    " WHERE DETALLEPRODUCTO.IdProducto= PRODUCTO.IdProducto " + sql +
+                                                    " Union Select PP.IdPromocion AS IdDetalleproducto, PP.CodigoPromocion AS CodigoDetalleproducto,PP.DescripcionPromocion AS  DescripcionDetalleproducto,0 AS PreciocompraDetalleproducto, " +
+                                                    " 0 as CantidadDetalleproducto,'' as  RutEmpresa,0 AS IdProducto, 0 AS IdDepartamento, 0.0 AS PorcentajegananciaDetalleproducto,PP.PrecioventaPromocion AS PrecioventaDetalleproducto,0 AS ImpuestoProducto, 1 as EsPromocion " + 
+                                                    " From DETALLEPRODUCTO AS DD, DetalleproductoPromocion DP, PROMOCION PP " +
+                                                    " WHERE DP.IdPromocion=PP.idPromocion " +
+                                                    " AND DD.IdDetalleproducto=DP.IdDetalleproducto " + sql_promo);
                 }
 
-            }
+            
+                drArreglo = (SqlDataReader)arrConexion[0];
+                if (drArreglo.HasRows)
+                {
+                    while (drArreglo.Read())
+                    {
+                        DetalleProducto objDP = new DetalleProducto();
+                        objDP.idDetalleproducto = drArreglo.GetInt32(0);
+                        objDP.codigoDetalleproducto = drArreglo.GetString(1);
+                        objDP.descripcionDetalleproducto = drArreglo.GetString(2);
+                        objDP.precioCompraDetalleproducto = drArreglo.GetInt32(3);
+                        
+                            objDP.cantidadDetalleproducto = drArreglo.GetInt32(4);
+                        
+                        objDP.rutEmpresa = drArreglo.GetString(5);
+                        objDP.idProducto = drArreglo.GetInt32(6);
+                        objDP.idDepartamento = drArreglo.GetInt32(7);
+                        objDP.porcentajeGanancia = Convert.ToString(drArreglo.GetDouble(8));
+                        objDP.precioVentaDetalleproducto = drArreglo.GetInt32(9);
+                        objDP.boleta = drArreglo.GetInt32(10);
+                        objDP.esPromocion = drArreglo.GetInt32(11);
+                        arr.Add(objDP);
+                    }
+
+                }
+           }
+
             drArreglo.Close();
             return arr;
         }
@@ -661,9 +727,9 @@ namespace InventarioWebDao
             ArrayList arrCampos = new ArrayList();
 
 
-            arrCampos.Add("Descripcion");
+            arrCampos.Add("DescripcionPromocion");
             arrCampos.Add("CodigoPromocion");
-            arrCampos.Add("PrecioVenta");
+            arrCampos.Add("PrecioventaPromocion");
             
             arrValores.Add("'"+nombre+"'");
             arrValores.Add("'" + codigo + "'");
@@ -671,30 +737,30 @@ namespace InventarioWebDao
           
 
             objConexion.AddValue(arrValores);
-            int id=objConexion.InsertSql("PROMOCIONES", arrCampos, true);
+            int id=objConexion.InsertSql("PROMOCION", arrCampos, true);
 
             return id;
         }
-        public void AgregarDetallepromocion(int idPromocion, int idDetalleproducto, int cantidad)
+        public void AgregarDetallepromocion(int idPromocion, int idDetalleproducto)
         {
             DaoConexion objConexion = new DaoConexion();
             ArrayList arrValores = new ArrayList();
             ArrayList arrCampos = new ArrayList();
 
 
-            arrCampos.Add("IdPromociones");
+            arrCampos.Add("IdPromocion");
             arrCampos.Add("IdDetalleproducto");
-            arrCampos.Add("CantidadDetallepromocion");
+           
 
             arrValores.Add(idPromocion.ToString());
             arrValores.Add(idDetalleproducto.ToString());
-            arrValores.Add(cantidad.ToString());
+            
 
 
             objConexion.AddValue(arrValores);
-           objConexion.InsertSql("DETALLEPROMOCIONES", arrCampos);
+           objConexion.InsertSql("DetalleproductoPromocion", arrCampos);
         }
-        public DataTable SeleccionaDetallepromocion(int idPromocion, int idDetallepromocion)
+        public DataTable SeleccionaDetallepromocion(int idPromocion, int idDetalleproducto, int contar=0)
         {
             DaoConexion conexion = new DaoConexion();
             SqlDataReader drArreglo;
@@ -702,25 +768,31 @@ namespace InventarioWebDao
             ArrayList arrConexion = new ArrayList();
             DataTable arr = new DataTable();
             String sql = "";
+            String Count="1 as Cantidad";
 
             if (idPromocion > 0)
             {
-                sql += " IdPromociones=" + idPromocion;
+                sql += " IdPromocion=" + idPromocion;
             }
-            if (idDetallepromocion > 0)
+            if (idDetalleproducto > 0)
             {
                 if (idPromocion > 0)
                 {
                     sql += " AND";
                 }
-                sql += " IdDetallepromociones=" + idDetallepromocion;
+                sql += " IdDetalleproducto=" + idDetalleproducto;
             }
-            arrConexion = conexion.QuerySql("SELECT IdDetallepromociones, IdPromociones, IdDetalleproducto, CantidadDetallepromocion FROM DETALLEPROMOCIONES Where "+sql);
+            if (contar>0)
+            {
+                sql += " group by IdPromocion, IdDetalleproducto";
+                Count = "COUNT(*) as Cantidad";
+            }
+            arrConexion = conexion.QuerySql("SELECT  IdPromocion, IdDetalleproducto,"+Count+" FROM DetalleproductoPromocion Where "+sql);
             drArreglo = (SqlDataReader)arrConexion[0];
 
              
-            arr.Columns.Add("IdDetalle");
-            arr.Columns.Add("IdPromociones");
+            
+            arr.Columns.Add("IdPromocion");
             arr.Columns.Add("IdDetalleproducto");
             arr.Columns.Add("CantidadDetalle");
             if (drArreglo.HasRows)
@@ -730,11 +802,11 @@ namespace InventarioWebDao
                    
                     DataRow Row1;
                     Row1 = arr.NewRow();
-                    Row1["IdDetalle"] = drArreglo.GetInt32(0);
-                    Row1["IdPromociones"] = drArreglo.GetInt32(1);
-                    Row1["IdDetalleproducto"] = drArreglo.GetInt32(2);
-                    Row1["CantidadDetalle"] = drArreglo.GetInt32(3);
-
+                    
+                    Row1["IdPromocion"] = drArreglo.GetInt32(0);
+                    Row1["IdDetalleproducto"] = drArreglo.GetInt32(1);
+                    Row1["CantidadDetalle"]=drArreglo.GetInt32(2);
+                    
                     arr.Rows.Add(Row1); 
                    
                 }
@@ -755,21 +827,21 @@ namespace InventarioWebDao
 
             if (idPromocion > 0)
             {
-                sql += " IdPromociones=" + idPromocion;
+                sql += " IdPromocion=" + idPromocion;
             }
             if (codigoPromocion != "")
             {
                 sql = " CodigoPromocion LIKE '" + codigoPromocion + "'";
             }
-            arrConexion = conexion.QuerySql("SELECT IdPromociones, CodigoPromocion, Descripcion, PrecioVenta FROM PROMOCIONES Where " + sql);
+            arrConexion = conexion.QuerySql("SELECT IdPromocion, CodigoPromocion, DescripcionPromocion, PrecioventaPromocion FROM PROMOCION Where " + sql);
             drArreglo = (SqlDataReader)arrConexion[0];
 
 
            
-            arr.Columns.AddRange(new DataColumn[4] { new DataColumn("IdPromociones", typeof(int)),  
+            arr.Columns.AddRange(new DataColumn[4] { new DataColumn("IdPromocion", typeof(int)),  
                             new DataColumn("CodigoPromocion", typeof(string)),  
-                            new DataColumn("Descripcion",typeof(string)),
-                            new DataColumn("PrecioVenta",typeof(string))});  
+                            new DataColumn("DescripcionPromocion",typeof(string)),
+                            new DataColumn("PrecioventaPromocion",typeof(string))});  
 
             if (drArreglo.HasRows)
             {
@@ -795,9 +867,9 @@ namespace InventarioWebDao
                                         "INNER JOIN DETALLEPRODUCTO AS DP ON P.IdProducto = DP.IdProducto "+
                                         "INNER JOIN DETALLEDOCUMENTO AS DD ON DP.IdDetalleproducto = DD.IdDetalleproducto "+
                                         "WHERE DD.EsPromocion=0 and DD.IdDocumento= "+IdDocumento +
-                                        " Union Select DD.EsPromocion,DD.IdDetalledocumento, '' as TipoproductoProducto, PP.Descripcion as DescripcionDetalleproducto, PP.CodigoPromocion as CodigoDetalleproducto, '1' as Cantidad, PP.PrecioVenta, PP.PrecioVenta as Total, PP.IdPromociones "+
-                                        "From DETALLEDOCUMENTO AS DD, PROMOCIONES PP "+
-                                        "WHERE DD.IdDetalleproducto=PP.idPromociones "+
+                                        " Union Select DD.EsPromocion,DD.IdDetalledocumento, '' as TipoproductoProducto, PP.DescripcionPromocion as DescripcionDetalleproducto, PP.CodigoPromocion as CodigoDetalleproducto, '1' as Cantidad, PP.PrecioventaPromocion, PP.PrecioventaPromocion as Total, PP.IdPromocion "+
+                                        "From DETALLEDOCUMENTO AS DD, PROMOCION PP "+
+                                        "WHERE DD.IdDetalleproducto=PP.idPromocion "+
                                         "and DD.EsPromocion=1 "+
                                         "and DD.IdDocumento=" + IdDocumento);
             drArreglo = (SqlDataReader)arrConexion[0];
@@ -820,9 +892,9 @@ namespace InventarioWebDao
                         SqlDataReader drArreglo2;
                         ArrayList arrConexion2 = new ArrayList();
                         arrConexion2 = conexion.QuerySql("Select '0' IdDetalledocumento,  P.TipoproductoProducto, DP.DescripcionDetalleproducto, DP.CodigoDetalleproducto, DPR.CantidadDetallepromocion as Cantidad, '' as PrecioVenta,'' as Total " +
-                                            "FROM DETALLEPRODUCTO DP, PRODUCTO P, DETALLEPROMOCIONES DPR, PROMOCIONES PR " +
+                                            "FROM DETALLEPRODUCTO DP, PRODUCTO P, DetalleproductoPromocion DPR, PROMOCION PR " +
                                             "WHERE DP.IdDetalleproducto=DPR.IdDetalleproducto " +
-                                            "and DP.IdProducto=P.IdProducto and DPR.IdPromociones=PR.IdPromociones and PR.IdPromociones= "+drArreglo.GetInt32(8));
+                                            "and DP.IdProducto=P.IdProducto and DPR.IdPromocion=PR.IdPromocion and PR.IdPromocion= "+drArreglo.GetInt32(8));
 
 
                         drArreglo2 = (SqlDataReader)arrConexion2[0];

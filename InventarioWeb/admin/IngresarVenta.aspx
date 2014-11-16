@@ -47,7 +47,7 @@
                 }
             }
             if (document.getElementById("ContentPlaceHolder1_hdFuncion").value != "") {
-                document.getElementById("Mensaje").innerHTML = "paso";
+                document.getElementById("Mensaje").innerHTML = "paso " + document.getElementById("ContentPlaceHolder1_hdFuncion").value;
                 /*if (codigo != "") {
                     document.getElementById("Mensaje").innerHTML = "El codigo imputado es: "+codigo+", Ahora ingrese cantidad, si imputa por teclado, presione enter";
                     __doPostBack('SeleccionaCodigo', codigo);
@@ -66,18 +66,7 @@
                     cantidad = "";
                     document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
                 }
-                if (document.getElementById("ContentPlaceHolder1_hdFuncion").value == "+p") {
-                        
-                    __doPostBack('AgregarPromocion', codigo );
-                    cantidad = "";
-                    document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
-                }
-                if (document.getElementById("ContentPlaceHolder1_hdFuncion").value == "-p") {
-
-                    __doPostBack('EliminarPromocion', codigo);
-                    cantidad = "";
-                    document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
-                }
+                
                 //}
             } else {
             
@@ -120,24 +109,7 @@
                 document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
             }
         }
-        if (tecla == 117) {
-            
-            document.getElementById("ContentPlaceHolder1_hdFuncion").value = "+p";
-            document.getElementById("Mensaje").innerHTML = "Impute Codigo de Promocion a agregar, si imputa por teclado, presione Enter";
-
-            codigo = "";
-            document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
-
-        }
-        if (tecla == 118) {
-
-            document.getElementById("ContentPlaceHolder1_hdFuncion").value = "-p";
-            document.getElementById("Mensaje").innerHTML = "Impute Codigo de Promocion a agregar, si imputa por teclado, presione Enter";
-
-            codigo = "";
-            document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
-
-        }
+        
         //document.getElementById("Funcion").innerHTML = document.getElementById("ContentPlaceHolder1_hdFuncion").value;
     }
    
@@ -145,7 +117,14 @@
     function ProdNoExiste()
     {
         if (confirm("El codigo no existe, deseas crearlo?")) {
+
             window.location.href = "AgregarDetalleproducto.aspx";
+        } else {
+            document.getElementById("ContentPlaceHolder1_hdFuncion").value = "";
+            document.getElementById("ContentPlaceHolder1_txtCodigo").value = "";
+            codigo = "";
+            cantidad = "";
+            funcion = "";
         }
     }
 
@@ -176,7 +155,7 @@ Accion: <div id="Funcion"></div>
     <ContentTemplate>
     <asp:TextBox ID="hdIdDocumento" runat="server" style="display:none"></asp:TextBox>
     <asp:TextBox ID="hdIdDetalle" runat="server" style="display:none"></asp:TextBox>
-
+    <asp:HiddenField ID="hdEsPromo" runat="server" />
         <asp:Panel ID="Panel1" runat="server" DefaultButton="btnCodigo">
         <asp:Button ID="btnCodigo" runat="server"  style="display:none"/>
 <asp:Label ID="lblCodigo" runat="server" Text="Codigo" Width="100" Visible="false"></asp:Label>
@@ -234,9 +213,9 @@ Accion: <div id="Funcion"></div>
         INNER JOIN DETALLEDOCUMENTO AS DD ON DP.IdDetalleproducto = DD.IdDetalleproducto
         WHERE DD.EsPromocion=0 and DD.IdDocumento=@IdDocumento
         Union
-        Select DD.IdDetalledocumento, '' as TipoproductoProducto, PP.Descripcion as DescripcionDetalleproducto, PP.CodigoPromocion as CodigoDetalleproducto, DD.Cantidad, PP.PrecioVenta, PP.PrecioVenta as Total
-        From DETALLEDOCUMENTO AS DD, PROMOCIONES PP 
-        WHERE DD.IdDetalleproducto=PP.idPromociones
+        Select DD.IdDetalledocumento, '' as TipoproductoProducto, PP.DescripcionPromocion as DescripcionDetalleproducto, PP.CodigoPromocion as CodigoDetalleproducto, DD.Cantidad, PP.PrecioventaPromocion, Round((DD.Cantidad* DD.PrecioVenta),-1) as Total
+        From DETALLEDOCUMENTO AS DD, PROMOCION PP 
+        WHERE DD.IdDetalleproducto=PP.idPromocion
         and DD.EsPromocion=1 
         and DD.IdDocumento=@IdDocumento        
         ">

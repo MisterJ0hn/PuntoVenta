@@ -87,7 +87,22 @@ namespace InventarioWeb.admin
                    
                     
                     
-                        totales();
+                    totales();
+
+                    if (Request.Form["Codigo"] != null)
+                    {
+                        String Codigo = Request.Form["Codigo"];
+                        String Cantidad = Request.Form["Cantidad"];
+
+                        bool status = txtCodigo_TextChanged(Codigo);
+
+                        if (status)
+                        {
+                            txtCantidad.Text = Cantidad;
+                            //txtCantidad.Text = dat;
+                            btnAgregar_Click();
+                        }
+                    }
 
                        
                    
@@ -113,7 +128,7 @@ namespace InventarioWeb.admin
                     if (Page.Request.Params["__EVENTTARGET"] == "EliminarPromocion")
                     {
                         string dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
-                        EliminarPromocion(dat);
+                        EliminarPromocion(dat,1);
                     }
                     if (Page.Request.Params["__EVENTTARGET"] == "SeleccionaCodigo")
                     {
@@ -174,7 +189,16 @@ namespace InventarioWeb.admin
                 txtCodigo.Text = Codigo;
                 txtNombre.Text = arrProd[1].ToString();
                 txtPrecio.Text = arrProd[6].ToString();
-                txtDisp.Text = arrProd[8].ToString();
+                if (arrProd[9].ToString() == "1")
+                {
+                    txtDisp.Text = "99999";
+                }
+                else
+                {
+                    txtDisp.Text = arrProd[8].ToString();
+                }
+                
+                hdEsPromo.Value = arrProd[9].ToString();
                 txtCantidad.Text = "1";
                 
                 lblCantError.Text = "";
@@ -183,16 +207,16 @@ namespace InventarioWeb.admin
             }
             else
             {
-                
-                //vldCodigo.Visible = true;
-                lblCantError.Text = "";
-                txtDisp.Text = "0";
-                txtCantidad.Text = "0";
-                txtCodigo.Text = "0";
-                hdFuncion.Text = "0";
 
-                ScriptManager.RegisterStartupScript(this, GetType(), "ProdNoExiste", "ProdNoExiste();", true);
-                
+                    //vldCodigo.Visible = true;
+                    lblCantError.Text = "";
+                    txtDisp.Text = "0";
+                    txtCantidad.Text = "0";
+                    txtCodigo.Text = "0";
+                    hdFuncion.Text = "0";
+
+                    ScriptManager.RegisterStartupScript(this, GetType(), "ProdNoExiste", "ProdNoExiste();", true);
+               
                 
                 return false;
             }
@@ -211,9 +235,15 @@ namespace InventarioWeb.admin
             }
             else
             {
-
-                appDoc.AgregarDetalledocumento(Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(txtCantidad.Text), Convert.ToInt32(txtPrecio.Text), 0, 0,0);
-                appDoc.AgregarDertalleVenta(Convert.ToInt32(txtCantidad.Text), Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(Session["idSucursal"].ToString()));
+                if (hdEsPromo.Value == "1")
+                {
+                    AgregarPromocion(txtCodigo.Text, Convert.ToInt32(txtCantidad.Text));
+                }
+                else
+                {
+                    appDoc.AgregarDetalledocumento(Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(txtCantidad.Text), Convert.ToInt32(txtPrecio.Text), 0, 0, 0);
+                    appDoc.AgregarDertalleVenta(Convert.ToInt32(txtCantidad.Text), Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(Session["idSucursal"].ToString()));
+                }
                 GridView1.DataBind();
                 totales();
 
@@ -236,15 +266,19 @@ namespace InventarioWeb.admin
         {
             AppDocumentos appDoc = new AppDocumentos();
             ArrayList arr = new ArrayList();
-            if (!appDoc.ExisteEnDoc(txtCodigo.Text, Convert.ToInt32(hdIdDocumento.Text)))
+            if (!appDoc.ExisteEnDoc(txtCodigo.Text, Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(hdEsPromo.Value), Convert.ToInt32(txtCantidad.Text)))
             {
                 lblCantError.Text="El producto no se encuentra en el listado, no puedes eliminar";
             }
             else
             {
-                appDoc.AgregarDetalledocumento(Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(txtCantidad.Text) * -1, Convert.ToInt32(txtPrecio.Text), 0, 0,0);
-                appDoc.AgregarDertalleVenta(Convert.ToInt32(txtCantidad.Text) * -1, Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(Session["idSucursal"].ToString()));
-               
+                if (hdEsPromo.Value == "1")
+                {
+                    EliminarPromocion(txtCodigo.Text, Convert.ToInt32(txtCantidad.Text));
+                }else{
+                    appDoc.AgregarDetalledocumento(Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(txtCantidad.Text) * -1, Convert.ToInt32(txtPrecio.Text), 0, 0, 0);
+                    appDoc.AgregarDertalleVenta(Convert.ToInt32(txtCantidad.Text) * -1, Convert.ToInt32(hdIdDetalle.Text), Convert.ToInt32(Session["idSucursal"].ToString()));
+                }
                 GridView1.DataBind();
 
                 totales();
@@ -254,11 +288,11 @@ namespace InventarioWeb.admin
                 txtCodigo.Focus();
             }
         }
-        protected void AgregarPromocion(String Codigo)
+        protected void AgregarPromocion(String Codigo, int cantidad=1)
         {
             AppDocumentos appDoc = new AppDocumentos();
             bool Status = false;
-            Status=appDoc.AgregarPromocionVenta(Codigo, Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text));
+            Status=appDoc.AgregarPromocionVenta(Codigo, Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text), cantidad);
             if (!Status)
             {
                 lblCantError.Text = "No hay stock para esta promoci&oacute;n";
@@ -266,19 +300,14 @@ namespace InventarioWeb.admin
             GridView1.DataBind();
             totales();
         }
-        protected void EliminarPromocion(String Codigo)
+        protected void EliminarPromocion(String Codigo, int cantidad)
         {
             AppDocumentos appDoc = new AppDocumentos();
 
-            if (!appDoc.ExisteEnDoc(txtCodigo.Text, Convert.ToInt32(hdIdDocumento.Text),1))
-            {
-                lblCantError.Text = "No hay promociones para eliminar";
-            }
-            else
-            {
-                appDoc.EliminarPromocionVenta(Codigo, Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text));
+            
+            appDoc.EliminarPromocionVenta(Codigo, Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text), cantidad);
 
-            }
+            
             GridView1.DataBind();
             totales();
         }

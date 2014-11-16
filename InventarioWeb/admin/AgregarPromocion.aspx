@@ -30,8 +30,6 @@
     <asp:Label ID="Label3" Text="Descripcion" runat="server" Width="100"></asp:Label>
     <asp:TextBox ID="txtDescripcion" runat="server"></asp:TextBox>
 
-    <asp:Label ID="lblCantidad" Text="Cantidad" runat="server" Width="100"></asp:Label>
-    <asp:TextBox ID="txtCantidad" runat="server" ></asp:TextBox>
     
 <p class="submitButton">
     <asp:Button ID="btnAgregar" Text="Agregar al listado" runat="server" 
