@@ -33,8 +33,8 @@
                 SortExpression="FechaingresoDocumento" />
             <asp:BoundField DataField="MontototalDocumento" 
                 HeaderText="Monto Total" SortExpression="MontototalDocumento" />
-            <asp:BoundField DataField="EstadoDocumento" HeaderText="Estado" 
-                SortExpression="EstadoDocumento" />
+            <asp:BoundField DataField="NombreEstadodocumento" HeaderText="Estado" 
+                SortExpression="NombreEstadodocumento" />
             <asp:BoundField DataField="UsuarioRegistro" HeaderText="Usuario Registro" 
                 SortExpression="UsuarioRegistro" />
            
@@ -58,12 +58,12 @@
         ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
         
         SelectCommand="SELECT DOCUMENTO.IdDocumento, EMPRESA.NombreEmpresa, EMPRESA.RutEmpresa, DOCUMENTO.NumeroDocumento, DOCUMENTO.FechaingresoDocumento, 
-        DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.EstadoDocumento, CONCAT(USUARIO.NombreUsuario,' ', USUARIO.ApellidoUsuario ) AS UsuarioRegistro
+        DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.NombreEstadodocumento, CONCAT(USUARIO.NombreUsuario,' ', USUARIO.ApellidoUsuario ) AS UsuarioRegistro
         FROM DOCUMENTO 
         INNER JOIN EMPRESA ON DOCUMENTO.RutproveedorDocumento = EMPRESA.RutEmpresa 
-        INNER JOIN ESTADODOCUMENTO ON DOCUMENTO.EstadoDocumento = ESTADODOCUMENTO.IdEstadoDocumento 
-        INNER JOIN USUARIO ON DOCUMENTO.IdUsuarioRegistro = USUARIO.IdUsuario 
-        WHERE (DOCUMENTO.IdTipomovimiento = 1) AND (DOCUMENTO.EstadoDocumento &lt;&gt; 5) AND (DOCUMENTO.RutEmpresa = @rutEmpresa)">
+        INNER JOIN ESTADODOCUMENTO ON DOCUMENTO.IdEstadoDocumento = ESTADODOCUMENTO.IdEstadoDocumento 
+        INNER JOIN USUARIO ON DOCUMENTO.IdUsuario = USUARIO.IdUsuario 
+        WHERE (DOCUMENTO.IdTipomovimiento = 1) AND (DOCUMENTO.IdEstadoDocumento = 5) AND (DOCUMENTO.RutEmpresa = @rutEmpresa)">
         <SelectParameters>
             <asp:ControlParameter ControlID="hdRutEmpresa" Name="rutEmpresa" Type="String"/>
         </SelectParameters>

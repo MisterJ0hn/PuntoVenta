@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using InventarioWebApp;
 using System.Collections.Specialized;
+using System.Text;
 
 namespace InventarioWeb.admin
 {
@@ -13,7 +14,13 @@ namespace InventarioWeb.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Page.Request.Params["__EVENTTARGET"] == "EliminarPromo")
+            {
+                string dat = Page.Request.Params["__EVENTARGUMENT"].ToString();
+                AppDocumentos appDoc = new AppDocumentos();
+                appDoc.EliminarPromo(int.Parse(dat));
+                GridView1.DataBind();
+            }
         }
 
         protected void btnNuevo_Click(object sender, EventArgs e)
@@ -37,6 +44,7 @@ namespace InventarioWeb.admin
             }
             if (e.CommandName == "Vender")
             {
+                
                 int index = Convert.ToInt32(e.CommandArgument);
                 WebForm frm = new WebForm();
                 GridViewRow row = GridView1.Rows[index];
@@ -48,6 +56,18 @@ namespace InventarioWeb.admin
                 data.Add("Cantidad", tb.Text);
 
                 frm.RedirectAndPOST(this.Page, "IngresarVenta.aspx", data);
+            }
+            if (e.CommandName == "Eliminar")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+          
+                GridViewRow row = GridView1.Rows[index];
+                TableCell tabla = row.Cells[0];
+                String id = tabla.Text;
+
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "Eliminar", "Eliminar("+id+");", true);
+
             }
         }
     }

@@ -1,5 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ADM.Master" AutoEventWireup="true" CodeBehind="GestionPromociones.aspx.cs" Inherits="InventarioWeb.admin.GestionPromociones" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<script language="javascript" type="text/javascript">
+    function Eliminar(id) {
+        if (confirm("¿Estas seguro de Eliminar este producto?")) {
+            __doPostBack('EliminarPromo', id);
+        }
+    }
+</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 <asp:Button ID="btnNuevo" Text="Nuevo" runat="server" onclick="btnNuevo_Click" />
@@ -17,7 +24,7 @@
             <asp:BoundField DataField="PrecioventaPromocion" HeaderText="Precio" 
                 SortExpression="PrecioventaPromocion" />
             <asp:ButtonField ButtonType="Button" Text="Ver" CommandName="Editar" />
-            <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />
+            <asp:ButtonField ButtonType="Button" Text="Eliminar" CommandName="Eliminar"/>
             <asp:TemplateField HeaderText="Cantidad">
         <ItemTemplate>
             <asp:TextBox ID="txtCantidad" runat="server" Text="1" Width="50"></asp:TextBox>
@@ -28,7 +35,7 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
-        SelectCommand="SELECT * FROM [PROMOCION]" 
+        SelectCommand="SELECT * FROM [PROMOCION] WHERE EstadoPromocion=1" 
         DeleteCommand="DELETE FROM PROMOCION WHERE IdPromocion=@IdPromocion">
         <DeleteParameters>
             <asp:Parameter Name="IdPromocion" Type="Int32" />

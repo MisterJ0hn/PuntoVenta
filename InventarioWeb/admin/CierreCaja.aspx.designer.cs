@@ -58,6 +58,15 @@ namespace InventarioWeb.admin {
         protected global::System.Web.UI.WebControls.TextBox txtCantidadCredito;
         
         /// <summary>
+        /// Control RegularExpressionValidator1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+        
+        /// <summary>
         /// Control Label11.
         /// </summary>
         /// <remarks>
@@ -83,6 +92,24 @@ namespace InventarioWeb.admin {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button2;
+        
+        /// <summary>
+        /// Control vldDetalleCredito.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator vldDetalleCredito;
+        
+        /// <summary>
+        /// Control vldCantidadCrediro.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator vldCantidadCrediro;
         
         /// <summary>
         /// Control GridCreditos.
@@ -130,6 +157,15 @@ namespace InventarioWeb.admin {
         protected global::System.Web.UI.WebControls.TextBox txtCantidadMenor;
         
         /// <summary>
+        /// Control RegularExpressionValidator3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator3;
+        
+        /// <summary>
         /// Control btnMenor.
         /// </summary>
         /// <remarks>
@@ -139,6 +175,24 @@ namespace InventarioWeb.admin {
         protected global::System.Web.UI.WebControls.Button btnMenor;
         
         /// <summary>
+        /// Control vldDetalleMenor.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator vldDetalleMenor;
+        
+        /// <summary>
+        /// Control vldCantidadMenor.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator vldCantidadMenor;
+        
+        /// <summary>
         /// Control GridVentaMenor.
         /// </summary>
         /// <remarks>
@@ -146,6 +200,15 @@ namespace InventarioWeb.admin {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridVentaMenor;
+        
+        /// <summary>
+        /// Control pnlcredito.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlcredito;
         
         /// <summary>
         /// Control lblDetalle.
@@ -184,6 +247,15 @@ namespace InventarioWeb.admin {
         protected global::System.Web.UI.WebControls.TextBox txtCantidad;
         
         /// <summary>
+        /// Control RegularExpressionValidator2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
+        
+        /// <summary>
         /// Control btnAgregarEgreso.
         /// </summary>
         /// <remarks>
@@ -193,6 +265,24 @@ namespace InventarioWeb.admin {
         protected global::System.Web.UI.WebControls.Button btnAgregarEgreso;
         
         /// <summary>
+        /// Control vldDetallerEgreso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator vldDetallerEgreso;
+        
+        /// <summary>
+        /// Control vldCantidadEgreso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator vldCantidadEgreso;
+        
+        /// <summary>
         /// Control GridEgresos.
         /// </summary>
         /// <remarks>
@@ -200,24 +290,6 @@ namespace InventarioWeb.admin {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridEgresos;
-        
-        /// <summary>
-        /// Control lblDevolucion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDevolucion;
-        
-        /// <summary>
-        /// Control txtDevolucion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDevolucion;
         
         /// <summary>
         /// Control lbl.
@@ -256,6 +328,15 @@ namespace InventarioWeb.admin {
         protected global::System.Web.UI.WebControls.TextBox txtCantidadIngreso;
         
         /// <summary>
+        /// Control RegularExpressionValidator4.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator4;
+        
+        /// <summary>
         /// Control Button1.
         /// </summary>
         /// <remarks>
@@ -263,6 +344,24 @@ namespace InventarioWeb.admin {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
+        
+        /// <summary>
+        /// Control vldDetalleIngreso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator vldDetalleIngreso;
+        
+        /// <summary>
+        /// Control vldCantidadIngreso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator vldCantidadIngreso;
         
         /// <summary>
         /// Control GridIngresos.
@@ -274,13 +373,13 @@ namespace InventarioWeb.admin {
         protected global::System.Web.UI.WebControls.GridView GridIngresos;
         
         /// <summary>
-        /// Control lbl20000.
+        /// Control Label12.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl20000;
+        protected global::System.Web.UI.WebControls.Label Label12;
         
         /// <summary>
         /// Control txt20000.
@@ -524,6 +623,24 @@ namespace InventarioWeb.admin {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox lblDevolucionResumen;
+        
+        /// <summary>
+        /// Control Label13.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label13;
+        
+        /// <summary>
+        /// Control txtMenor.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMenor;
         
         /// <summary>
         /// Control Label6.
