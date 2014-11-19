@@ -679,15 +679,21 @@ namespace InventarioWebDao
             }
             return Total;
         }
-        public void ModificarEstadoDocumento(int idDocumento, int estadoDocumento, int montoTotal=0)
+        public void ModificarEstadoDocumento(int idDocumento, int estadoDocumento, int montoTotal=0, int CerrarDocumento=2, int formapago=1)
         {
             DaoConexion conn = new DaoConexion();
             ArrayList arr = new ArrayList();
             ArrayList arrCampos = new ArrayList();
             DateTime hoy=DateTime.Now;
 
-            arr.Add("FechaemisionDocumento='" + hoy + "'");
+            //arr.Add("FechaemisionDocumento='" + hoy.ToString()+"'" );
             arr.Add("IdEstadoDocumento=" + estadoDocumento.ToString());
+
+            arr.Add("IdFormapago=" + formapago.ToString());
+            if (CerrarDocumento < 2)
+            {
+                arr.Add("CerradoDocumento=" + CerrarDocumento.ToString());
+            }
             if (montoTotal > 0)
             {
                 arr.Add("MontototalDocumento=" + montoTotal.ToString());

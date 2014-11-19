@@ -14,8 +14,7 @@
         DataKeyNames="RutEmpresa" DataSourceID="SqlDataSource1" 
     AllowPaging="True" AllowSorting="True" BackColor="White" BorderColor="#E7E7FF" 
     BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal"
-    onrowcommand="GridView1_RowCommand"
-    >
+    onrowcommand="GridView1_RowCommand">
         <AlternatingRowStyle BackColor="#F7F7F7" />
         <Columns>
             <asp:BoundField DataField="RutEmpresa" HeaderText="RutEmpresa" ReadOnly="True" 
@@ -38,7 +37,7 @@
         <SortedDescendingHeaderStyle BackColor="#3E3277" />
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-        ConnectionString="Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=InventarioWeb;Data Source=HANSZUÑIGA-PC"
+        ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>"
         SelectCommand="SELECT [RutEmpresa], [NombreEmpresa], '' as RazonSocial FROM [EMPRESA] WHERE ([IdMaestra] = @IdMaestra) and IdTipoempresa=2"
         FilterExpression=" (RutEmpresa like '%{0}%' OR NombreEmpresa like '%{0}%' OR RazonSocial like '%{0}%') "
         >

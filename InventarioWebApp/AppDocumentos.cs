@@ -539,11 +539,11 @@ namespace InventarioWebApp
             }
             daoDoc.ModificarEstadoDocumento(idDocumento, 2);
         }
-        public void CerrarVenta(int idSucursal, int idDocumento, int montoTotal)
+        public void CerrarVenta(int idSucursal, int idDocumento, int montoTotal, int formapago)
         {
             DaoDocumentos daoDoc = new DaoDocumentos();
        
-            daoDoc.ModificarEstadoDocumento(idDocumento, 2, montoTotal);
+            daoDoc.ModificarEstadoDocumento(idDocumento, 2, montoTotal, 0,formapago);
         }
         public void AgregarDertalleVenta(int cantidad, int idDetalle, int idSucursal)
         {

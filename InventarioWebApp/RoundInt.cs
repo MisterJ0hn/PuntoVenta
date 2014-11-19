@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace InventarioWebApp
 {
@@ -24,5 +25,20 @@ namespace InventarioWebApp
             }
             return enteroReturn;
         }
+
+        public void FormateaNumero(TextBox objeto, int valor )
+         {
+            
+
+             objeto.Text = "$ " + String.Format("{0:C0}", valor.ToString());
+             
+
+         }
+        public void FormateaNumero(Label objeto, int valor)
+        {
+            objeto.Text = "$ " + String.Format("{0:C0}", valor.ToString());
+        }
+        
+       
     }
 }

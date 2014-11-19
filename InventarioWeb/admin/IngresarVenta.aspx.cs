@@ -316,7 +316,7 @@ namespace InventarioWeb.admin
             vldCodigo.Enabled = false;
             AppDocumentos appDoc = new AppDocumentos();
 
-            appDoc.CerrarVenta(Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(Convert.ToDouble(lblTotalCobrar.Text.Replace(".","").Replace("$",""))));
+            appDoc.CerrarVenta(Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(hdIdDocumento.Text), Convert.ToInt32(Convert.ToDouble(lblTotalCobrar.Text.Replace(".","").Replace("$",""))),int.Parse(cboFormapago.SelectedValue));
 
             Response.Redirect("IngresarVenta.aspx");
         }

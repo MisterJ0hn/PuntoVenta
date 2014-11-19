@@ -26,18 +26,20 @@
             <asp:BoundField DataField="IdDocumento" HeaderText="Id" 
                 SortExpression="IdDocumento" />
             <asp:BoundField DataField="NombreEmpresa" HeaderText="Nombre Cliente" 
-                SortExpression="NombreEmpresa" ItemStyle-Width="200px" />
+                SortExpression="NombreEmpresa" ItemStyle-Width="100px" />
             <asp:BoundField DataField="RutEmpresa" HeaderText="Rut Cliente" ReadOnly="True" 
                 SortExpression="RutEmpresa" />
-            
             <asp:BoundField DataField="FechaingresoDocumento" 
-                HeaderText="Fecha Ingreso" SortExpression="FechaingresoDocumento" DataFormatString="{0:f}"/>
+                HeaderText="Fecha Ingreso" SortExpression="FechaingresoDocumento" DataFormatString="{0:g}"/>
             <asp:BoundField DataField="MontototalDocumento" 
                 HeaderText="Monto Total" SortExpression="MontototalDocumento"  DataFormatString="{0:C0}"/>
+                <asp:BoundField DataField="FormaPago" HeaderText="Forma de Pago" 
+                SortExpression="FormaPago" />
             <asp:BoundField DataField="NombreEstadodocumento" HeaderText="Estado" 
                 SortExpression="NombreEstadodocumento" />
            <asp:BoundField DataField="UsuarioRegistro" HeaderText="Usuario Registro" 
                 SortExpression="UsuarioRegistro" />
+            <asp:BoundField DataField="CerradoDocumento" HeaderText="Cerrado" SortExpression="CerradoDocumento"  /> 
             <asp:ButtonField ButtonType="Button" Text="Editar" CommandName="Editar" />
         </Columns>
         <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
@@ -53,7 +55,8 @@
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:InventarioWebConnectionString4 %>" 
         SelectCommand="SELECT DOCUMENTO.IdDocumento, EMPRESA.NombreEmpresa, EMPRESA.RutEmpresa, DOCUMENTO.NumeroDocumento, DOCUMENTO.FechaingresoDocumento, 
-        DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.nombreEstadodocumento , FORMAPAGO.FormaPago, CONCAT(USUARIO.NombreUsuario,' ', USUARIO.ApellidoUsuario ) AS UsuarioRegistro
+        DOCUMENTO.MontototalDocumento, ESTADODOCUMENTO.nombreEstadodocumento , FORMAPAGO.FormaPago, CONCAT(USUARIO.NombreUsuario,' ', 
+        USUARIO.ApellidoUsuario ) AS UsuarioRegistro, DOCUMENTO.CerradoDocumento
         FROM DOCUMENTO 
         INNER JOIN EMPRESA 
         ON DOCUMENTO.RutproveedorDocumento = EMPRESA.RutEmpresa 

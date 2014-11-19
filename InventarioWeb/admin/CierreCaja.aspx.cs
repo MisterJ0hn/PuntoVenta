@@ -37,7 +37,7 @@ namespace InventarioWeb.admin
                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Descripcion", typeof(String));
-                    dt.Columns.Add("Monto", typeof(Int32));
+                    dt.Columns.Add("Monto", typeof(String));
                     dt.Columns.Add("Dia", typeof(String));
                     DataRow Row1;
                     Row1 = dt.NewRow();
@@ -92,7 +92,7 @@ namespace InventarioWeb.admin
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Descripcion", typeof(String));
-            dt.Columns.Add("Monto", typeof(Int32));
+            dt.Columns.Add("Monto", typeof(String));
             return dt;
         }
 
@@ -134,36 +134,7 @@ namespace InventarioWeb.admin
 
         }
 
-        protected void btnAgregarIngreso_Click(object sender, EventArgs e)
-        {
-            if (Session["dt3"] == null || Session["dt3"] == "")
-            {
-                DataTable dt = cabezerasGrid();
-                DataRow Row1;
-                Row1 = dt.NewRow();
-                Row1["Descripcion"] = txtDetalleIngresos.Text;
-                Row1["Monto"] = txtCantidadIngreso.Text;
-                dt.Rows.Add(Row1);
-                GridIngresos.DataSource = dt;
-                GridIngresos.DataBind();
-                Session["dt3"] = dt;
-            }
-            else
-            {
-                DataTable dt = (Session["dt3"]) as DataTable;
-                DataRow Row1;
-                Row1 = dt.NewRow();
-                Row1["Descripcion"] = txtDetalleIngresos.Text;
-                Row1["Monto"] = txtCantidadIngreso.Text;
-                dt.Rows.Add(Row1);
-                GridIngresos.DataSource = dt;
-                GridIngresos.DataBind();
-                Session["dt3"] = dt;
-            }
-            SumarResumen();
-            txtDetalleIngresos.Text = "";
-            txtCantidadIngreso.Text = "";
-        }
+        
         protected void btnAgregarCredito_Click(object sender, EventArgs e)
         {
             if (Session["dt4"] == null || Session["dt4"] == "")
@@ -171,7 +142,7 @@ namespace InventarioWeb.admin
                 DataTable dt = new DataTable();
               
                 dt.Columns.Add("Descripcion", typeof(String));
-                dt.Columns.Add("Monto", typeof(Int32));
+                dt.Columns.Add("Monto", typeof(String));
                 dt.Columns.Add("Dia", typeof(String));
                 DataRow Row1;
                 Row1 = dt.NewRow();
@@ -204,51 +175,63 @@ namespace InventarioWeb.admin
        
         public void SumarResumen()
         {
-            int sumarIngresos = 0;
+            
             int sumarEgresos = 0;
             int sumarCreditos = 0;
             int sumarEfectivo = 0;
             int sumarMenor = 0;
 
-            //C}recorriendo Ingresos
-
-            foreach (GridViewRow row in GridIngresos.Rows)
-            {
-                sumarIngresos += Convert.ToInt32(row.Cells[2].Text);
-
-            }
 
             //recorriendo Egresos
 
             foreach (GridViewRow row1 in GridEgresos.Rows)
             {
-                sumarEgresos -= Convert.ToInt32(row1.Cells[2].Text);
+                sumarEgresos += Convert.ToInt32(row1.Cells[2].Text);
             }
 
             //recorriendo Creditos
             foreach (GridViewRow row2 in GridCreditos.Rows)
             {
-                sumarCreditos -= Convert.ToInt32(row2.Cells[2].Text);
+                sumarCreditos += Convert.ToInt32(row2.Cells[2].Text);
             }
 
             foreach (GridViewRow row3 in GridVentaMenor.Rows)
             {
                 sumarMenor += Convert.ToInt32(row3.Cells[2].Text);
             }
-            //recorriendo Efectivo
-            sumarEfectivo += Convert.ToInt32(txtTotal.Text);
-
+            //recorriendo Efectivo 
+            int TotalIngreso = int.Parse(txtTotal.Text.Replace(".", "").Replace("$", ""));
+            lblIngesos.Text = txtTotal.Text;
+            sumarEfectivo += TotalIngreso;
 
             lblCreditos.Text = sumarCreditos.ToString();
+            RoundInt rd = new RoundInt();
+            rd.FormateaNumero(lblCreditos,sumarCreditos);
+
             lblEgresos.Text = sumarEgresos.ToString();
-            //lblDevolucionResumen.Text = txtDevolucion.Text;
-            lblEfectivo.Text = sumarEfectivo.ToString();
+            rd.FormateaNumero(lblEgresos,sumarEgresos);
+
+            
+
             txtMenor.Text = sumarMenor.ToString();
-            lblTotalResumen.Text = (Convert.ToInt32(lblCreditos.Text) + Convert.ToInt32(lblCreditos.Text) + Convert.ToInt32(lblDevolucionResumen.Text) + Convert.ToInt32(lblEfectivo.Text)+Convert.ToInt32(txtMenor.Text)).ToString();
-            lblIngesos.Text = sumarIngresos.ToString();
+            rd.FormateaNumero(txtMenor,sumarMenor);
 
-            lblDiferencia.Text = (Convert.ToInt32(lblComputador.Text) - Convert.ToInt32(lblIngesos.Text)).ToString();
+            int TotalEfectivo = int.Parse(txtTotal.Text.Replace(".", "").Replace("$", ""));
+            rd.FormateaNumero(txtTotal, TotalEfectivo);
+            int devolucionResumen=int.Parse(lblDevolucionResumen.Text.Replace(".","").Replace("$",""));
+            rd.FormateaNumero(lblDevolucionResumen,devolucionResumen);
 
+            lblTotalResumen.Text = (sumarCreditos - devolucionResumen -sumarMenor+sumarEgresos).ToString();
+            
+            int TotalResumen=int.Parse(lblTotalResumen.Text.Replace(".","").Replace("$",""));
+           
+            int TotalSistema=int.Parse(lblComputador.Text.Replace(".", "").Replace("$", ""));
+
+            rd.FormateaNumero(lblIngesos, TotalIngreso);
+            rd.FormateaNumero(lblTotalResumen, TotalResumen);
+
+            lblDiferencia.Text = (TotalSistema - TotalIngreso).ToString();
+            rd.FormateaNumero(lblDiferencia, TotalSistema - TotalIngreso);
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -273,7 +256,7 @@ namespace InventarioWeb.admin
             arr.Add(txt10.Text);
             arr.Add(txtCheque.Text);
 
-            idCierre = appCaja.AgregarCierre(Convert.ToInt32(Session["idUsuario"].ToString()), Convert.ToInt32(Session["idSucursal"].ToString()), Convert.ToInt32(lblComputador.Text), Convert.ToInt32(lblDevolucionResumen.Text), Convert.ToInt32(lblIngesos.Text), dt, dt3, dt2, dt4, arr);
+            idCierre = appCaja.AgregarCierre(Convert.ToInt32(Session["idUsuario"].ToString()), Convert.ToInt32(Session["idSucursal"].ToString()), Session["rutEmpresa"].ToString(), Convert.ToInt32(lblComputador.Text.Replace(".", "").Replace("$", "")), Convert.ToInt32(lblDevolucionResumen.Text.Replace(".", "").Replace("$", "")), Convert.ToInt32(lblIngesos.Text.Replace(".", "").Replace("$", "")), dt, dt3, dt2, dt4, arr);
 
             
             data.Add("IdCierre", idCierre.ToString());
@@ -300,48 +283,38 @@ namespace InventarioWeb.admin
             if (e.CommandName == "Eliminar")
             {
                 int index = Convert.ToInt32(e.CommandArgument);
-                DataTable dt1 = Session["dt4"] as DataTable;
+                DataTable dt1 = Session["dt"] as DataTable;
                 dt1.Rows[index].Delete();
                 Session["dt"] = dt1;
 
-                GridCreditos.DataSource = dt1;
-                GridCreditos.DataBind();
+                GridEgresos.DataSource = dt1;
+                GridEgresos.DataBind();
 
             }
         }
-        protected void GridIngresos_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "Eliminar")
-            {
-                int index = Convert.ToInt32(e.CommandArgument);
-                DataTable dt1 = Session["dt4"] as DataTable;
-                dt1.Rows[index].Delete();
-                Session["dt3"] = dt1;
 
-                GridCreditos.DataSource = dt1;
-                GridCreditos.DataBind();
-
-            }
-        }
          protected void GridVentaMenor_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Eliminar")
             {
                 int index = Convert.ToInt32(e.CommandArgument);
-                DataTable dt1 = Session["dt4"] as DataTable;
+                DataTable dt1 = Session["dt2"] as DataTable;
                 dt1.Rows[index].Delete();
                 Session["dt2"] = dt1;
 
-                GridCreditos.DataSource = dt1;
-                GridCreditos.DataBind();
+                GridVentaMenor.DataSource = dt1;
+                GridVentaMenor.DataBind();
 
             }
 
         }
 
-        
-        
-        
-       
+         protected void lblDevolucionResumen_TextChanged(object sender, EventArgs e)
+         {
+             SumarResumen();
+         }
+
+
+         
     }
 }

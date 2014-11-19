@@ -15,20 +15,20 @@ namespace InventarioWebDao
             ArrayList arrayValores = new ArrayList();
             ArrayList arrayCampos = new ArrayList();
 
-            DateTime hoy = DateTime.Today;
+            DateTime hoy = DateTime.Now;
 
             arrayCampos.Add("IdUsuario");
             arrayCampos.Add("FechaCierrecaja");
             arrayCampos.Add("IdSucursal");
             arrayCampos.Add("SistemaCierrecaja");
-            arrayCampos.Add("IngresoCierrecaja");
+            
             arrayCampos.Add("DevolucionCierrecaja");
 
             arrayValores.Add(idUsuarioCierre.ToString());
             arrayValores.Add("'" + hoy.ToString()+"'");
             arrayValores.Add(idSucursal.ToString());
             arrayValores.Add(computador.ToString());
-            arrayValores.Add(ingresos.ToString());
+            
             arrayValores.Add(devolucion.ToString());
 
             daoCon.AddValue(arrayValores);
